@@ -1,0 +1,2 @@
+module TrumpAdminDebts
+end
