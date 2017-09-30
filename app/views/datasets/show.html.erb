@@ -1,74 +1,42 @@
 <h1>data!</h1>
 
-<h2><%= (@descriptor_titles[0]) %>
-</h2>
-<h2> <%= (@descriptor_objects[0]).first %> </h2>
-
-<h2> <%= @numeric_objects[0] %> </h2>
-<h2> <%= @numeric_titles[0] %> </h2>
-
-<div id="chart">
-        <script src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script type="text/javascript">
-        (function(d3) {
-          'use strict';
-
-          var dataset = [
-            { label: 'White House', amount: 348085155 },
-            { label: 'Department of Labor', amount: 1030004 },
-            { label: 'Department of Education', amount: 3485019 },
-            { label: 'Department of Treasury', amount: 10200036 }
-          ];
-
-          var width = 600;
-          var height = 600;
-          var radius = Math.min(width, height) / 2;
-
-          var color = d3.scaleOrdinal(d3.schemeCategory20b);
-
-          var svg = d3.select('#chart')
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .append('g')
-            .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
-
-          var arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(radius);
-
-          var pie = d3.pie()
-            .value(function(d) { return d.amount; })
-            .sort(null);
-
-          var path = svg.selectAll('path')
-            .data(pie(dataset))
-            .enter()
-            .append('path')
-            .attr('d', arc)
-            .attr('fill', function(d) {
-              return color(d.data.label);
-            });
-
-        })(window.d3);
-        </script>
-      </div>
 
 
-  <h2>emp</h2>
-    <%= @employees %>
-  <h2>deb</h2>
-    <%= @debts %>
-  <h2>dts</h2>
-    <%= @debt_types %>
-  <h2>lend</h2>
-    <p><%= @lenders %></p>
+<%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/query" do |form| %>
 
-<%#= @departments %>
 
-<%# @departments.all.each do |department| %>
-<%#= department.name %>
-<%# end %>
+
+  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
+    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
+     <option value="<%=descriptor%>"><%=descriptor%></option>
+    <% end %>
+  </select>
+  <select name="aggregations">
+    <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
+     <option value="<%= aggregation %>"><%=aggregation%></option>
+    <% end %>
+  </select>
+  <input type="submit" value="Visualize!">
+
+<% end %>
+
+<p>
+<% if defined?(@descriptor) %>
+<%= @descriptor %>
+<% end %>
+</p>
+
+
+
+
+
+
+
+
+<div id="#chart">
+
+</div>
+
+<div id="our-data">
+</div>
+
