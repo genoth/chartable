@@ -2,32 +2,33 @@ class DatasetsController < ApplicationController
 
 # get the form
   def show
+    p descriptors = TrumpAdminDebts::Form.descriptors
     @diagram_form_inputs = {
       pie: {
-        descriptors: TrumpAdminDebts.descriptors,#[:departments, :employees]
-        aggregation: TrumpAdminDebts.aggregations # [:max_debts, :avg_debts]
+        descriptors: TrumpAdminDebts::Form.descriptors,#[:departments, :employees]
+        aggregations: TrumpAdminDebts::Form.aggregations # [:max_debts, :avg_debts]
         # filters: {
         #   :departments => Trump::Department.all
         #   :employees => Employee.all
         # },
       },
       bar: {
-        descriptors: TrumpAdminDebts.descriptors,#[:departments, :employees],
-        aggregation: TrumpAdminDebts.aggregations # [:max_debts, :avg_debts]
+        descriptors: TrumpAdminDebts::Form.descriptors,#[:departments, :employees],
+        aggregation: TrumpAdminDebts::Form.aggregations # [:max_debts, :avg_debts]
       }
     }
 
-    @departments = TrumpAdminDebts::Department.all.to_json
-    @employees = TrumpAdminDebts::Employee.all.to_json
-    @debts = TrumpAdminDebts::Debt.all.to_json
-    @debt_types = TrumpAdminDebts::DebtType.all.to_json
-    @lenders = TrumpAdminDebts::Lender.all.to_json
+    # @departments = TrumpAdminDebts::Department.all.to_json
+    # @employees = TrumpAdminDebts::Employee.all.to_json
+    # @debts = TrumpAdminDebts::Debt.all.to_json
+    # @debt_types = TrumpAdminDebts::DebtType.all.to_json
+    # @lenders = TrumpAdminDebts::Lender.all.to_json
 
-    @descriptor_objects = [@departments, @employees, @lenders]
-    @descriptor_titles = ['Departments', 'Employees', 'Lenders']
+    # @descriptor_objects = [@departments, @employees, @lenders]
+    # @descriptor_titles = ['Departments', 'Employees', 'Lenders']
 
-    @numeric_objects = [@debts]
-    @numeric_titles = ['Debts']
+    # @numeric_objects = [@debts]
+    # @numeric_titles = ['Debts']
   end
 
   def query

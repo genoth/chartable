@@ -1,11 +1,27 @@
 <h1>data!</h1>
 
-
-
-<form id="text-input" method="POST" action"/datasets/query" data-remote="true">
-  <input type="text" name="descriptor">
-  <input type="submit" value="query">
+<form id="pie-form" method="POST" action"/datasets/query" data-remote="true">
+  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
+    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
+     <option value="descriptor"><%=descriptor%></option>
+    <% end %>
+  </select>
+  <select name="aggregations">
+    <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
+     <option value="aggregation"><%=aggregation%></option>
+    <% end %>
+  </select>
+  <input type="submit" value="Visualize!">
 </form>
+
+
+
+
+
+
+
+
+
 
 <div id="#chart">
 
@@ -14,14 +30,3 @@
 <div id="our-data">
 </div>
 
-
-
-
-
-
-
-<%#= @departments %>
-
-<%# @departments.all.each do |department| %>
-<%#= department.name %>
-<%# end %>

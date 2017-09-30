@@ -5,6 +5,17 @@ module TrumpAdminDebts
 
     def results
     end
+
+  end
+
+  class Form
+    def self.descriptors
+      ["Departments", "Employees", "Debt Types", "Lenders"]
+    end
+
+    def self.aggregations
+      ["Minimum Debts", "Maximum Debts"]
+    end
   end
 
 end
