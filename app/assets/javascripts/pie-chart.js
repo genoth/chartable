@@ -46,6 +46,6 @@ var renderPieChart = function(dataset){
   .attr('fill', function(d) {
     return color(d.data.label);
 })
-  (window.d3);
+console.log(dataset)
 }
 
