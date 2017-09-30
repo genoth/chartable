@@ -7,8 +7,4 @@ class DatasetsController < ApplicationController
     @debt_types = TrumpAdminDebts::DebtType.all.to_json
     @lenders = TrumpAdminDebts::Lender.all.to_json
   end
-
-
-
-
 end
