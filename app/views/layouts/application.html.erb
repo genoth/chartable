@@ -2,16 +2,18 @@
 <html>
   <head>
     <title>Chartable</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
-    <div id="test"></div>
+    <div id="test">Hello</div>
     <%= yield %>
   </body>
 </html>
