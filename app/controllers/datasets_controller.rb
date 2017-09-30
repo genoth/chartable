@@ -1,5 +1,4 @@
 class DatasetsController < ApplicationController
-
 # get the form
   def show
     p descriptors = TrumpAdminDebts::Form.descriptors
@@ -17,41 +16,48 @@ class DatasetsController < ApplicationController
         aggregation: TrumpAdminDebts::Form.aggregations # [:max_debts, :avg_debts]
       }
     }
-
-    # @departments = TrumpAdminDebts::Department.all.to_json
-    # @employees = TrumpAdminDebts::Employee.all.to_json
-    # @debts = TrumpAdminDebts::Debt.all.to_json
-    # @debt_types = TrumpAdminDebts::DebtType.all.to_json
-    # @lenders = TrumpAdminDebts::Lender.all.to_json
-
-    # @descriptor_objects = [@departments, @employees, @lenders]
-    # @descriptor_titles = ['Departments', 'Employees', 'Lenders']
-
-    # @numeric_objects = [@debts]
-    # @numeric_titles = ['Debts']
   end
+
 
   def query
-    TrumpAdminDebts::Query.results(params)
-    @departments = TrumpAdminDebts::Department.all
-    @employees = TrumpAdminDebts::Employee.all
-    @debts = TrumpAdminDebts::Debt.all
-    @debt_types = TrumpAdminDebts::DebtType.all
-    @lenders = TrumpAdminDebts::Lender.all
+    if params[:descriptors] == "Departments"
 
-    if params[:descriptor] == "departments"
-      @descriptor = @department.to_json
-    elsif params[:descriptor] == "employees"
-      @descriptor = @employees.to_json
-    elsif params[:descriptor] == "debt_types"
-      @descriptor = @debt_types.to_json
-    elsif params[:descriptor] == "lenders"
-      @descriptor = @lenders.to_json
+      query = TrumpAdminDebts::Debt.select("sum(max_amount) as sum, employees.department_id, debts.employee_id").joins(:department).group("employees.department_id, debts.employee_id")
+      @dataset = query.map { |r| [r.sum, r.department.name] }
+      @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
     end
-
-    respond_to do |format|
-      format.text {render json: @descriptor}
-    end
+    render json: @dataset
   end
-
 end
+
+
+
+    # elsif params[:descriptors] == "Employees"
+    #   @descriptor = TrumpAdminDebts::Employee.all
+    # elsif params[:descriptors] == "Debt Types"
+    #   @descriptor = TrumpAdminDebts::DebtType.all
+    # elsif params[:descriptors] == "Lenders"
+    #   @descriptor = TrumpAdminDebts::Lender.all
+    # end
+
+    # if params[:aggregations] == "Maximum Debts"
+    #   @aggregation = TrumpAdminDebts::Debts.all.to_json
+    # end
+    # dataset = [
+    #          { label: 'White House', amount: 348085155 },
+    #          { label: 'Department of Labor', amount: 1030004 },
+    #          { label: 'Department of Education', amount: 3485019 },
+    #          { label: 'Department of Treasury', amount: 10200036 }
+    #        ]
+
+    # render 'partials/_visualize'
+    # render json: @descriptor
+    # render json: @aggregations
+
+# if params[:descriptors] == "Departments"
+#       query = TrumpAdminDebts::Debt
+#         .select("sum(max_amount) as sum, employees.department_id")
+#         .joins(:employee)
+#         .group("employees.department_id")
+
+#       @dataset = query.map { |r| [r.sum, r.department_id] }
