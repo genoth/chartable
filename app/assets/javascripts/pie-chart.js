@@ -11,10 +11,10 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     renderPieChart(serverResponse)
+    renderDownloadButton();
   })
   })
 });
-
 
 var renderPieChart = function(dataset){
   var width = 600;
@@ -27,6 +27,7 @@ var renderPieChart = function(dataset){
   .append('svg')
   .attr('width', width)
   .attr('height', height)
+  .attr('id', "d3-chart")
   .append('g')
   .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
 
@@ -46,6 +47,22 @@ var renderPieChart = function(dataset){
   .attr('fill', function(d) {
     return color(d.data.label);
 })
-  (window.d3);
+console.log(dataset)
 }
+
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-form").on("submit", function(event){
+    event.preventDefault();
+    console.log("bound")
+    saveSvgAsPng(document.getElementById("d3-chart"), "chartable-diagram.png")
+  })
+}
+
+
+// ;
 

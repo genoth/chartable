@@ -1,7 +1,5 @@
 <h1>data!</h1>
 
-
-
 <%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/query" do |form| %>
   <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
     <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
@@ -16,23 +14,15 @@
   <input type="submit" value="Visualize!">
 <% end %>
 
-<p>
-<% if defined?(@descriptor) %>
-<%= @descriptor %>
-<% end %>
-</p>
+  <div id="#chart">
+  </div>
 
+  <div id="our-data">
+  </div>
 
-
-
-
-
-
-
-<div id="#chart">
-
-</div>
-
-<div id="our-data">
-</div>
+  <div id="download-div" class="hidden">
+    <%= form_tag "download", id: "download-form", method: "POST", url: "/datasets/download" do |form| %>
+    <input type="submit" value="Download">
+    <% end %>
+  </div>
 
