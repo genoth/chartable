@@ -1,6 +1,22 @@
 class DatasetsController < ApplicationController
 
+# get the form
   def show
+    @diagram_form_inputs = {
+      pie: {
+        descriptors: TrumpAdminDebts.descriptors,#[:departments, :employees]
+        aggregation: TrumpAdminDebts.aggregations # [:max_debts, :avg_debts]
+        # filters: {
+        #   :departments => Trump::Department.all
+        #   :employees => Employee.all
+        # },
+      },
+      bar: {
+        descriptors: TrumpAdminDebts.descriptors,#[:departments, :employees],
+        aggregation: TrumpAdminDebts.aggregations # [:max_debts, :avg_debts]
+      }
+    }
+
     @departments = TrumpAdminDebts::Department.all.to_json
     @employees = TrumpAdminDebts::Employee.all.to_json
     @debts = TrumpAdminDebts::Debt.all.to_json
@@ -15,6 +31,7 @@ class DatasetsController < ApplicationController
   end
 
   def query
+    TrumpAdminDebts::Query.results(params)
     @departments = TrumpAdminDebts::Department.all
     @employees = TrumpAdminDebts::Employee.all
     @debts = TrumpAdminDebts::Debt.all
