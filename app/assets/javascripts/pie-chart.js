@@ -11,10 +11,10 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     renderPieChart(serverResponse)
+    renderDownloadButton();
   })
   })
 });
-
 
 var renderPieChart = function(dataset){
   var width = 600;
@@ -49,4 +49,20 @@ var renderPieChart = function(dataset){
 })
 console.log(dataset)
 }
+
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-form").on("submit", function(event){
+    event.preventDefault();
+    console.log("bound")
+    saveSvgAsPng(document.getElementById("d3-chart"), "chartable-diagram.png")
+  })
+}
+
+
+// ;
 
