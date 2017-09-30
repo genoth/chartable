@@ -1,16 +1,19 @@
 <h1>data!</h1>
 
-<%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/query" do |form| %>
+<%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
   <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
     <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
      <option value="<%=descriptor%>"><%=descriptor%></option>
     <% end %>
   </select>
+
   <select name="aggregations">
     <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
      <option value="<%= aggregation %>"><%=aggregation%></option>
     <% end %>
   </select>
+  by
+
   <input type="submit" value="Visualize!">
 <% end %>
 

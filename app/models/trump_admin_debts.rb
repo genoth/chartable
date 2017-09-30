@@ -1,21 +1,19 @@
 module TrumpAdminDebts
-  class Query
-    def initialize(params)
-    end
 
-    def pie_chart_data
-    end
-
-  end
-
-  class Form
     def self.descriptors
       ["Departments", "Employees", "Debt Types", "Lenders"]
     end
 
     def self.aggregations
-      ["Minimum Debts", "Maximum Debts"]
+      aggregation_sql_snippits.keys
     end
-  end
+
+    def self.aggregation_sql_snippits
+      {
+        "Sum Maximum Debts" =>"sum(max_amount) as sum",
+        "Sum Minimum Debts" => "sum(min_amount) as sum",
+        "Avg Min Debt" => "avg(min_amount) as sum"
+      }
+    end
 
 end
