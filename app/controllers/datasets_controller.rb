@@ -21,7 +21,6 @@ class DatasetsController < ApplicationController
 
   def query
     if params[:descriptors] == "Departments"
-
       query = TrumpAdminDebts::Debt.select("sum(max_amount) as sum, employees.department_id, debts.employee_id").joins(:department).group("employees.department_id, debts.employee_id")
       @dataset = query.map { |r| [r.sum, r.department.name] }
       @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
