@@ -2,13 +2,21 @@ $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
     console.log("bound")
+    $form = $(this)
+    console.log($form.attr("method"))
+  $request = $.ajax({
+    url: $form.attr("url"),
+    data: $form.serialize(),
+    method: $form.attr("method")
+  })
+  $request.done(function(serverResponse){
+    renderPieChart(serverResponse)
+  })
   })
 });
 
 
-var renderPieChart = function(){
-  var dataset = ajaxreturn
-
+var renderPieChart = function(dataset){
   var width = 600;
   var height = 600;
   var radius = Math.min(width, height) / 2;
@@ -21,7 +29,6 @@ var renderPieChart = function(){
   .attr('height', height)
   .append('g')
   .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
-
 
   var arc = d3.arc()
   .innerRadius(0)
