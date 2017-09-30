@@ -20,31 +20,32 @@ class DatasetsController < ApplicationController
 
 
   def query
-    aggregator_table = {"Minimum Debts" =>"sum(max_amount) as sum", "Maximum Debts" => "sum(min_amount) as sum"}
+    #params[:dataset]
+    aggregator_table = {"Maximum Debts" =>"sum(max_amount) as sum", "Minimum Debts" => "sum(min_amount) as sum"}
 
-    aggregatior_SQL_string = aggregator_table[params[:aggregations]]
+    aggregator_SQL_string = aggregator_table[params[:aggregations]]
 
     if params[:descriptors] == "Departments"
       query = TrumpAdminDebts::Debt
-        .select("#{aggregatior_SQL_string}, employees.department_id, debts.employee_id")
+        .select("#{aggregator_SQL_string}, employees.department_id, debts.employee_id")
         .joins(:department)
         .group("employees.department_id, debts.employee_id")
       @dataset = query.map { |r| [r.sum, r.department.name] }
     elsif params[:descriptors] == "Employees"
       query = TrumpAdminDebts::Debt
-        .select("#{aggregatior_SQL_string}, debts.employee_id")
+        .select("#{aggregator_SQL_string}, debts.employee_id")
         .includes(:employee)
         .group("debts.employee_id")
       @dataset = query.map { |r| [r.sum, r.employee.last_name] }
     elsif params[:descriptors] == "Debt Types"
       query = TrumpAdminDebts::Debt
-        .select("#{aggregatior_SQL_string}, debts.debt_type_id")
+        .select("#{aggregator_SQL_string}, debts.debt_type_id")
         .includes(:debt_type)
         .group("debts.debt_type_id")
       @dataset = query.map { |r| [r.sum, r.debt_type.description] }
     elsif params[:descriptors] == "Lenders"
       query = TrumpAdminDebts::Debt
-        .select("#{aggregatior_SQL_string}, debts.lender_id")
+        .select("#{aggregator_SQL_string}, debts.lender_id")
         .includes(:lender)
         .group("debts.lender_id")
       @dataset = query.map { |r| [r.sum, r.lender.name] }

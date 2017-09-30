@@ -3,7 +3,7 @@ module TrumpAdminDebts
     def initialize(params)
     end
 
-    def results
+    def pie_chart_data
     end
 
   end
