@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Chartable</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <script src="https://code.jquery.com/jquery-3.2.1.js"
@@ -10,12 +11,14 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <%= javascript_include_tag 'application' %>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
+    <div id="test">TEST</div>
     <%= yield %>
   </body>
 </html>
