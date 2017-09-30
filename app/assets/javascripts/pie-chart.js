@@ -27,6 +27,7 @@ var renderPieChart = function(dataset){
   .append('svg')
   .attr('width', width)
   .attr('height', height)
+  .attr('id', "d3-chart")
   .append('g')
   .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
 
