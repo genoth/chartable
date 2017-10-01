@@ -2,6 +2,7 @@ class DatasetsController < ApplicationController
 # get the form
   def show
     dataset_klass = data_sets[params[:id]]
+    puts "got here"
     if !dataset_klass
       redirect_to '/'
       #render errors? flash?
@@ -33,8 +34,10 @@ class DatasetsController < ApplicationController
       return
     end
 
+
     @dataset = dataset_klass::Query.new(params).data
     render json: @dataset
+
   end
 
 private
