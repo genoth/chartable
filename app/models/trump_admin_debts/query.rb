@@ -2,6 +2,7 @@ module TrumpAdminDebts
   class Query
     def initialize(params)
       @params = params
+      p params
     end
 
     def data
@@ -35,5 +36,10 @@ module TrumpAdminDebts
 
       @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
     end
+
+    def self.generate_title
+      "#{@params[:aggregations]} of the Trump Administration by #{@params[:descriptors]}"
+    end
+
   end
 end

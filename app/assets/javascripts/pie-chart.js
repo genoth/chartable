@@ -3,7 +3,12 @@ $(document).ready(function(){
     event.preventDefault();
     console.log("bound")
     var $form = $(this)
+    // var $aggregatorToAppend = $("#pie-form")["0"].children[3].children["0"].firstChild.data
+     var $aggregatorToAppend = $("#pie-form")["0"].children[3].children[1].text
+    var $descriptorToAppend = $("#pie-form")["0"].children[2].children[1].text
     console.log($form.attr("method"))
+    console.log("This form!!!!!!!!!")
+    console.log($form)
   $request = $.ajax({
     url: $form.attr("url"),
     data: $form.serialize(),
@@ -11,6 +16,7 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
+    $("#diagram-title").text($aggregatorToAppend + " by " + $descriptorToAppend)
     arrayify(serverResponse);
     renderDownloadButton();
   })
@@ -56,10 +62,11 @@ var renderDownloadButton = function(){
 }
 
 var downloadHandler = function(){
+
   $("#download-form").on("submit", function(event){
     event.preventDefault();
     console.log("bound")
-    saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
+    saveSvgAsPng((document.getElementsByTagName("svg")[0]), "chartable-diagram.png")
   })
 }
 
