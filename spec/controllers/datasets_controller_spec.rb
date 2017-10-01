@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe DatasetsController, type: :controller do
   render_views
+  # ^ DI 10-01-17 why did I want to do this again?
 
   describe "GET show" do
     it "responds with a status code of 200" do
       get :show, params: {id: 'trump'}
-      # why did we need params here? This didn't work
+      # ^ DI 09-30-17 why did we need params here? This didn't work
       # get :show, {id: 'trump'}
       expect(response.code).to eq("200")
     end

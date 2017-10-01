@@ -56,4 +56,9 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-require Rails.root.join('db/seeds.rb')
+
+# require Rails.root.join('db/seeds.rb')
+# ^ DI 10-01-17 ok, this is why the seed file is running prior to every rspec test.
+# duct tape solution would be to just comment it out after every initial rspec run, but will try to find something better.
+
+
