@@ -13,58 +13,20 @@ $(document).ready(function(){
     $("#chart").empty();
     // renderPieChart(serverResponse)
     // renderC3Chart();
+    chart();
     renderDownloadButton();
   })
   })
 });
 
-var renderPieChart = function(dataset){
-  console.log('AHHHHHHHH');
-  console.log(dataset)
-  var width = 600;
-  var height = 600;
-  var radius = Math.min(width, height) / 2;
-
-  var color = d3.scale.category10().range();
-
-  var svg = d3.select('#chart')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .attr('id', "d3-chart")
-  .append('g')
-  .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
-
-  var arc = d3.arc()
-  .innerRadius(0)
-  .outerRadius(radius);
-
-  var pie = d3.pie()
-  .value(function(d) { return d.amount; })
-  .sort(null);
-
-  var path = svg.selectAll('path')
-  .data(pie(dataset))
-  .enter()
-  .append('path')
-  .attr('d', arc)
-  .attr('fill', function(d) {
-    return color(d.data.label);
-})
-
-  var arcs = svg.selectAll("g.slice")
-  .enter()
-  .append("svg:g")
-  .attr("class", "slice");
-
-  arcs.append("svg:text")
-      .attr("transform", function(d){
-        d.innerRadius = 0;
-        d.outerRadius = r;
-        return "translate(" + arc.centroid(d) + ")";
-      })
-      .attr("text-anchor", "middle")
-      .text(function(d, i) { return dataset[i].label; });
+var chart = function(){c3.generate({
+    data: {
+        columns: [
+            ['data1', 30, 200, 100, 400, 150, 250],
+            ['data2', 50, 20, 10, 40, 15, 25]
+        ]
+    }
+});
 }
 
 var renderDownloadButton = function(){
