@@ -11,22 +11,21 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
-    renderPieChart(serverResponse)
+    // renderPieChart(serverResponse)
     // renderC3Chart();
     renderDownloadButton();
   })
   })
 });
 
-
-
 var renderPieChart = function(dataset){
   console.log('AHHHHHHHH');
+  console.log(dataset)
   var width = 600;
   var height = 600;
   var radius = Math.min(width, height) / 2;
 
-  var color = d3.scaleOrdinal(d3.schemeCategory20b);
+  var color = d3.scale.category10().range();
 
   var svg = d3.select('#chart')
   .append('svg')
