@@ -62,3 +62,8 @@ end
 # duct tape solution would be to just comment it out after every initial rspec run, but will try to find something better.
 
 
+if TrumpAdminDebts::Debt.first.id == nil
+  require Rails.root.join('db/seeds.rb')
+end
+# ^ Avner, what's the real way to do this?
+
