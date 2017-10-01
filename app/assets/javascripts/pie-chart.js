@@ -11,11 +11,7 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
-    console.log(serverResponse)
-    // renderPieChart(serverResponse)
-    // renderC3Chart();
     arrayify(serverResponse);
-
     renderDownloadButton();
   })
   })
@@ -27,8 +23,10 @@ var chart = function(myColumns){
         columns: myColumns,
         type : 'bar'
     },
-    donut: {
-        title: "Dogs love:",
+    axis: {
+      y: {
+        label:'Label Placeholder'
+      }
     }
 });
 }
@@ -37,11 +35,10 @@ var arrayify = function(serverResponse){
   serverResponse.sort(function(a, b){
     return b.amount - a.amount;
   })
-
   var nestedArray = []
   serverResponse.forEach(function(element){
     var label = element["label"]
-    var amount = element["amount"]
+    var amount = (element["amount"])/1000000
     nestedArray.push([label, amount])
   })
   console.log("this is nested Array!!!!")
@@ -52,25 +49,6 @@ var arrayify = function(serverResponse){
   }
   chart(limitTen);
 }
-// var arrayify = function(serverResponse){
-//   var xAxis = [];
-//   serverResponse.forEach(function(element) {
-//     xAxis.push(element["label"])
-//   })
-//   var yAxis = [];
-//   serverResponse.forEach(function(element) {
-//     yAxis.push(element["amount"])
-//   })
-//   console.log(xAxis)
-//   console.log(yAxis)
-// }
-
-
-
-
-
-
-
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
@@ -81,7 +59,7 @@ var downloadHandler = function(){
   $("#download-form").on("submit", function(event){
     event.preventDefault();
     console.log("bound")
-    saveSvgAsPng(document.getElementById("d3-chart"), "chartable-diagram.png")
+    saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
   })
 }
 
