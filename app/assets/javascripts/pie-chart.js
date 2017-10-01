@@ -11,29 +11,22 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
+    console.log(serverResponse)
     // renderPieChart(serverResponse)
     // renderC3Chart();
-    chart();
+    arrayify(serverResponse);
     renderDownloadButton();
   })
   })
 });
 
-// var chart = function(){c3.generate({
-//     data: {
-//         columns: [
-//             ['data1', 30, 200, 100, 400, 150, 250],
-//             ['data2', 50, 20, 10, 40, 15, 25]
-//         ]
-//     }
-// });
-// }
-
-var chart = function(){c3.generate({
+var chart = function(xAxis, yAxis){
+  c3.generate({
     data: {
+        x: 'x',
         columns: [
-            ['data1', 30, 200, 100, 400, 150, 250],
-            ['data2', 130, 100, 140, 200, 150, 50]
+            xAxis,
+            yAxis
         ],
         type: 'bar'
     },
@@ -46,6 +39,25 @@ var chart = function(){c3.generate({
     }
 });
 }
+
+var arrayify = function(serverResponse){
+  var xAxis = ['x'];
+  serverResponse.forEach(function(element) {
+    xAxis.push(element["label"])
+  })
+  var yAxis = ['data1'];
+  serverResponse.forEach(function(element) {
+    yAxis.push(element["amount"])
+  })
+  chart(xAxis, yAxis)
+}
+
+
+
+
+
+
+
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
