@@ -15,42 +15,55 @@ $(document).ready(function(){
     // renderPieChart(serverResponse)
     // renderC3Chart();
     arrayify(serverResponse);
+
     renderDownloadButton();
   })
   })
 });
 
-var chart = function(xAxis, yAxis){
+var chart = function(myColumns){
   c3.generate({
     data: {
-        x: 'x',
-        columns: [
-            xAxis,
-            yAxis
-        ],
-        type: 'bar'
+        columns: myColumns,
+        type : 'bar'
     },
-    bar: {
-        width: {
-            ratio: 0.5 // this makes bar width 50% of length between ticks
-        }
-        // or
-        //width: 100 // this makes bar width 100px
+    donut: {
+        title: "Dogs love:",
     }
 });
 }
 
 var arrayify = function(serverResponse){
-  var xAxis = ['x'];
-  serverResponse.forEach(function(element) {
-    xAxis.push(element["label"])
+  serverResponse.sort(function(a, b){
+    return b.amount - a.amount;
   })
-  var yAxis = ['data1'];
-  serverResponse.forEach(function(element) {
-    yAxis.push(element["amount"])
+
+  var nestedArray = []
+  serverResponse.forEach(function(element){
+    var label = element["label"]
+    var amount = element["amount"]
+    nestedArray.push([label, amount])
   })
-  chart(xAxis, yAxis)
+  console.log("this is nested Array!!!!")
+  console.log(nestedArray);
+  var limitTen = []
+  for (var i = 0; i < 10; i++) {
+    limitTen.push(nestedArray[i])
+  }
+  chart(limitTen);
 }
+// var arrayify = function(serverResponse){
+//   var xAxis = [];
+//   serverResponse.forEach(function(element) {
+//     xAxis.push(element["label"])
+//   })
+//   var yAxis = [];
+//   serverResponse.forEach(function(element) {
+//     yAxis.push(element["amount"])
+//   })
+//   console.log(xAxis)
+//   console.log(yAxis)
+// }
 
 
 
