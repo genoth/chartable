@@ -10,14 +10,32 @@ $(document).ready(function(){
     method: $form.attr("method")
   })
   $request.done(function(serverResponse){
+    //renderPieChart(serverResponse)
+    renderC3Chart();
     $("#chart").empty();
-    renderPieChart(serverResponse)
     renderDownloadButton();
   })
   })
 });
 
+var renderC3Chart = function() {
+var chart = c3.generate({
+    data: {
+        // iris data from R
+        columns: [
+            ['data1', 30],
+            ['data2', 120],
+        ],
+        type : 'pie',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    }
+});
+}
+
 var renderPieChart = function(dataset){
+  console.log('AHHHHHHHH');
   var width = 600;
   var height = 600;
   var radius = Math.min(width, height) / 2;
