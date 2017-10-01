@@ -11,61 +11,53 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
+    console.log(serverResponse)
     // renderPieChart(serverResponse)
     // renderC3Chart();
+    arrayify(serverResponse);
     renderDownloadButton();
   })
   })
 });
 
-var renderPieChart = function(dataset){
-  console.log('AHHHHHHHH');
-  console.log(dataset)
-  var width = 600;
-  var height = 600;
-  var radius = Math.min(width, height) / 2;
-
-  var color = d3.scale.category10().range();
-
-  var svg = d3.select('#chart')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .attr('id', "d3-chart")
-  .append('g')
-  .attr('transform', 'translate(' + (width / 2 ) + ',' + (height / 2) + ')');
-
-  var arc = d3.arc()
-  .innerRadius(0)
-  .outerRadius(radius);
-
-  var pie = d3.pie()
-  .value(function(d) { return d.amount; })
-  .sort(null);
-
-  var path = svg.selectAll('path')
-  .data(pie(dataset))
-  .enter()
-  .append('path')
-  .attr('d', arc)
-  .attr('fill', function(d) {
-    return color(d.data.label);
-})
-
-  var arcs = svg.selectAll("g.slice")
-  .enter()
-  .append("svg:g")
-  .attr("class", "slice");
-
-  arcs.append("svg:text")
-      .attr("transform", function(d){
-        d.innerRadius = 0;
-        d.outerRadius = r;
-        return "translate(" + arc.centroid(d) + ")";
-      })
-      .attr("text-anchor", "middle")
-      .text(function(d, i) { return dataset[i].label; });
+var chart = function(xAxis, yAxis){
+  c3.generate({
+    data: {
+        x: 'x',
+        columns: [
+            xAxis,
+            yAxis
+        ],
+        type: 'bar'
+    },
+    bar: {
+        width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
+        }
+        // or
+        //width: 100 // this makes bar width 100px
+    }
+});
 }
+
+var arrayify = function(serverResponse){
+  var xAxis = ['x'];
+  serverResponse.forEach(function(element) {
+    xAxis.push(element["label"])
+  })
+  var yAxis = ['data1'];
+  serverResponse.forEach(function(element) {
+    yAxis.push(element["amount"])
+  })
+  chart(xAxis, yAxis)
+}
+
+
+
+
+
+
+
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
