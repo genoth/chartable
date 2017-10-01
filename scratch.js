@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
     console.log("bound")
-    var $form = $(this)
+    $form = $(this)
     console.log($form.attr("method"))
   $request = $.ajax({
     url: $form.attr("url"),
@@ -10,32 +10,14 @@ $(document).ready(function(){
     method: $form.attr("method")
   })
   $request.done(function(serverResponse){
-    //renderPieChart(serverResponse)
-    renderC3Chart();
     $("#chart").empty();
+    renderPieChart(serverResponse)
     renderDownloadButton();
   })
   })
 });
 
-var renderC3Chart = function() {
-var chart = c3.generate({
-    data: {
-        // iris data from R
-        columns: [
-            ['data1', 30],
-            ['data2', 120],
-        ],
-        type : 'pie',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-    }
-});
-}
-
 var renderPieChart = function(dataset){
-  console.log('AHHHHHHHH');
   var width = 600;
   var height = 600;
   var radius = Math.min(width, height) / 2;
@@ -66,20 +48,7 @@ var renderPieChart = function(dataset){
   .attr('fill', function(d) {
     return color(d.data.label);
 })
-
-  var arcs = svg.selectAll("g.slice")
-  .enter()
-  .append("svg:g")
-  .attr("class", "slice");
-
-  arcs.append("svg:text")
-      .attr("transform", function(d){
-        d.innerRadius = 0;
-        d.outerRadius = r;
-        return "translate(" + arc.centroid(d) + ")";
-      })
-      .attr("text-anchor", "middle")
-      .text(function(d, i) { return dataset[i].label; });
+console.log(dataset)
 }
 
 var renderDownloadButton = function(){
