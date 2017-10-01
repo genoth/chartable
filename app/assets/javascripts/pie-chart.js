@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
     console.log("bound")
-    $form = $(this)
+    var $form = $(this)
     console.log($form.attr("method"))
   $request = $.ajax({
     url: $form.attr("url"),
