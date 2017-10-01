@@ -16,4 +16,8 @@ module TrumpAdminDebts
       }
     end
 
+    # def self.metadata
+    #   {"Source": "paragraph about where it's from", "Title": "A title"}
+    # end
+
 end

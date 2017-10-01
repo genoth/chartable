@@ -11,53 +11,44 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
-    console.log(serverResponse)
-    // renderPieChart(serverResponse)
-    // renderC3Chart();
     arrayify(serverResponse);
     renderDownloadButton();
   })
   })
 });
 
-var chart = function(xAxis, yAxis){
+var chart = function(myColumns){
   c3.generate({
     data: {
-        x: 'x',
-        columns: [
-            xAxis,
-            yAxis
-        ],
-        type: 'bar'
+        columns: myColumns,
+        type : 'bar'
     },
-    bar: {
-        width: {
-            ratio: 0.5 // this makes bar width 50% of length between ticks
-        }
-        // or
-        //width: 100 // this makes bar width 100px
+    axis: {
+      y: {
+        label:'Label Placeholder'
+      }
     }
 });
 }
 
 var arrayify = function(serverResponse){
-  var xAxis = ['x'];
-  serverResponse.forEach(function(element) {
-    xAxis.push(element["label"])
+  serverResponse.sort(function(a, b){
+    return b.amount - a.amount;
   })
-  var yAxis = ['data1'];
-  serverResponse.forEach(function(element) {
-    yAxis.push(element["amount"])
+  var nestedArray = []
+  serverResponse.forEach(function(element){
+    var label = element["label"]
+    var amount = (element["amount"])/1000000
+    nestedArray.push([label, amount])
   })
-  chart(xAxis, yAxis)
+  console.log("this is nested Array!!!!")
+  console.log(nestedArray);
+  var limitTen = []
+  for (var i = 0; i < 10; i++) {
+    limitTen.push(nestedArray[i])
+  }
+  chart(limitTen);
 }
-
-
-
-
-
-
-
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
@@ -68,7 +59,7 @@ var downloadHandler = function(){
   $("#download-form").on("submit", function(event){
     event.preventDefault();
     console.log("bound")
-    saveSvgAsPng(document.getElementById("d3-chart"), "chartable-diagram.png")
+    saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
   })
 }
 
