@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
     console.log("bound")
-    var $form = $(this)
+    $form = $(this)
     console.log($form.attr("method"))
   $request = $.ajax({
     url: $form.attr("url"),
@@ -48,20 +48,7 @@ var renderPieChart = function(dataset){
   .attr('fill', function(d) {
     return color(d.data.label);
 })
-
-  var arcs = svg.selectAll("g.slice")
-  .enter()
-  .append("svg:g")
-  .attr("class", "slice");
-
-  arcs.append("svg:text")
-      .attr("transform", function(d){
-        d.innerRadius = 0;
-        d.outerRadius = r;
-        return "translate(" + arc.centroid(d) + ")";
-      })
-      .attr("text-anchor", "middle")
-      .text(function(d, i) { return dataset[i].label; });
+console.log(dataset)
 }
 
 var renderDownloadButton = function(){
