@@ -11,56 +11,51 @@ $(document).ready(function(){
   })
   $request.done(function(serverResponse){
     $("#chart").empty();
-    console.log(serverResponse)
-    // renderPieChart(serverResponse)
-    // renderC3Chart();
     arrayify(serverResponse);
     renderDownloadButton();
   })
   })
 });
 
-var chart = function(xAxis, yAxis){
+
+var chart = function(data){
   c3.generate({
     data: {
-        x: 'x',
-        columns: [
-            xAxis,
-            yAxis
-        ],
-        type: 'bar'
+        columns: data,
+        type:'pie'
     },
-    bar: {
-        width: {
-            ratio: 0.5 // this makes bar width 50% of length between ticks
+    pie: {
+        label: {
+            format: function (value, ratio, id) {
+                return d3.format('$')(value)+"M";
+            }
         }
-        // or
-        //width: 100 // this makes bar width 100px
     }
-});
+  });
 }
 
 var arrayify = function(serverResponse){
-  var xAxis = ['x'];
-  serverResponse.forEach(function(element) {
-    xAxis.push(element["label"])
-  })
-  var yAxis = ['data1'];
-  serverResponse.forEach(function(element) {
-    yAxis.push(element["amount"])
-  })
-  chart(xAxis, yAxis)
+ serverResponse.sort(function(a, b){
+   return b.amount - a.amount;
+ })
+ var nestedArray = []
+ serverResponse.forEach(function(element){
+   var label = element["label"]
+   var amount = (element["amount"])/1000000
+   nestedArray.push([label, amount])
+ })
+ console.log("this is nested Array!!!!")
+ console.log(nestedArray);
+ var limitTen = []
+ for (var i = 0; i < 10; i++) {
+   limitTen.push(nestedArray[i])
+ }
+ chart(limitTen);
 }
-
-
-
-
-
-
-
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
+
   downloadHandler();
 }
 
@@ -73,5 +68,14 @@ var downloadHandler = function(){
 }
 
 
-
+// var pieData = {};
+// var xAxis = [];
+// var hashify = function(serverResponse){
+//   serverResponse.forEach(function(e) {
+//       xAxis.push(e.label);
+//       pieData[e.label] = e.amount;
+//   })
+  // console.log(pieData)
+  // console.log(xAxis)
+// }
 
