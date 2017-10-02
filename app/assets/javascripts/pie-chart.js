@@ -15,14 +15,14 @@ $(document).ready(function(){
     console.log($form)
 
     $("#chart").empty();
-    $("#diagram-title").text($aggregatorToAppend + " by " + $descriptorToAppend)
-    arrayify(serverResponse, chartType);
+    var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend
+    arrayify(serverResponse, chartType, chartTitle);
     renderDownloadButton();
   })
   })
 });
 
-var chart = function(data, type){
+var chart = function(data, type, chartTitle){
   if (type === "pie") {
     c3.generate({
       data: {
@@ -35,8 +35,11 @@ var chart = function(data, type){
             return d3.format('$')(value)+"M";
           }
         }
-      }
-    });
+      },
+      title: {
+       text: chartTitle
+     }
+   });
   } else {
     c3.generate({
       data: {
@@ -47,12 +50,15 @@ var chart = function(data, type){
         y: {
           label:'In Millions'
         }
+      },
+      title: {
+        text: chartTitle
       }
     });
   }
 }
 
-var arrayify = function(serverResponse, chartType){
+var arrayify = function(serverResponse, chartType, chartTitle){
  serverResponse.sort(function(a, b){
    return b.amount - a.amount;
  })
@@ -66,7 +72,7 @@ var arrayify = function(serverResponse, chartType){
  for (var i = 0; i < 10; i++) {
    limitTen.push(nestedArray[i])
  }
- chart(limitTen, chartType);
+ chart(limitTen, chartType, chartTitle);
 }
 
 var renderDownloadButton = function(){
