@@ -38,6 +38,11 @@ class DatasetsController < ApplicationController
     @dataset = dataset_klass::Query.new(params).data
     render json: @dataset
 
+
+  end
+
+  def title
+    TrumpAdminDebts::Query.generate_title
   end
 
 private

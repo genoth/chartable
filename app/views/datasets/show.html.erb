@@ -1,18 +1,25 @@
-<h1>data!</h1>
+<h1>Data Visualization</h1>
 
-<%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
-  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
-    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
-     <option value="<%=descriptor%>"><%=descriptor%></option>
-    <% end %>
-  </select>
-
-  <select name="aggregations">
+<%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
+  See <select name="aggregations">
     <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
      <option value="<%= aggregation %>"><%=aggregation%></option>
     <% end %>
   </select>
   by
+  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
+    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
+     <option value="<%=descriptor%>"><%=descriptor%></option>
+    <% end %>
+  </select>
+  as
+  <select name="chart"> <!--Supplement an id here instead of using 'name'-->
+     <option value="pie">Pie Chart</option>
+     <option value="bar">Bar Graph</option>
+  </select>
+
+
+
 
   <input type="submit" value="Visualize!">
 <% end %>
@@ -20,13 +27,14 @@
   <div id="our-data">
   </div>
 
+  <div id="diagram-title"></div>
+  <div id="chart"></div>
   <div id="download-div" class="hidden">
     <%= form_tag "download", id: "download-form", method: "POST", url: "/datasets/download" do |form| %>
     <input type="submit" value="Download">
     <% end %>
   </div>
 
-  <div id="chart"></div>
 
 
 
