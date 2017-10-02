@@ -10,6 +10,7 @@ $(document).ready(function(){
     method: $form.attr("method")
   })
   $request.done(function(serverResponse){
+    console.log(serverResponse)
     $("#chart").empty();
     // renderPieChart(serverResponse)
     // renderC3Chart();

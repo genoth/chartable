@@ -9,16 +9,17 @@ module TrumpAdminDebts
 
       if @params[:descriptors] == "Departments"
         query = TrumpAdminDebts::Debt
-          .select("#{aggregator_SQL_string}, employees.department_id, debts.employee_id")
+          .select("#{aggregator_SQL_string}, departments.name, debts.employee_id")
           .joins(:department)
-          .group("employees.department_id, debts.employee_id")
+          .group("debts.employee_id, departments.name")
+          p query
         @dataset = query.map { |r| [r.sum, r.department.name] }
       elsif @params[:descriptors] == "Employees"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, debts.employee_id")
           .includes(:employee)
           .group("debts.employee_id")
-        @dataset = query.map { |r| [r.sum, r.employee.last_name] }
+        @dataset = query.map { |r| [r.sum, r.employee.last_name, r.department.name] }
       elsif @params[:descriptors] == "Debt Types"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, debts.debt_type_id")
