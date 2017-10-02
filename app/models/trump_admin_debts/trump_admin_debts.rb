@@ -25,6 +25,3 @@ module TrumpAdminDebts
     end
 end
 
-
-
-end

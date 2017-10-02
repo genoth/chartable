@@ -1,5 +1,5 @@
-module TrumpAdminDebts
-
+module GenderInequality
+    class GenderInequality < ActiveRecord::Base
     # def self.descriptors
     #   ["Departments", "Employees", "Debt Types", "Lenders"]
     # end
@@ -26,6 +26,3 @@ module TrumpAdminDebts
     end
 end
 
-
-
-end

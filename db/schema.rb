@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929200325) do
+ActiveRecord::Schema.define(version: 20171002162524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "data", force: :cascade do |t|
+    t.string "country"
+    t.float "gender_inequality_index_2014"
+    t.integer "gender_inequality_rank_2014"
+    t.float "maternal_mortality_per_100k_2013"
+    t.float "adolescent_birth_rate_per_1k"
+    t.float "womens_share_of_seats_in_parliament_2014"
+    t.float "share_of_women_w_some_secondary_education_25_and_up_2005_2014"
+    t.float "share_of_men_w_some_secondary_education"
+    t.float "women_labor_force_participation_rate_15_and_up_2013"
+    t.float "men_labor_force_participation_rate_2013"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "debt_types", force: :cascade do |t|
     t.string "description"

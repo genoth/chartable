@@ -1,7 +1,6 @@
 require 'csv'
 require_relative '../config/environment'
 
-# TrumpAdminDebts.parse("db/debts.csv")
 CSV.foreach("db/gender_inequality.csv", headers: true, header_converters: :symbol) do |row|
 
 

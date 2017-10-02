@@ -1,6 +1,6 @@
-class CreateGenderInequalities < ActiveRecord::Migration[5.1]
+class CreateGenderInequality < ActiveRecord::Migration[5.1]
   def change
-    create_table :data do |t|
+    create_table :gender_data do |t|
 
       t.string :country
       t.float :gender_inequality_index_2014
