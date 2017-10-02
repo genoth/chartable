@@ -4,11 +4,11 @@
 require_relative 'config/application'
 
 # DI everything through line 12 is from the internet, trying to get travis-ci to work
-require "bundler/gem_tasks"
-require 'rspec/core/rake_task'
+# require "bundler/gem_tasks"
+# require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new
+# RSpec::Core::RakeTask.new
 
-task :default => :spec
+# task :default => :spec
 
 Rails.application.load_tasks
