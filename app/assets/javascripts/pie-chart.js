@@ -1,52 +1,64 @@
 $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
-    console.log("bound")
     var $form = $(this)
-    console.log($form.attr("method"))
+    var chartType = $(":selected")[2].value
+    var $aggregatorToAppend = $(":selected")[0].value
+    var $descriptorToAppend = $(":selected")[1].value
   $request = $.ajax({
     url: $form.attr("url"),
     data: $form.serialize(),
     method: $form.attr("method")
   })
   $request.done(function(serverResponse){
+    console.log("This is the form from the ajax return")
+    console.log($form)
+
     $("#chart").empty();
-    arrayify(serverResponse);
+    var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend
+    arrayify(serverResponse, chartType, chartTitle);
     renderDownloadButton();
   })
   })
 });
 
-var pieChart = function(data){
-  c3.generate({
-    data: {
+var chart = function(data, type, chartTitle){
+  if (type === "pie") {
+    c3.generate({
+      data: {
         columns: data,
         type:'pie'
-    },
-    pie: {
+      },
+      pie: {
         label: {
-            format: function (value, ratio, id) {
-                return d3.format('$')(value)+"M";
-            }
+          format: function (value, ratio, id) {
+            return d3.format('$')(value)+"M";
+          }
         }
-    }
-  });
-}
-var barChart = function(myColumns){
-  c3.generate({
-    data: {
-        columns: myColumns,
+      },
+      title: {
+       text: chartTitle
+     }
+   });
+  } else {
+    c3.generate({
+      data: {
+        columns: data,
         type : 'bar'
-    },
-    axis: {
-      y: {
-        label:'Label Placeholder'
+      },
+      axis: {
+        y: {
+          label:'In Millions'
+        }
+      },
+      title: {
+        text: chartTitle
       }
-    }
-  });
+    });
+  }
 }
 
-var arrayify = function(serverResponse){
+var arrayify = function(serverResponse, chartType, chartTitle){
  serverResponse.sort(function(a, b){
    return b.amount - a.amount;
  })
@@ -56,38 +68,51 @@ var arrayify = function(serverResponse){
    var amount = (element["amount"])/1000000
    nestedArray.push([label, amount])
  })
- console.log("this is nested Array!!!!")
- console.log(nestedArray);
  var limitTen = []
  for (var i = 0; i < 10; i++) {
    limitTen.push(nestedArray[i])
  }
- chart(limitTen);
+ chart(limitTen, chartType, chartTitle);
 }
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
-
   downloadHandler();
 }
 
 var downloadHandler = function(){
-  $("#download-form").on("submit", function(event){
+  $("#download-div").on("submit", function(event){
     event.preventDefault();
-    console.log("bound")
-    saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
+    // saveSvgAsPng((document.getElementsByTagName("svg")[0]), "chartable-diagram.png")
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
 }
 
-
-// var pieData = {};
-// var xAxis = [];
-// var hashify = function(serverResponse){
-//   serverResponse.forEach(function(e) {
-//       xAxis.push(e.label);
-//       pieData[e.label] = e.amount;
-//   })
-  // console.log(pieData)
-  // console.log(xAxis)
+// Need to limit to top 10 only for bar chart. Would need to render all data for pie chart, but aggregate the small slices into an "other employees" or whatever type function, preferrably with a number of employees. (e.g. "104 other employees")
+// var arrayify = function(serverResponse, chartType, chartTitle){
+//  serverResponse.sort(function(a, b){
+//    return b.amount - a.amount;
+//  })
+//  var nestedArray = []
+//  serverResponse.forEach(function(element){
+//    var label = element["label"]
+//    var amount = (element["amount"])/1000000
+//    nestedArray.push([label, amount])
+//  })
+//  var formattedData = []
+//  if (chartType === "pie") {
+//   formattedData = nestedArray
+// } else {
+//  for (var i = 0; i < 10; i++) {
+//    formattedData.push(nestedArray[i])
+//  }
 // }
+// chart(formattedData, chartType, chartTitle);
+// }
+
+// var renderDownloadButton = function(){
+//   $("#download-div").removeClass("hidden");
+//   downloadHandler();
+// }
+
 
