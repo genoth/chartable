@@ -5,12 +5,20 @@ module GenderInequality
     end
 
     def data
+      aggregator_SQL_string = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+
       if @params[:descriptors] == "Country"
-        query =  GenderInequality::GenderData.select("share_of_women_w_some_secondary_education_25_and_up_2005_2014, country").where("share_of_women_w_some_secondary_education_25_and_up_2005_2014 IS NOT null")
-        p query
-        @dataset = query
-        puts "************************** this is the @datatset"
-        p @dataset
+        query =  GenderInequality::GenderData.select(
+          "#{aggregator_SQL_string}, country").where("#{aggregator_SQL_string} IS NOT null")
+        @dataset = query.map { |result| [result]}
+        # @dataset = [
+        #   [GenderInequality::GenderData id: nil, country: "Quatar", share_of_women: 66.7]
+        #   [GenderInequality::GenderData id: nil, country: "Yemen", share_of_women: 8.6]
+        # ]
+        new_array = @dataset.map do |sub_array|
+          [ sub_array[1].country, sub_array[2].aggregator_SQL_string]
+        end
+        p new_array
 
       # if @params[:descriptors] == "Country"
       #   query = GenderInequality::GenderData
@@ -46,10 +54,11 @@ module GenderInequality
       #     .includes(:lender)
       #     .group("debts.lender_id")
       #   @dataset = query.map { |r| [r.sum, r.lender.name] }
-      end
 
-      p @dataset = @dataset.map { |sub_array| { label: sub_array.country, amount: sub_array.share_of_women_w_some_secondary_education_25_and_up_2005_2014 } }
+
+      @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
     end
 
   end
+end
 end
