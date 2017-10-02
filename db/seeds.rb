@@ -31,3 +31,5 @@ end
 
 puts TrumpAdminDebts::Department.count
 puts TrumpAdminDebts::Employee.pluck(:last_name)
+
+

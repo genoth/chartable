@@ -16,6 +16,7 @@ var visFormHandler = function(){
       method: $form.attr("method")
     })
     $request.done(function(serverResponse){
+      console.log(serverResponse);
       $("#chart").empty();
       var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
       var chartData = prepareData(serverResponse, chartType);

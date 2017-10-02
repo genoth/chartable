@@ -16,7 +16,7 @@ module TrumpAdminDebts
           .joins(:department)
           .group("departments.name")
         @dataset = query.map { |r| [r.sum, r.name] }
-
+        p @dataset
       elsif @params[:descriptors] == "Employees"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, employees.first_name || ' ' || employees.last_name AS foobar_name")
