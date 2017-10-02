@@ -65,7 +65,7 @@ var arrayify = function(serverResponse, chartType, chartTitle){
  var nestedArray = []
  serverResponse.forEach(function(element){
    var label = element["label"]
-   var amount = (element["amount"])/1000000
+   var amount = Math.floor((element["amount"])/1000000)
    nestedArray.push([label, amount])
  })
  var limitTen = []
@@ -88,7 +88,7 @@ var downloadHandler = function(){
   })
 }
 
-// Need to limit to top 10 only for bar chart. Would need to render all data for pie chart, but aggregate the small slices into an "other employees" or whatever type function, preferrably with a number of employees. (e.g. "104 other employees")
+// Need to limit to top 10 only for bar chart. Would need to render all data for pie chart, but aggregate the small slices into an "other employees" or whatever type function, preferrably with a number of employees. (e.g. "104")
 // var arrayify = function(serverResponse, chartType, chartTitle){
 //  serverResponse.sort(function(a, b){
 //    return b.amount - a.amount;
