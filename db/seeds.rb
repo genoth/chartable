@@ -15,12 +15,11 @@ CSV.foreach("db/gender_inequality.csv", headers: true, header_converters: :symbo
     women_labor_force_participation_rate_15_and_up_2013: row[:women_labor_force_participation_rate_15_and_up_2013],
     men_labor_force_participation_rate_2013: row[:men_labor_force_participation_rate_2013]
     })
+  puts gender_inequality_data.gender_inequality_index_2014
+  puts gender_inequality_data.share_of_women_w_some_secondary_education_25_and_up_2005_2014
 end
 # TrumpAdminDebts.parse("db/debts.csv")
 CSV.foreach("db/debts.csv", headers: true, header_converters: :symbol) do |row|
-
-  puts row[:employee]
-  puts row[:min_amount]
 
   department = TrumpAdminDebts::Department.find_or_create_by!(name: row[:department])
   employee = TrumpAdminDebts::Employee.find_or_create_by!(last_name: row[:last_name], first_name: row[:first_name], department: department)
@@ -44,7 +43,5 @@ CSV.foreach("db/debts.csv", headers: true, header_converters: :symbol) do |row|
     })
 end
 
-puts TrumpAdminDebts::Department.count
-puts TrumpAdminDebts::Employee.pluck(:last_name)
 
 

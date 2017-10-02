@@ -1,4 +1,4 @@
-class CreateGenderInequality < ActiveRecord::Migration[5.1]
+class CreateGenderData < ActiveRecord::Migration[5.1]
   def change
     create_table :gender_data do |t|
 
