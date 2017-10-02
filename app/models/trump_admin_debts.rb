@@ -23,6 +23,7 @@ module TrumpAdminDebts
       dataset_url: "https://www.publicintegrity.org/2017/06/07/20910/database-trump-administration-officials-personal-finances-grows"
       }
     end
+end
 
 
 

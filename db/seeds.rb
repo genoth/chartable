@@ -1,6 +1,7 @@
 require 'csv'
 require_relative '../config/environment'
 
+# TrumpAdminDebts.parse("db/debts.csv")
 CSV.foreach("db/debts.csv", headers: true, header_converters: :symbol) do |row|
 
   puts row[:employee]
@@ -26,7 +27,6 @@ CSV.foreach("db/debts.csv", headers: true, header_converters: :symbol) do |row|
     rate: row[:rate],
     term: row[:term]
     })
-
 end
 
 puts TrumpAdminDebts::Department.count

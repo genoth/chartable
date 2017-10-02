@@ -41,10 +41,6 @@ class DatasetsController < ApplicationController
 
   end
 
-  def title
-    TrumpAdminDebts::Query.generate_title
-  end
-
 private
 
   def data_sets
