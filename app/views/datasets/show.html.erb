@@ -1,6 +1,6 @@
 <h1>Data Visualization</h1>
 
-<%= form_tag "query", id: "pie-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
+<%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
   See <select name="aggregations">
     <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
      <option value="<%= aggregation %>"><%=aggregation%></option>
