@@ -17,8 +17,7 @@ $(document).ready(function(){
   })
 });
 
-
-var chart = function(data){
+var pieChart = function(data){
   c3.generate({
     data: {
         columns: data,
@@ -30,6 +29,19 @@ var chart = function(data){
                 return d3.format('$')(value)+"M";
             }
         }
+    }
+  });
+}
+var barChart = function(myColumns){
+  c3.generate({
+    data: {
+        columns: myColumns,
+        type : 'bar'
+    },
+    axis: {
+      y: {
+        label:'Label Placeholder'
+      }
     }
   });
 }
@@ -63,7 +75,7 @@ var downloadHandler = function(){
   $("#download-form").on("submit", function(event){
     event.preventDefault();
     console.log("bound")
-    saveSvgAsPng(document.getElementById("d3-chart"), "chartable-diagram.png")
+    saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
   })
 }
 
