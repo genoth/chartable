@@ -4,7 +4,7 @@ class CreateGenderInequality < ActiveRecord::Migration[5.1]
 
       t.string :country
       t.float :gender_inequality_index_2014
-      t.integer :gender_inequality_rank_2014
+      t.integer :gender_inequality_index_rank_2014
       t.float :maternal_mortality_per_100k_2013
       t.float :adolescent_birth_rate_per_1k
       t.float :womens_share_of_seats_in_parliament_2014

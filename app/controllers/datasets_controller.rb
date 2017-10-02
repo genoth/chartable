@@ -45,7 +45,8 @@ private
 
   def data_sets
     {
-      'trump' => TrumpAdminDebts
+      'trump' => TrumpAdminDebts,
+      'gender_inequality' => GenderInequality
     }
   end
 

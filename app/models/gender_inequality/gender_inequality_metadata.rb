@@ -1,20 +1,20 @@
 module GenderInequality
-    class GenderInequality < ActiveRecord::Base
-    # def self.descriptors
-    #   ["Departments", "Employees", "Debt Types", "Lenders"]
-    # end
 
-    # def self.aggregations
-    #   aggregation_sql_snippits.keys
-    # end
+    def self.descriptors
+      ["GenderData.country"]
+    end
 
-    # def self.aggregation_sql_snippits
-    #   {
-    #     "Sum Maximum Debts" =>"sum(max_amount) / 1000000 as sum",
-    #     "Sum Minimum Debts" => "sum(min_amount) / 1000000 as sum",
-    #     "Avg Min Debt" => "avg(min_amount) / 1000000 as sum"
-    #   }
-    # end
+    def self.aggregations
+      aggregation_sql_snippits.keys
+    end
+
+    def self.aggregation_sql_snippits
+      "Percentage of Women with Some Secondary Education, ages 25 and up" => "share_of_women_w_some_secondary_education_25_and_up_2005_2014"
+      "Share of Men with Some Secondary Education, ages 25 and up" => "share_of_men_w_some_secondary_education"
+    end
+
+    def self.data_points
+    end
 
     def self.metadata
       {
