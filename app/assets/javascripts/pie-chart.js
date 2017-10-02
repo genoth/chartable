@@ -66,7 +66,8 @@ var downloadHandler = function(){
   $("#download-form").on("submit", function(event){
     event.preventDefault();
     console.log("bound")
-    saveSvgAsPng((document.getElementsByTagName("svg")[0]), "chartable-diagram.png")
+    // saveSvgAsPng((document.getElementsByTagName("svg")[0]), "chartable-diagram.png")
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
 }
 
