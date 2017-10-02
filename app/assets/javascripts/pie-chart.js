@@ -1,9 +1,7 @@
 $(document).ready(function(){
   $("#pie-form").on("submit",function(event){
     event.preventDefault();
-    console.log("bound")
     var $form = $(this)
-    console.log($form.attr("method"))
   $request = $.ajax({
     url: $form.attr("url"),
     data: $form.serialize(),
@@ -40,7 +38,7 @@ var barChart = function(myColumns){
     },
     axis: {
       y: {
-        label:'Label Placeholder'
+        label:'In Millions'
       }
     }
   });
@@ -56,8 +54,6 @@ var arrayify = function(serverResponse){
    var amount = (element["amount"])/1000000
    nestedArray.push([label, amount])
  })
- console.log("this is nested Array!!!!")
- console.log(nestedArray);
  var limitTen = []
  for (var i = 0; i < 10; i++) {
    limitTen.push(nestedArray[i])
@@ -74,7 +70,6 @@ var renderDownloadButton = function(){
 var downloadHandler = function(){
   $("#download-form").on("submit", function(event){
     event.preventDefault();
-    console.log("bound")
     saveSvgAsPng(document.getElementById("chart"), "chartable-diagram.png")
   })
 }
