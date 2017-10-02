@@ -1,3 +1,55 @@
+html *{
+   font-family: Arial !important;
+}
+
 .hidden {
   display: none;
 }
+
+body {
+  margin:2%;
+  background-color: #E6E6FA;
+}
+
+h1, h3, form, .topics-list {
+  text-align: center;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color:   #E0FFFF;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color:  #E0FFFF;
+    color: white;
+}
+
+select, input {
+  font-size: 1em;
+}
+
+
+
+
+
+
