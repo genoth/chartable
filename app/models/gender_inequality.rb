@@ -15,8 +15,17 @@ module GenderInequality
       }
     end
 
-    def self.data_points
-    end
+    # metadata notes
+
+    # write a method that determines the appropriate y-axis label for a bar chart based on the form submission
+
+    # write a method that determines a unit (e.g. percentage, per 1000, etc.) for the pie chart based on the form submission
+
+    # define the data type of each column
+
+    # define the number of columns?
+
+    # define the column names
 
     def self.metadata
       {
