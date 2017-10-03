@@ -1,3 +1,5 @@
+<%= cloudinary_js_config %>
+
 <h1>Data Visualization</h1>
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
@@ -34,6 +36,10 @@
     <input type="submit" value="Download">
     <% end %>
   </div>
+
+<%= cl_image_upload_tag(:image_id, :cloud_name => "hcsobbcxk") %>
+
+
 
 
 
