@@ -24,7 +24,12 @@ default: &default
 development:
   <<: *default
   database: chartable_development
-
+  cloudinary_url: <%= ENV['CLOUDINARY_URL'] %>
+  cloud_name: <%= ENV['CLOUD_NAME'] %>
+  api_key: <%= ENV['API_KEY'] %>
+  api_secret: <%= ENV['API_SECRET'] %>
+  enhance_image_tag: <%= ENV['ENHANCE_IMAGE_TAG'] %>
+  static_image_support: <%= ENV['STATIC_IMAGE_SUPPORT'] %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
