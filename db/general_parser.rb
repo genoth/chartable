@@ -7,7 +7,7 @@ def general_parser(file_name, namespace_table_name)
         headers.each do |header|
             data_hash.store(header, row[header])
         end
-         namespace_table_name.create!(data_hash)
+        namespace_table_name.create!(data_hash)
     end
 end
 
