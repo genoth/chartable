@@ -11,4 +11,4 @@ def general_parser(file_name, namespace_table_name)
     end
 end
 
-# Dan's note: how are we getting away with requiring csv in this file?
+# Dan's note: how are we getting away without requiring csv in this file?
