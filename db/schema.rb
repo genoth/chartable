@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20171002162524) do
     t.float "share_of_women_w_some_secondary_education_25_and_up_2005_2014"
     t.float "share_of_men_w_some_secondary_education"
     t.float "women_labor_force_participation_rate_15_and_up_2013"
-    t.float "men_labor_force_participation_rate_2013"
+    t.float "men_labor_force_participation_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
