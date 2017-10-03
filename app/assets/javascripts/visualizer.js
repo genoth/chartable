@@ -74,16 +74,32 @@ var renderBarChart = function(data, chartTitle) {
 }
 
 var renderScatterPlot = function(data, chartTitle) {
+  console.log(data)
   c3.generate({
     data: {
       columns: data,
       type: 'scatter'
+    },
+    axis: {
+      x: {
+        label: 'descriptor',
+        tick: {
+          fit: false
+        }
+      },
+      y: {
+        label: 'descriptor',
+        tick: {
+          fit: false
+        }
+      }
     },
     title: {
       chartTitle
     }
   })
 }
+
 
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
@@ -116,11 +132,46 @@ var prepareData = function(serverResponse, chartType){
       other += nestedArray[i][1];
     }
     series.push([String(nestedArray.length - 10) + " Others", Math.round(other, 2)]) // this math might hcange slightly depending on the slicing above
-  } else { // 'bar'
+  } else if (chartType === 'bar'){ // 'bar'
     series = nestedArray.slice(0, 10); // another dependency on the above
+  }
+  else if (chartType === 'scatter'){ // 'bar'
+    series = nestedArray; // another dependency on the above
   }
   return series;
 }
 
+//create columns for scatter plot
+// returns all unique labels in an array as a nested array
+var removeDuplicates = function(labels){
+  return labels.filter(function(label, index, self){
+    return self.indexOf(label) == index;
+  })
+}
 
+var scatterPlotLabels = function(data){
+  var allLabels = []
+  data.forEach(function(row){
+    allLabels.push(row.label)
+  })
+  return removeDuplicates(allLabels)
+}
+
+var nestedColumns = function(uniqueArrayOfColumns){
+  return uniqueArrayOfColumns.map(function(label){
+    return [label]
+  })
+}
+
+var scatterPlotCheckLabels = function(data){
+  var scatterLabels = nestedColumns(scatterPlotLabels(data))
+  data.forEach(function(row){
+    scatterLabels.forEach(function(labelArray){
+      if(row["label"] === labelArray[0]){
+        labelArray.push(row["amount"])
+      }
+    })
+  })
+  return scatterLabels
+}
 

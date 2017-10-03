@@ -9,8 +9,8 @@ module USLifeExpectancy
 
   def self.aggregation_sql_snippits
     {
-      # "Age Adjusted Death Rate" =>"avg(age_adjusted_death_rate) as avg",
-      "Average Life Expectancy" => "avg(average_life_expectancy) as avg"
+      "Age Adjusted Death Rate" =>"avg(age_adjusted_death_rate) as avg",
+      "Average Life Expectancy" => "average_life_expectancy as points"
     }
   end
 
