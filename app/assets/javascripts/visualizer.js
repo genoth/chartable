@@ -19,8 +19,12 @@ var visFormHandler = function(){
       $("#chart").empty();
       var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
       var chartData = prepareData(serverResponse, chartType);
-
-      produceChart(chartData, chartType, chartTitle);
+      if(chartType === "bar" || chartType === "pie"){
+        produceChart(chartData, chartType, chartTitle);
+      }
+      else {
+        produceChart(serverResponse, chartType, chartTitle);
+      }
       renderDownloadButton();
     })
   })
@@ -33,7 +37,7 @@ var produceChart = function(data, type, chartTitle){
     renderBarChart(data, chartTitle);
   }
   else {
-    renderScatterPlot(data, chartTitle);
+   return renderScatterPlot(data, chartTitle);
   }
 }
 
@@ -74,28 +78,13 @@ var renderBarChart = function(data, chartTitle) {
 }
 
 var renderScatterPlot = function(data, chartTitle) {
-  console.log(data)
   c3.generate({
     data: {
-      columns: data,
+      columns:scatterPlotCreateColumns(data),
       type: 'scatter'
     },
-    axis: {
-      x: {
-        label: 'descriptor',
-        tick: {
-          fit: false
-        }
-      },
-      y: {
-        label: 'descriptor',
-        tick: {
-          fit: false
-        }
-      }
-    },
     title: {
-      chartTitle
+      text: chartTitle
     }
   })
 }
@@ -141,6 +130,7 @@ var prepareData = function(serverResponse, chartType){
   return series;
 }
 
+
 //create columns for scatter plot
 // returns all unique labels in an array as a nested array
 var removeDuplicates = function(labels){
@@ -163,7 +153,7 @@ var nestedColumns = function(uniqueArrayOfColumns){
   })
 }
 
-var scatterPlotCheckLabels = function(data){
+var scatterPlotCreateColumns = function(data){
   var scatterLabels = nestedColumns(scatterPlotLabels(data))
   data.forEach(function(row){
     scatterLabels.forEach(function(labelArray){
@@ -175,3 +165,4 @@ var scatterPlotCheckLabels = function(data){
   return scatterLabels
 }
 
+// [{label: "Black", amount: 32.9}, {label: "Black", amount: 32.2}, {label: "Black", amount: 32.5}, {label: "White", amount: 78.0}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.0}, {label: "White", amount: 78.9}, {label: "White", amount: 78.8}, {label: "White", amount: 78.5}]
