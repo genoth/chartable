@@ -15,15 +15,14 @@ def construct_sub_entity(file_name, child_table_headers)
     end
   end
 
-  header_string = ""
-  child_table_headers.each_key { |header| header_string += header.to_s + ","}
-  header_string.slice!(-1)
+  p child_table_data
+
 
   CSV.open("db/test_destination.csv", "w") do |csv|
+    csv << child_table_headers
     child_table_data.each do |new_row|
-      csv << header_string
 
-      #csv << new_row
+      # csv << new_row
     end
   end
   # write child_table_data to new CSV file.
@@ -32,5 +31,6 @@ end
 
 
 filename = 'db/trump_admin_debts.csv'
-child_table_headers = [:Department, :last_name, :first_name]
+child_table_headers = [:department, :last_name, :first_name]
+# ^ DI - why did :Department with a capital D not work?
 construct_sub_entity(filename, child_table_headers)
