@@ -6,7 +6,6 @@ var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
     var $form = $(this);
-    console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     var $aggregatorToAppend = $(":selected")[0].value;
     var $descriptorToAppend = $(":selected")[1].value;
@@ -17,24 +16,28 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
-      var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
+      var subTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
       var chartData = prepareData(serverResponse, chartType);
 
-      produceChart(chartData, chartType, chartTitle);
+      produceChart(chartData, chartType, subTitle);
       renderDownloadButton();
     })
   })
 }
 
-var produceChart = function(data, type, chartTitle){
+var produceChart = function(data, type, subTitle){
+
   if (type === "pie") {
-    renderPieChart(data, chartTitle);
+    renderPieChart(data, subTitle);
   } else {
-    renderBarChart(data, chartTitle);
+    renderBarChart(data, subTitle);
   }
 }
 
-var renderPieChart = function(data, chartTitle) {
+var renderPieChart = function(data, subTitle) {
+  var source = $("form input#dataset_source").val()
+  var link = $("form input#dataset_url").val()
+  var title = $("form input#dataset_title").val()
   c3.generate({
       data: {
         columns: data,
@@ -48,24 +51,30 @@ var renderPieChart = function(data, chartTitle) {
         }
       },
       title: {
-       text: chartTitle
+       text: title + ", " + subTitle
      }
    });
 }
 
-var renderBarChart = function(data, chartTitle) {
+var renderBarChart = function(data, subTitle) {
+  var source = $("form input#dataset_source").val()
+  var link = $("form input#dataset_url").val()
+  var title = $("form input#dataset_title").val()
   c3.generate({
     data: {
       columns: data,
       type : 'bar'
     },
     axis: {
+      x: {
+            label: source + "\n" + link
+        },
       y: {
         label:'In Millions' // this should be a variable
       }
     },
     title: {
-      text: chartTitle
+      text: title + ", " + subTitle
     }
   });
 }

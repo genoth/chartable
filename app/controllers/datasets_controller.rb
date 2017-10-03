@@ -2,6 +2,11 @@ class DatasetsController < ApplicationController
 # get the form
   def show
     dataset_klass = data_sets[params[:id]]
+    @metadata = dataset_klass.metadata
+    # @title = metadata[:dataset_title]
+    # @source = metadata[:dataset_source]
+    # @url = metadata[:dataset_url]
+
     puts "got here"
     if !dataset_klass
       redirect_to '/'
@@ -28,6 +33,8 @@ class DatasetsController < ApplicationController
 
   def query
     dataset_klass = data_sets[params[:id]]
+    metadata = dataset_klass.metadata
+    @source = metadata[:dataset_source]
     if !dataset_klass
       redirect_to '/'
       #render errors? flash?
@@ -37,13 +44,7 @@ class DatasetsController < ApplicationController
     @dataset = dataset_klass::Query.new(params).data
     p @dataset
     render json: @dataset
-
-
-
-
   end
-
-private
 
   def data_sets
     {

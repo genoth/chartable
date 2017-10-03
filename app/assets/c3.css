@@ -98,7 +98,8 @@
 
 /*-- Title --*/
 .c3-title {
-  font: 14px sans-serif; }
+  font: 14px sans-serif;
+  padding-top: 0.5%; }
 
 /*-- Tooltip --*/
 .c3-tooltip-container {

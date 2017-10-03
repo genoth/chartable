@@ -14,13 +14,6 @@ module GenderInequality
 #         query =  GenderInequality::GenderData.select("share_of_women_w_some_secondary_education_25_and_up_2005_2014, country").where("share_of_women_w_some_secondary_education_25_and_up_2005_2014 IS NOT null")
 #         @dataset = query
 
-      # # if @params[:descriptors] == "Country"
-      # #   query = GenderInequality::GenderData
-      # #     .select("#{aggregator_SQL_string}, country").where("#{aggregator_SQL_string}")
-      # #     puts "****************************************"
-      # #   p query
-      # #   @dataset = query
-
       @dataset = @dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
 
     end

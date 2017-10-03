@@ -10,8 +10,15 @@ module GenderInequality
 
     def self.aggregation_sql_snippits
       {
+      "Gender Inequality Index (2014)" => "gender_inequality_index_2014", "Gender Inequality Index, Country Rank (2014)" => "gender_inequality_index_rank_2014",
+      "Maternal Mortality Rate per 100,000 (2013)" => "maternal_mortality_per_100k_2013",
+      "Birth Rate among Adolescents aged 15-19 (per 1,000)" => "adolescent_birth_rate_per_1k",
+      "Percentage of parliament seats held by women" =>
+      "womens_share_of_seats_in_parliament_2014",
       "Percentage of Women with Some Secondary Education, ages 25 and up" => "share_of_women_w_some_secondary_education_25_and_up_2005_2014",
-      "Share of Men with Some Secondary Education, ages 25 and up" => "share_of_men_w_some_secondary_education"
+      "Share of Men with Some Secondary Education, ages 25 and up" => "share_of_men_w_some_secondary_education",
+      "Workforce Participation of Women aged 15 and over" => "women_labor_force_participation_rate_15_and_up_2013",
+      "Workforce Participation of Men aged 15 and over" => "men_labor_force_participation_rate"
       }
     end
 
