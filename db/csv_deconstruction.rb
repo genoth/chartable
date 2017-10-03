@@ -19,7 +19,7 @@ def construct_sub_entity(file_name, child_table_headers)
     end
   end
 
-  p child_table_data
+  # p child_table_data
 
 
   CSV.open("db/test_destination.csv", "w") do |csv|
@@ -28,7 +28,7 @@ def construct_sub_entity(file_name, child_table_headers)
     child_table_data.each do |child_table_row|
       new_row_for_csv = []
       child_table_row.each_key {|header| new_row_for_csv << child_table_row[header]}
-      p new_row_for_csv
+      # p new_row_for_csv
       csv << new_row_for_csv
     end
   end
