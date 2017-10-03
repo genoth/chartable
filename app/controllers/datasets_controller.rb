@@ -43,16 +43,13 @@ class DatasetsController < ApplicationController
 
   end
 
-  def title
-    TrumpAdminDebts::Query.generate_title
-  end
-
 private
 
   def data_sets
     {
       'trump' => TrumpAdminDebts,
-      'life_expectancy' => USLifeExpectancy
+      'life_expectancy' => USLifeExpectancy,
+      'gender_inequality' => GenderInequality
     }
   end
 

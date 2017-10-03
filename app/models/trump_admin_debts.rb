@@ -10,7 +10,7 @@ module TrumpAdminDebts
 
     def self.aggregation_sql_snippits
       {
-        "Sum Maximum Debts" =>"sum(max_amount) / 1000000 as sum",
+        "Sum Maximum Debts" => "sum(max_amount) / 1000000 as sum",
         "Sum Minimum Debts" => "sum(min_amount) / 1000000 as sum",
         "Avg Min Debt" => "avg(min_amount) / 1000000 as sum"
       }
@@ -23,7 +23,5 @@ module TrumpAdminDebts
       dataset_url: "https://www.publicintegrity.org/2017/06/07/20910/database-trump-administration-officials-personal-finances-grows"
       }
     end
-
-
-
 end
+

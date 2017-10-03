@@ -6,17 +6,16 @@ var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
     var $form = $(this);
+    console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     var $aggregatorToAppend = $(":selected")[0].value;
     var $descriptorToAppend = $(":selected")[1].value;
-
     $request = $.ajax({
       url: $form.attr("url"),
       data: $form.serialize(),
       method: $form.attr("method")
     })
     $request.done(function(serverResponse){
-      console.log(serverResponse);
       $("#chart").empty();
       var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
       var chartData = prepareData(serverResponse, chartType);
