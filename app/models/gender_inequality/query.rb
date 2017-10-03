@@ -5,7 +5,6 @@ module GenderInequality
     end
 
     def data
-      # if @params[:aggregations] == "Country"
       thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
       query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
 

@@ -44,7 +44,7 @@ var renderPieChart = function(data, chartTitle) {
       pie: {
         label: {
           format: function (value, ratio, id) {
-            return d3.format('$')(value)+"M";
+            return d3.format('$')(value)+"M"; // this should be a 'prefix' variable and a units variable
           }
         }
       },
@@ -62,7 +62,7 @@ var renderBarChart = function(data, chartTitle) {
     },
     axis: {
       y: {
-        label:'In Millions'
+        label:'In Millions' // this should be a variable
       }
     },
     title: {
@@ -96,14 +96,14 @@ var prepareData = function(serverResponse, chartType){
   var series = []
 
   if (chartType === 'pie') {
-    series = nestedArray.slice(0, 10);
+    series = nestedArray.slice(0, 10); // use a variable that slices the interesting bit of the data. for education rate of women, you'd want to look at the last 10.
     var other = 0;
     for (var i = 10; i < nestedArray.length; i++) {
       other += nestedArray[i][1];
     }
-    series.push([String(nestedArray.length - 10) + " Others", Math.round(other, 2)])
+    series.push([String(nestedArray.length - 10) + " Others", Math.round(other, 2)]) // this math might hcange slightly depending on the slicing above
   } else { // 'bar'
-    series = nestedArray.slice(0, 10);
+    series = nestedArray.slice(0, 10); // another dependency on the above
   }
   return series;
 }
