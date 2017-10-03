@@ -52,3 +52,7 @@ general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
 
 
 
+# puts TrumpAdminDebts::Department.count
+# puts TrumpAdminDebts::Employee.pluck(:last_name)
+
+

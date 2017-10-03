@@ -34,9 +34,11 @@ class DatasetsController < ApplicationController
       return
     end
 
-
     @dataset = dataset_klass::Query.new(params).data
+    p @dataset
     render json: @dataset
+
+
 
 
   end
@@ -46,6 +48,7 @@ private
   def data_sets
     {
       'trump' => TrumpAdminDebts,
+      'life_expectancy' => USLifeExpectancy,
       'gender_inequality' => GenderInequality
     }
   end
