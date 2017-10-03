@@ -29,8 +29,11 @@ var visFormHandler = function(){
 var produceChart = function(data, type, chartTitle){
   if (type === "pie") {
     renderPieChart(data, chartTitle);
-  } else {
+  } else if (type === "bar") {
     renderBarChart(data, chartTitle);
+  }
+  else {
+    renderScatterPlot(data, chartTitle);
   }
 }
 
@@ -68,6 +71,18 @@ var renderBarChart = function(data, chartTitle) {
       text: chartTitle
     }
   });
+}
+
+var renderScatterPlot = function(data, chartTitle) {
+  c3.generate({
+    data: {
+      columns: data,
+      type: 'scatter'
+    },
+    title: {
+      chartTitle
+    }
+  })
 }
 
 var renderDownloadButton = function(){
