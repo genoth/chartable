@@ -37,8 +37,12 @@
     <% end %>
   </div>
 
-<%= cl_image_upload_tag(:image_id, :cloud_name => "hcsobbcxk") %>
-
+<div id="upload-div" class="hidden">
+  <%= form_tag "upload", id: "upload", method: "POST", url: "/datasets/upload" do |form| %>
+    <%= cl_image_upload_tag(:image_id, :cloud_name => "hcsobbcxk", :html => {:class => "image_upload"}) %>
+    <%= Cloudinary::Uploader.upload("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==") %>
+  <% end %>
+</div>
 
 
 

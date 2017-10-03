@@ -23,6 +23,7 @@ var visFormHandler = function(){
 
       produceChart(chartData, chartType, chartTitle);
       renderDownloadButton();
+      renderSaveButton();
     })
   })
 }
@@ -74,6 +75,10 @@ var renderBarChart = function(data, chartTitle) {
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
   downloadHandler();
+}
+
+var renderSaveButton = function(){
+  $("#upload-div").removeClass("hidden");
 }
 
 var downloadHandler = function(){
