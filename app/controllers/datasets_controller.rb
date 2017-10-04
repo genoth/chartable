@@ -9,6 +9,8 @@ class DatasetsController < ApplicationController
       return
     end
 
+    @descriptive_metadata = dataset_klass.metadata
+
     @diagram_form_inputs = {
       pie: {
         descriptors: dataset_klass.descriptors,
@@ -33,7 +35,7 @@ class DatasetsController < ApplicationController
       #render errors? flash?
       return
     end
-
+    @descriptive_metadata = dataset_klass.metadata
     @dataset = dataset_klass::Query.new(params).data
     p @dataset
     render json: @dataset
