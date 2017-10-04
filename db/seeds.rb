@@ -13,8 +13,10 @@ autoparsable_datasets = {
   canadian_climate: {raw_csv_filepath: 'db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv', dataset_db_destination: 'CanadianClimate::TempYear'}
 }
 
-general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
-
+#general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
+autoparsable_datasets.each_key do |dataset|
+  general_parser(dataset[raw_csv_filepath], dataset[dataset_db_destination])
+end
 
 
 
