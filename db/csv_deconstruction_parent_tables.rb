@@ -34,7 +34,7 @@ def construct_parent_table(original_csv_file, child_table_headers, child_table_d
     new_table_row.store(:foreign_key_name, foreign_key_value)
     # ^ DI real foreign key name will eventurally get passed into this method as an argument.
     new_table_headers.each do |new_table_column|
-      new_table_row.store(new_table_column, original_csv_column[new_table_column])
+      new_table_row.store(new_table_column, original_row[new_table_column])
       new_table_data << new_table_row
     end
   end
