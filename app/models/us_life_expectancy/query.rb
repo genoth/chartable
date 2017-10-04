@@ -17,12 +17,14 @@ module USLifeExpectancy
             .select("#{aggregator_SQL_string}, statistics.race_id, statistics.year_id")
             .includes(:race)
             .includes(:year)
+            .group('statistics.race_id, statistics.year_id')
           @dataset = query.map { |r| [r.points, r.race.race, r.year.year] }
       elsif @params[:descriptors] == "Sexes"
         query = USLifeExpectancy::Statistic
             .select("#{aggregator_SQL_string}, statistics.sex_id, statistics.year_id")
             .includes(:sex)
             .includes(:year)
+            .group('statistics.sex_id, statistics.year_id')
             p query
           @dataset = query.map { |r| [r.points, r.sex.sex, r.year.year] }
       end

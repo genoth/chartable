@@ -9,7 +9,7 @@ module USLifeExpectancy
 
   def self.aggregation_sql_snippits
     {
-      "Average Life Expectancy" => "average_life_expectancy as points"
+      "Average Life Expectancy" => "avg(average_life_expectancy) as points"
     }
   end
 

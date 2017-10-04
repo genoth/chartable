@@ -93,14 +93,41 @@ var renderBarChart = function(data, chartTitle) {
 var renderScatterPlot = function(data, chartTitle) {
   console.log("THIS IS THE DATA passed into the renderScatterPlot")
   console.log(data)
+
+  var scatterplotColumns = scatterPlotCreateColumns(data);
+
+  // maps each group's name to the label series. eg:
+  // {
+  //    "Male": "years_x",
+  //    "Female": "years_x"
+  //    "Both Sexes": "years_x"
+  // }
+  var labelData = {};
+  for(i = 1; i < scatterplotColumns.length; i++) {
+    labelData[scatterplotColumns[i][0]] = scatterplotColumns[0][0];
+  }
+
+
   c3.generate({
     data: {
       xsort: false,
-      columns: scatterPlotCreateColumns(data),
+      xs: labelData,
+      columns: scatterplotColumns,
       type: 'scatter'
     },
     title: {
       text: chartTitle
+    },
+    axis: {
+      x: {
+        label: 'Year',
+        tick: {
+          fit: true,
+        }
+      },
+      y: {
+        label: 'Age'
+      }
     }
   })
 }
@@ -165,13 +192,20 @@ var nestedColumns = function(uniqueArrayOfColumns){
 // ["All races", 81, 80, 79]]
 var scatterPlotCreateColumns = function(data){
   var scatterLabels = nestedColumns(scatterGroups(data))
+  var yearArray = ['years_x'];
   data.forEach(function(row){
     scatterLabels.forEach(function(labelArray){
       if(row["label"] === labelArray[0]){
         labelArray.push(row["amount"])
       }
     })
+    if (yearArray[yearArray.length - 1] !== row["year"]) {
+      yearArray.push(row["year"])
+    }
   })
+  console.log('YEAR ARRAY!!!', yearArray)
+  scatterLabels.unshift(yearArray);
+
   console.log("these are the scatter labels!")
   console.log(scatterLabels)
   return scatterLabels
