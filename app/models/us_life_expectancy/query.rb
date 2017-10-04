@@ -10,6 +10,10 @@ module USLifeExpectancy
     def data
       if @params[:chart] == "scatter"
         scatter_data
+      elsif @params[:chart] == "bar"
+        bar_data # right now this is never going to happen
+      elsif @params[:chart] == "pie"
+        pie_data # right now this is never going to happen
       end
     end
 
