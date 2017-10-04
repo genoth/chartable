@@ -1,5 +1,5 @@
 require 'csv'
-require_relative '../config/environment'
+require_relative '../../../config/environment'
 
 CSV.foreach("db/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
 

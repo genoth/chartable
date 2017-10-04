@@ -1,5 +1,5 @@
 require 'csv'
-require_relative '../config/environment'
+require_relative '../../../config/environment'
 
 CSV.foreach("db/gender_inequality.csv", headers: true, header_converters: :symbol) do |row|
 

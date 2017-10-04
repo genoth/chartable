@@ -2,39 +2,33 @@ require 'csv'
 require_relative '../config/environment'
 require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
 
+## AUTOMATIC SEEDING WITH GENERALIZED PARSERS ##
+
+  # namespace_table_name = GenderInequality::GenderData
+
+  #dataset_label: {raw_csv_filepath: '/filepath_string', dataset_db_destination: 'namespace_table_name'},
+autoparsable_datasets = [
+  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
+  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
+]
+#general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
+#general_parser("db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", CanadianClimate::TempYear)
+autoparsable_datasets.each do |dataset|
+  p dataset
+  general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
+end
 
 
-# file_name = ""
-# namespace_table_name =
 
-general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
+## HARD CODED SEEDING FOR WHICH GENERALIZED PARSERS ARE NOT YET AVALIBLE ##
+  # DI 10-4-17 1:38 - for now I am going to leave these here, so we can run the seed file all at once. They should be duplicated inside of db/ETL_Pipeline/inflexible_parsers
 
+# Trump Debts
 
-
-# DI 10-4-17 I can't really remember why we were preserving the below in comments. Can someone please help me decide what, if any, abiding relevance it has?
-
-# namespace_table_name
-# GenderInequality::GenderData
-
-# CSV.foreach("db/gender_inequality.csv", headers: true, header_converters: :symbol) do |row|
-
-#   gender_inequality_data = GenderInequality::GenderData.create!({
-#     country: row[:country],
-#     gender_inequality_index_2014: row[:gender_inequality_index_2014],
-#     gender_inequality_index_rank_2014: row[:gender_inequality_index_rank_2014],
-#     maternal_mortality_per_100k_2013: row[:maternal_mortality_per_100k_2013],
-#     adolescent_birth_rate_per_1k: row[:adolescent_birth_rate_per_1k],
-#     womens_share_of_seats_in_parliament_2014: row[:womens_share_of_seats_in_parliament_2014],
-#     share_of_women_w_some_secondary_education_25_and_up_2005_2014: row[:share_of_women_w_some_secondary_education_25_and_up_2005_2014],
-#     share_of_men_w_some_secondary_education: row[:share_of_men_w_some_secondary_education],
-#     women_labor_force_participation_rate_15_and_up_2013: row[:women_labor_force_participation_rate_15_and_up_2013],
-#     men_labor_force_participation_rate: row[:men_labor_force_participation_rate]
-#     })
-#   puts gender_inequality_data.gender_inequality_index_2014
-#   puts gender_inequality_data.share_of_women_w_some_secondary_education_25_and_up_2005_2014
-# end
-# TrumpAdminDebts.parse("db/trump_admin_debts.csv")
+counter_t = 0
 CSV.foreach("db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
+  counter_t += 1
+  print 't' if counter_t % 100 == 0
 
   department = TrumpAdminDebts::Department.find_or_create_by!(name: row[:department])
   employee = TrumpAdminDebts::Employee.find_or_create_by!(last_name: row[:last_name], first_name: row[:first_name], department: department)
@@ -58,9 +52,27 @@ CSV.foreach("db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv", headers: true, hea
     })
 end
 
+# US Races Life Expectancy
 
+# DI note: there is an interesting ETL issue here - Year.first is the last year(2015) and Year.last is the first year(1900). Would be really cool if our system could intelligently determine which order to read the lines in based on that.
+counter_r = 0
+CSV.foreach("db/ETL_Pipeline/raw_CSVs/birth-death-rate.csv", headers: true, header_converters: :symbol) do |row|
+  counter_r += 1
+  print 'r' if counter_r % 100 == 0
 
-# puts TrumpAdminDebts::Department.count
-# puts TrumpAdminDebts::Employee.pluck(:last_name)
+  race = USLifeExpectancy::Race.find_or_create_by!(race: row[:race])
+  sex = USLifeExpectancy::Sex.find_or_create_by!(sex: row[:sex])
+  year = USLifeExpectancy::Year.find_or_create_by!(year: row[:year])
 
+  age_adjusted_death_rate = row[:age_adjusted_death_rate]
+  average_life_expectancy = row[:average_life_expectancy_in_years]
 
+  statistic = USLifeExpectancy::Statistic.find_or_create_by!({
+    year: year,
+    race: race,
+    sex: sex,
+    age_adjusted_death_rate: age_adjusted_death_rate,
+    average_life_expectancy: average_life_expectancy
+    })
+
+end
