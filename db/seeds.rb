@@ -13,11 +13,9 @@ autoparsable_datasets = [
   {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
   {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
 ]
-# p autoparsable_datasets.values
 #general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
 #general_parser("db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", CanadianClimate::TempYear)
 autoparsable_datasets.each do |dataset|
-  p dataset
   general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
 end
 
@@ -57,6 +55,7 @@ end
 
 # US Races Life Expectancy
 
+# DI note: there is an interesting ETL issue here - Year.first is the last year(2015) and Year.last is the first year(1900). Would be really cool if our system could intelligently determine which order to read the lines in based on that.
 counter_r = 0
 CSV.foreach("db/ETL_Pipeline/raw_CSVs/birth-death-rate.csv", headers: true, header_converters: :symbol) do |row|
   counter_r += 1
