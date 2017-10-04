@@ -3,6 +3,7 @@ require_relative '../config/environment'
 require_relative 'general_parser'
 
 
+
 general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
 
 # namespace_table_name
