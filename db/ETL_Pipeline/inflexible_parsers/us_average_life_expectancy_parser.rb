@@ -1,8 +1,8 @@
 require 'csv'
-require_relative '../config/environment'
+require_relative '../../../config/environment'
 
 counter = 0
-CSV.foreach("db/birth-death-rate.csv", headers: true, header_converters: :symbol) do |row|
+CSV.foreach("db/ETL_Pipeline/raw_CSVs/birth-death-rate.csv", headers: true, header_converters: :symbol) do |row|
   counter += 1
   print '.' if counter % 100 == 0
 

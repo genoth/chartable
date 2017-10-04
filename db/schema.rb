@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002162524) do
+ActiveRecord::Schema.define(version: 20171002163453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 20171002162524) do
     t.integer "year_id"
     t.float "age_adjusted_death_rate"
     t.float "average_life_expectancy"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "temp_years", force: :cascade do |t|
+    t.integer "temp_year"
+    t.float "winter_temperature_celsius"
+    t.float "spring_temperature_celsius"
+    t.float "summer_temperature_celsius"
+    t.float "fall_temperature_celsius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

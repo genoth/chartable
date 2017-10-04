@@ -1,3 +1,5 @@
+
+
 def general_parser(file_name, namespace_table_name)
     headers = CSV.read(file_name, headers: true, header_converters: :symbol).headers
 
