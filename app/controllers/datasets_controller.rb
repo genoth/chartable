@@ -50,7 +50,8 @@ private
     {
       'trump' => TrumpAdminDebts,
       'life_expectancy' => USLifeExpectancy,
-      'gender_inequality' => GenderInequality
+      'gender_inequality' => GenderInequality,
+      'canadian_climate' => CanadianClimate
     }
   end
 
