@@ -35,13 +35,12 @@ class DatasetsController < ApplicationController
       #render errors? flash?
       return
     end
-    @descriptive_metadata = dataset_klass.metadata
+
+    subtitle = {subtitle: "#{params[:aggregations]} by #{params[:descriptors]}"}
+    @descriptive_metadata = dataset_klass.metadata.merge(subtitle)
     @dataset = dataset_klass::Query.new(params).data
-    p @dataset
-    render json: @dataset
 
-
-
+    render json: [@dataset, @descriptive_metadata]
 
   end
 

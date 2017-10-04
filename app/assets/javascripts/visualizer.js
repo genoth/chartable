@@ -18,13 +18,14 @@ var visFormHandler = function(){
     $request.done(function(serverResponse){
       $("#chart").empty();
       var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
-      var chartData = prepareData(serverResponse, chartType);
+      ///// chartData
+      var chartData = prepareData(serverResponse[0], chartType);
       if(chartType === "bar" || chartType === "pie"){
         produceChart(chartData, chartType, chartTitle);
       }
       else {
         console.log("testing our new method")
-        var sortedScatterData = prepareScatterData(serverResponse)
+        var sortedScatterData = prepareScatterData(serverResponse[0])
         produceChart(sortedScatterData, chartType, chartTitle);
       }
       renderDownloadButton();
