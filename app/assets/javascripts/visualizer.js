@@ -17,7 +17,7 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
-      var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
+      var subTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
       var descriptives = serverResponse[0]
       var incomingData = serverResponse[1]
       var chartData = prepareData(incomingData, chartType);
@@ -29,9 +29,6 @@ var visFormHandler = function(){
 }
 
 var produceChart = function(data, type, descriptives){
-  console.log("the descriptives!!!!!!!!!!!!!!")
-  console.log(descriptives)
-  console.log(descriptives.y_axis_label)
   if (type === "pie") {
     renderPieChart(data, descriptives);
   } else {
@@ -48,7 +45,7 @@ var renderPieChart = function(data, descriptives) {
       pie: {
         label: {
           format: function (value, ratio, id) {
-            return d3.format('$')(value)+"M"; // this should be a 'prefix' variable and a units variable
+            return d3.format('$')(value) + descriptives.pie_chart_unit; // this should be a 'prefix' variable and a units variable
           }
         }
       },
@@ -66,7 +63,7 @@ var renderBarChart = function(data, descriptives) {
     },
     axis: {
       y: {
-        label: descriptives.y_axis_label // this should be a variable
+        label: descriptives.y_axis_label
       }
     },
     title: {
@@ -94,7 +91,7 @@ var prepareData = function(incomingData, chartType){
   var nestedArray = []
   incomingData.forEach(function(element){
     var label = element.label;
-    var amount = element.amount;
+    var amount = Math.round(element.amount, 2);
     nestedArray.push([label, amount]);
   })
   var series = []

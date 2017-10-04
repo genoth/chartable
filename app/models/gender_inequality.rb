@@ -44,6 +44,10 @@ module GenderInequality
       end
     end
 
+    def pie_chart_unit
+      ""
+    end
+
     def self.metadata
       {
       description: "This data is collected by the United Nations Development Programme and reflects the disadvantages faced by women worldwide in terms of reproductive health and participation in education, politics, and the workforce. Data is reported 'for as many countries as data of reasonable quality allow.'",
