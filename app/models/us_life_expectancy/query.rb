@@ -17,13 +17,7 @@ module USLifeExpectancy
             .select("#{aggregator_SQL_string}, statistics.race_id, statistics.year_id")
             .includes(:race)
             .includes(:year)
-            p "**************************************"
-            p query
-            p"***********************************"
           @dataset = query.map { |r| [r.points, r.race.race, r.year.year] }
-          p "%%%%%%%%%%%%%%%%"
-          p @dataset
-          p "%%%%%%%%%%%%%%%%%%%%%"
       elsif @params[:descriptors] == "Sexes"
         query = USLifeExpectancy::Statistic
             .select("#{aggregator_SQL_string}, statistics.sex_id, statistics.year_id")

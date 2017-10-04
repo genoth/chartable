@@ -23,14 +23,27 @@ var visFormHandler = function(){
         produceChart(chartData, chartType, chartTitle);
       }
       else {
-        produceChart(serverResponse, chartType, chartTitle);
+        console.log("testing our new method")
+        var sortedScatterData = prepareScatterData(serverResponse)
+        produceChart(sortedScatterData, chartType, chartTitle);
       }
       renderDownloadButton();
     })
   })
 }
 
+var prepareScatterData = function(data){
+  console.log("this is the data passed into our brand new function")
+  console.log(data)
+  data.sort(function(a, b) {
+    return a.year - b.year;
+  })
+  return data
+}
+
 var produceChart = function(data, type, chartTitle){
+  console.log("THIS IS THE DATA passed into the produceChart")
+  console.log(data)
   if (type === "pie") {
     renderPieChart(data, chartTitle);
   } else if (type === "bar") {
@@ -78,10 +91,12 @@ var renderBarChart = function(data, chartTitle) {
 }
 
 var renderScatterPlot = function(data, chartTitle) {
+  console.log("THIS IS THE DATA passed into the renderScatterPlot")
+  console.log(data)
   c3.generate({
     data: {
       xsort: false,
-      columns:scatterPlotCreateColumns(data),
+      columns: scatterPlotCreateColumns(data),
       type: 'scatter'
     },
     title: {
@@ -91,17 +106,6 @@ var renderScatterPlot = function(data, chartTitle) {
 }
 
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
-
-var downloadHandler = function(){
-  $("#download-div").on("submit", function(event){
-    event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
-  })
-}
 
 var prepareData = function(serverResponse, chartType){
   serverResponse.sort(function(a, b){
@@ -140,7 +144,8 @@ var removeDuplicates = function(labels){
   })
 }
 
-var scatterPlotLabels = function(data){
+// this returns the groups for example, ["White", "Black", "All Races"]
+var scatterGroups = function(data){
   var allLabels = []
   data.forEach(function(row){
     allLabels.push(row.label)
@@ -154,8 +159,12 @@ var nestedColumns = function(uniqueArrayOfColumns){
   })
 }
 
+// this is the nested array C3 generator needs for scatterplot.
+// [["White", 81, 80, 79]
+// ["BLack", 79, 78, 76]
+// ["All races", 81, 80, 79]]
 var scatterPlotCreateColumns = function(data){
-  var scatterLabels = nestedColumns(scatterPlotLabels(data))
+  var scatterLabels = nestedColumns(scatterGroups(data))
   data.forEach(function(row){
     scatterLabels.forEach(function(labelArray){
       if(row["label"] === labelArray[0]){
@@ -163,7 +172,21 @@ var scatterPlotCreateColumns = function(data){
       }
     })
   })
+  console.log("these are the scatter labels!")
+  console.log(scatterLabels)
   return scatterLabels
 }
 
 // [{label: "Black", amount: 32.9}, {label: "Black", amount: 32.2}, {label: "Black", amount: 32.5}, {label: "White", amount: 78.0}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.0}, {label: "White", amount: 78.9}, {label: "White", amount: 78.8}, {label: "White", amount: 78.5}]
+
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-div").on("submit", function(event){
+    event.preventDefault();
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+  })
+}
