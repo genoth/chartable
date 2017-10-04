@@ -1,8 +1,6 @@
 require 'csv'
 require_relative '../config/environment'
 require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
-require_relative '../app/models/canadian_temp_data/canadian_climate_data.rb'
-# DI 10-4-17 2:58 we need to figure out why it can't find TempYear without this
 
 ## AUTOMATIC SEEDING WITH GENERALIZED PARSERS ##
 
@@ -16,6 +14,7 @@ autoparsable_datasets = [
 #general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
 #general_parser("db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", CanadianClimate::TempYear)
 autoparsable_datasets.each do |dataset|
+  p dataset
   general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
 end
 
