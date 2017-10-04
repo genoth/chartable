@@ -25,7 +25,6 @@ class DatasetsController < ApplicationController
     }
   end
 
-
   def query
     dataset_klass = data_sets[params[:id]]
     if !dataset_klass
@@ -33,14 +32,11 @@ class DatasetsController < ApplicationController
       #render errors? flash?
       return
     end
-
+    p params
     @dataset = dataset_klass::Query.new(params).data
-    p @dataset
-    render json: @dataset
+    descriptive_metadata = {:description => dataset_klass::metadata[:description], :dataset_title => dataset_klass::metadata[:dataset_title], :diagram_title => "#{params[:aggregations]} by #{params[:descriptors]}", :dataset_url => dataset_klass::metadata[:dataset_url], :dataset_source => dataset_klass::metadata[:dataset_source], :y_axis_label => dataset_klass::y_axis_label(params[:aggregations]) }
 
-
-
-
+    render json: [descriptive_metadata, @dataset]
   end
 
 private

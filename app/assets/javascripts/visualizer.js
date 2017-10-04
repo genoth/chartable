@@ -18,23 +18,28 @@ var visFormHandler = function(){
     $request.done(function(serverResponse){
       $("#chart").empty();
       var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
-      var chartData = prepareData(serverResponse, chartType);
+      var descriptives = serverResponse[0]
+      var incomingData = serverResponse[1]
+      var chartData = prepareData(incomingData, chartType);
 
-      produceChart(chartData, chartType, chartTitle);
+      produceChart(chartData, chartType, descriptives);
       renderDownloadButton();
     })
   })
 }
 
-var produceChart = function(data, type, chartTitle){
+var produceChart = function(data, type, descriptives){
+  console.log("the descriptives!!!!!!!!!!!!!!")
+  console.log(descriptives)
+  console.log(descriptives.y_axis_label)
   if (type === "pie") {
-    renderPieChart(data, chartTitle);
+    renderPieChart(data, descriptives);
   } else {
-    renderBarChart(data, chartTitle);
+    renderBarChart(data, descriptives);
   }
 }
 
-var renderPieChart = function(data, chartTitle) {
+var renderPieChart = function(data, descriptives) {
   c3.generate({
       data: {
         columns: data,
@@ -48,12 +53,12 @@ var renderPieChart = function(data, chartTitle) {
         }
       },
       title: {
-       text: chartTitle
+       text: descriptives.dataset_title
      }
    });
 }
 
-var renderBarChart = function(data, chartTitle) {
+var renderBarChart = function(data, descriptives) {
   c3.generate({
     data: {
       columns: data,
@@ -61,11 +66,11 @@ var renderBarChart = function(data, chartTitle) {
     },
     axis: {
       y: {
-        label:'In Millions' // this should be a variable
+        label: descriptives.y_axis_label // this should be a variable
       }
     },
     title: {
-      text: chartTitle
+      text: descriptives.dataset_title
     }
   });
 }
@@ -82,20 +87,19 @@ var downloadHandler = function(){
   })
 }
 
-var prepareData = function(serverResponse, chartType){
-  serverResponse.sort(function(a, b){
+var prepareData = function(incomingData, chartType){
+  incomingData.sort(function(a, b){
     return b.amount - a.amount;
   })
   var nestedArray = []
-  serverResponse.forEach(function(element){
+  incomingData.forEach(function(element){
     var label = element.label;
     var amount = element.amount;
     nestedArray.push([label, amount]);
   })
   var series = []
-
   if (chartType === 'pie') {
-    series = nestedArray.slice(0, 10); // use a variable that slices the interesting bit of the data. for education rate of women, you'd want to look at the last 10.
+    series = nestedArray.slice(0, 10); // use a variable that slices the interesting bit of the data.
     var other = 0;
     for (var i = 10; i < nestedArray.length; i++) {
       other += nestedArray[i][1];
