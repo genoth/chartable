@@ -35,20 +35,21 @@ def construct_parent_table(original_csv_file, child_table_headers, child_table_d
     # ^ DI real foreign key name will eventurally get passed into this method as an argument.
     new_table_headers.each do |new_table_column|
       new_table_row.store(new_table_column, original_row[new_table_column])
-      new_table_data << new_table_row
     end
+      new_table_data << new_table_row
   end
 
 
   # Write new data into new CSV file
   new_table_headers.unshift(:foreign_key_name)
-  CSV.open("db/child_table_test_destination.csv", "w") do |csv|
+  CSV.open("db/test_destination/child_table_test_destination.csv", "w") do |csv|
     csv << new_table_headers
     new_row_for_child_table = []
+    p new_table_data
     new_table_data.each do |child_table_row|
       new_row_for_child_table = []
       child_table_row.each_key {|header| new_row_for_child_table << child_table_row[header]}
-      p new_row_for_child_table
+      # p new_row_for_child_table
       csv << new_row_for_child_table
     end
   end

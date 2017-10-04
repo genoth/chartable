@@ -17,7 +17,7 @@ def construct_sub_entity(file_name, child_table_headers)
   # p child_table_data
 
 
-  CSV.open("db/parent_table_test_destination.csv", "w") do |csv|
+  CSV.open("db/test_destination/parent_table_test_destination.csv", "w") do |csv|
     csv << child_table_headers
     new_row_for_csv = []
     child_table_data.each do |child_table_row|
