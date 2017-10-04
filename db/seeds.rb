@@ -1,13 +1,13 @@
 require 'csv'
 require_relative '../config/environment'
-require_relative 'general_parser'
+require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
 
 
 
-file_name = ""
-namespace_table_name =
+# file_name = ""
+# namespace_table_name =
 
-general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
+general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
 
 
 
@@ -34,7 +34,7 @@ general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
 #   puts gender_inequality_data.share_of_women_w_some_secondary_education_25_and_up_2005_2014
 # end
 # TrumpAdminDebts.parse("db/trump_admin_debts.csv")
-CSV.foreach("db/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
+CSV.foreach("db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
 
   department = TrumpAdminDebts::Department.find_or_create_by!(name: row[:department])
   employee = TrumpAdminDebts::Employee.find_or_create_by!(last_name: row[:last_name], first_name: row[:first_name], department: department)
