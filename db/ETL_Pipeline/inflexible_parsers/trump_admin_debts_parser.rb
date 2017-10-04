@@ -1,4 +1,7 @@
-CSV.foreach("db/debts.csv", headers: true, header_converters: :symbol) do |row|
+require 'csv'
+require_relative '../config/environment'
+
+CSV.foreach("db/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
 
   department = TrumpAdminDebts::Department.find_or_create_by!(name: row[:department])
   employee = TrumpAdminDebts::Employee.find_or_create_by!(last_name: row[:last_name], first_name: row[:first_name], department: department)

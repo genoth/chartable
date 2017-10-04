@@ -1,3 +1,15 @@
+var prepareScatterData = function(data){
+  console.log("this is the data passed into our brand new function")
+  console.log(data)
+  data.sort(function(a, b) {
+    a.year - b.year;
+  })
+  console.log("here is our sorted data")
+  console.log(data)
+}
+
+////////////////////////////////
+
 $(document).ready(function(){
   visFormHandler();
 });
@@ -23,22 +35,11 @@ var visFormHandler = function(){
         produceChart(chartData, chartType, chartTitle);
       }
       else {
-        console.log("testing our new method")
-        var sortedScatterData = prepareScatterData(serverResponse)
-        produceChart(sortedScatterData, chartType, chartTitle);
+        produceChart(serverResponse, chartType, chartTitle);
       }
       renderDownloadButton();
     })
   })
-}
-
-var prepareScatterData = function(data){
-  console.log("this is the data passed into our brand new function")
-  console.log(data)
-  data.sort(function(a, b) {
-    return a.year - b.year;
-  })
-  return data
 }
 
 var produceChart = function(data, type, chartTitle){
@@ -50,8 +51,18 @@ var produceChart = function(data, type, chartTitle){
     renderBarChart(data, chartTitle);
   }
   else {
-   return renderScatterPlot(data, chartTitle);
+   return renderScatterPlot(prepareScatterData(data), chartTitle);
   }
+}
+
+var prepareScatterData = function(data){
+  console.log("this is the data passed into our brand new function")
+  console.log(data)
+  data.sort(function(a, b) {
+    a.year - b.year;
+  })
+  console.log("here is our sorted data")
+  console.log(data)
 }
 
 var renderPieChart = function(data, chartTitle) {
@@ -93,46 +104,30 @@ var renderBarChart = function(data, chartTitle) {
 var renderScatterPlot = function(data, chartTitle) {
   console.log("THIS IS THE DATA passed into the renderScatterPlot")
   console.log(data)
-
-  var scatterplotColumns = scatterPlotCreateColumns(data);
-
-  // maps each group's name to the label series. eg:
-  // {
-  //    "Male": "years_x",
-  //    "Female": "years_x"
-  //    "Both Sexes": "years_x"
-  // }
-  var labelData = {};
-  for(i = 1; i < scatterplotColumns.length; i++) {
-    labelData[scatterplotColumns[i][0]] = scatterplotColumns[0][0];
-  }
-
-
   c3.generate({
     data: {
       xsort: false,
-      xs: labelData,
-      columns: scatterplotColumns,
+      columns: scatterPlotCreateColumns(data),
       type: 'scatter'
     },
     title: {
       text: chartTitle
-    },
-    axis: {
-      x: {
-        label: 'Year',
-        tick: {
-          fit: true,
-        }
-      },
-      y: {
-        label: 'Age'
-      }
     }
   })
 }
 
 
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-div").on("submit", function(event){
+    event.preventDefault();
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+  })
+}
 
 var prepareData = function(serverResponse, chartType){
   serverResponse.sort(function(a, b){
@@ -186,41 +181,24 @@ var nestedColumns = function(uniqueArrayOfColumns){
   })
 }
 
-// this is the nested array C3 generator needs for scatterplot.
+// this is the nested array that C3 generator uses for scatterplot.
 // [["White", 81, 80, 79]
 // ["BLack", 79, 78, 76]
 // ["All races", 81, 80, 79]]
 var scatterPlotCreateColumns = function(data){
+  console.log("This is the data that's passed inot the scatterplotcreate columns method")
+  console.log(data)
   var scatterLabels = nestedColumns(scatterGroups(data))
-  var yearArray = ['years_x'];
   data.forEach(function(row){
     scatterLabels.forEach(function(labelArray){
       if(row["label"] === labelArray[0]){
         labelArray.push(row["amount"])
       }
     })
-    if (yearArray[yearArray.length - 1] !== row["year"]) {
-      yearArray.push(row["year"])
-    }
   })
-  console.log('YEAR ARRAY!!!', yearArray)
-  scatterLabels.unshift(yearArray);
-
   console.log("these are the scatter labels!")
   console.log(scatterLabels)
   return scatterLabels
 }
 
 // [{label: "Black", amount: 32.9}, {label: "Black", amount: 32.2}, {label: "Black", amount: 32.5}, {label: "White", amount: 78.0}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.1}, {label: "White", amount: 79.0}, {label: "White", amount: 78.9}, {label: "White", amount: 78.8}, {label: "White", amount: 78.5}]
-
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
-
-var downloadHandler = function(){
-  $("#download-div").on("submit", function(event){
-    event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
-  })
-}
