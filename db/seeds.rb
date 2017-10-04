@@ -4,7 +4,14 @@ require_relative 'general_parser'
 
 
 
+file_name = ""
+namespace_table_name =
+
 general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
+
+
+
+# DI 10-4-17 I can't really remember why we were preserving the below in comments. Can someone please help me decide what, if any, abiding relevance it has?
 
 # namespace_table_name
 # GenderInequality::GenderData
