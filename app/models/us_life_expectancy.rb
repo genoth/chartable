@@ -1,6 +1,6 @@
 module USLifeExpectancy
   def self.descriptors
-    ["Races", "Sexes", "Years"]
+    ["Races", "Sexes"]
   end
 
   def self.aggregations
@@ -9,9 +9,15 @@ module USLifeExpectancy
 
   def self.aggregation_sql_snippits
     {
-      # "Age Adjusted Death Rate" =>"avg(age_adjusted_death_rate) as avg",
       "Average Life Expectancy" => "average_life_expectancy as points"
     }
   end
 
+  def self.metadata
+      {
+      description: "This dataset of U.S. mortality trends since 1900 highlights the differences in age-adjusted death rates and life expectancy at birth by race and sex.",
+      dataset_title: "CDC: National Center for Health Statistics - Death Rates and Life Expectancy at Birth",
+      dataset_url: "https://data.cdc.gov/api/views/w9j2-ggv5"
+      }
+    end
 end

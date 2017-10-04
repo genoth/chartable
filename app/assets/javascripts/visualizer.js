@@ -80,6 +80,7 @@ var renderBarChart = function(data, chartTitle) {
 var renderScatterPlot = function(data, chartTitle) {
   c3.generate({
     data: {
+      xsort: false,
       columns:scatterPlotCreateColumns(data),
       type: 'scatter'
     },
