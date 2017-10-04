@@ -1,6 +1,4 @@
-"Seasonal average temperature departures compared with the 1961–1990 reference value, Canada, 1948 to 2014",,,,
-,,,,
-Year,Winter temperature departure (degrees Celsius),Spring temperature departure (degrees Celsius),Summer temperature departure (degrees Celsius),Fall temperature departure (degrees Celsius)
+temp_year,winter_temperature_celsius,spring_temperature_celsius,summer_temperature_celsius,fall_temperature_celsius
 1948,0.2,-1.8,0.5,1.7
 1949,-2,0.3,-0.2,0.8
 1950,-3,-0.9,-0.8,-0.9
@@ -68,7 +66,3 @@ Year,Winter temperature departure (degrees Celsius),Spring temperature departure
 2012,3.7,1.6,1.8,1.2
 2013,1.6,0.5,0.8,1.3
 2014,-0.4,-0.6,1,0.5
-,,,,
-"Note: Seasonal average temperature departures were computed for weather stations across Canada with sufficiently long data records to allow for trend calculation and were then interpolated to a 50-kilometre spaced grid. Seasonal grid points values were averaged together to produce a seasonal time series of temperature departures representing the entire country. Seasons are defined as winter (December, January, and February), spring (March, April, and May), summer (June, July, and August) and fall (September, October, and November).",,,,
-Source: Environment and Climate Change Canada (2015) Adjusted and Homogenized Canadian Climate Data (www.ec.gc.ca/dccha-ahccd/Default.asp?lang=En&n=B1F8423A-1).,,,,
-Available on the Canadian Environmental Sustainability Indicators (www.ec.gc.ca/indicateurs-indicators/default.asp?lang=En),,,,

@@ -1,7 +1,7 @@
 module CanadianClimate
 
     def self.descriptors
-      ["Country"]
+      ["Year"]
     end
 
     def self.aggregations
@@ -10,8 +10,10 @@ module CanadianClimate
 
     def self.aggregation_sql_snippits
       {
-      "Percentage of Women with Some Secondary Education, ages 25 and up" => "share_of_women_w_some_secondary_education_25_and_up_2005_2014",
-      "Share of Men with Some Secondary Education, ages 25 and up" => "share_of_men_w_some_secondary_education"
+      "Average Winter Temperature" => "winter_temperature_celsius",
+      "Average Spring Temperature" => "spring_temperature_celsius",
+      "Average Summer Temperature" => "summer_temperature_celsius",
+      "Average Fall Temperature" => "fall_temperature_celsius"
       }
     end
 
@@ -29,10 +31,11 @@ module CanadianClimate
 
     def self.metadata
       {
-      description: "This data is collected by the United Nations Development Programme and reflects the disadvantages faced by women worldwide in terms of reproductive health and participation in education, political office, and the workforce. Data is reported 'for as many countries as data of reasonable quality allow.' The index itself ranges from 0 to 1, with 0 meaning that men and women fare equally. Individual statistics are also reported and measured in percentages, as well as rate per 1000 (adolscent birth rate) or per 100,000 (maternal mortality).",
-      dataset_title: "Gender Inequality Index Data",
-      dataset_url: "https://data.humdata.org/dataset/gender-inequality-index",
-      dataset_source: "United Nations Development Programme"
+      description: "Seasonal average temperature departures were computed for weather stations across Canada with sufficiently long data records to allow for trend calculation and were then interpolated to a 50-kilometre spaced grid. Seasonal grid points values were averaged together to produce a seasonal time series of temperature departures representing the entire country. Seasons are defined as winter (December, January, and February), spring (March, April, and May), summer (June, July, and August) and fall (September, October, and November).",
+      dataset_title: "Seasonal average temperature departures compared with the 1961–1990 reference value, Canada, 1948 to 2014",
+      dataset_url: "www.ec.gc.ca/dccha-ahccd/Default.asp?lang=En&n=B1F8423A-1",
+      dataset_source: "Environment and Climate Change Canada (2015) Adjusted and Homogenized Canadian Climate Data"
+      #www.ec.gc.ca/indicateurs-indicators/default.asp?lang=En was also given as a url
       }
     end
 end
