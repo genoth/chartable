@@ -25,7 +25,9 @@ general_parser("db/gender_inequality.csv", GenderInequality::GenderData)
 #   puts gender_inequality_data.gender_inequality_index_2014
 #   puts gender_inequality_data.share_of_women_w_some_secondary_education_25_and_up_2005_2014
 # end
-# TrumpAdminDebts.parse("db/debts.csv")
+
+
+# TrumpAdminDebts.parse("db/trump_admin_debts.csv")
 CSV.foreach("db/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
 
   department = TrumpAdminDebts::Department.find_or_create_by!(name: row[:department])

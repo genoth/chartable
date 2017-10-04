@@ -14,28 +14,22 @@ module USLifeExpectancy
 
       if @params[:descriptors] == "Races"
         query = USLifeExpectancy::Statistic
-            .select("#{aggregator_SQL_string}, statistics.race_id")
+            .select("#{aggregator_SQL_string}, statistics.race_id, statistics.year_id")
             .includes(:race)
-            .group("statistics.race_id")
-            p query
-          @dataset = query.map { |r| p r; [r.avg, r.race.race] }
+            .includes(:year)
+            .group('statistics.race_id, statistics.year_id')
+          @dataset = query.map { |r| [r.points, r.race.race, r.year.year] }
       elsif @params[:descriptors] == "Sexes"
         query = USLifeExpectancy::Statistic
-            .select("#{aggregator_SQL_string}, statistics.sex_id")
+            .select("#{aggregator_SQL_string}, statistics.sex_id, statistics.year_id")
             .includes(:sex)
-            .group("statistics.sex_id")
-            p query
-          @dataset = query.map { |r| p r; [r.avg, r.sex.sex] }
-      elsif @params[:descriptors] == "Years"
-        query = USLifeExpectancy::Statistic
-            .select("#{aggregator_SQL_string}, statistics.year_id")
             .includes(:year)
-            .group("statistics.year_id")
+            .group('statistics.sex_id, statistics.year_id')
             p query
-          @dataset = query.map { |r| p r; [r.avg, r.year.year] }
+          @dataset = query.map { |r| [r.points, r.sex.sex, r.year.year] }
       end
 
-      @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
+      @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0], year:sub_array[2] } }
     end
   end
 end
