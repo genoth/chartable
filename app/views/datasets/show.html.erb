@@ -30,6 +30,13 @@
     <input type="submit" value="Download">
     <% end %>
   </div>
+  <div id="descriptive-metadata">
+    <p>About the data:</p>
+    <%= @descriptive_metadata[:description] %>
+    <p>Source:
+      <a href="<%=@descriptive_metadata[:dataset_url]%>"><%= @descriptive_metadata[:dataset_source] %></a>
+      </p>
+  </div>
 
 
 

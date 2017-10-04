@@ -6,7 +6,6 @@ var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
     var $form = $(this);
-    console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     var $aggregatorToAppend = $(":selected")[0].value;
     var $descriptorToAppend = $(":selected")[1].value;
