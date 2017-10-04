@@ -8,8 +8,8 @@ var visFormHandler = function(){
     var $form = $(this);
     console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
-    var $aggregatorToAppend = $(":selected")[0].value;
-    var $descriptorToAppend = $(":selected")[1].value;
+    // var $aggregatorToAppend = $(":selected")[0].value;
+    // var $descriptorToAppend = $(":selected")[1].value;
     $request = $.ajax({
       url: $form.attr("url"),
       data: $form.serialize(),
@@ -17,7 +17,9 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
-      var chartTitle = $aggregatorToAppend + " by " + $descriptorToAppend;
+      var dataTitle = serverResponse[1].dataset_title
+      var subTitle = serverResponse[1].subtitle
+      var chartTitle = [dataTitle,subTitle]
       ///// chartData
       var chartData = prepareData(serverResponse[0], chartType);
       if(chartType === "bar" || chartType === "pie"){
@@ -69,7 +71,7 @@ var renderPieChart = function(data, chartTitle) {
         }
       },
       title: {
-       text: chartTitle
+       text: chartTitle[0] + " - " + chartTitle[1]
      }
    });
 }
@@ -86,7 +88,7 @@ var renderBarChart = function(data, chartTitle) {
       }
     },
     title: {
-      text: chartTitle
+      text: chartTitle[0] + " - " + chartTitle[1]
     }
   });
 }
@@ -117,7 +119,7 @@ var renderScatterPlot = function(data, chartTitle) {
       type: 'scatter'
     },
     title: {
-      text: chartTitle
+      text:  chartTitle[0] + " - " + chartTitle[1]
     },
     axis: {
       x: {
