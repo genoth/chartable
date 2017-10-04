@@ -1,7 +1,7 @@
 module CanadianClimate
 
     def self.descriptors
-      ["Year"]
+      ["Years"]
     end
 
     def self.aggregations
