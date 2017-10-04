@@ -1,21 +1,24 @@
 require 'csv'
 require_relative '../config/environment'
 require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
-
+require_relative '../app/models/canadian_temp_data/canadian_climate_data.rb'
+# DI 10-4-17 2:58 we need to figure out why it can't find TempYear without this
 
 ## AUTOMATIC SEEDING WITH GENERALIZED PARSERS ##
 
   # namespace_table_name = GenderInequality::GenderData
 
-autoparsable_datasets = {
   #dataset_label: {raw_csv_filepath: '/filepath_string', dataset_db_destination: 'namespace_table_name'},
-  gender_inequality: {raw_csv_filepath: 'db/ETL_Pipeline/raw_CSVs/gender_inequality.csv', dataset_db_destination: 'GenderInequality::GenderData'},
-  canadian_climate: {raw_csv_filepath: 'db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv', dataset_db_destination: 'CanadianClimate::TempYear'}
-}
-
+autoparsable_datasets = [
+  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
+  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
+]
+# p autoparsable_datasets.values
 #general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
-autoparsable_datasets.each_key do |dataset|
-  general_parser(dataset[raw_csv_filepath], dataset[dataset_db_destination])
+#general_parser("db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", CanadianClimate::TempYear)
+autoparsable_datasets.each do |dataset|
+  p dataset
+  general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
 end
 
 

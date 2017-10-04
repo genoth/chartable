@@ -1,4 +1,4 @@
 module CanadianClimate
-    class TempYears < ActiveRecord::Base
+    class TempYear < ActiveRecord::Base
     end
 end
