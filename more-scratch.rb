@@ -1,3 +1,70 @@
+module GenderInequality
+  class Query
+    def initialize(params)
+      @params = params
+      @descriptors = @params[:descriptors]
+      @aggregations = @params[:aggregations]
+    end
+
+    def data
+      if @params[:chart] == "scatter"
+        scatter_data
+      elsif @params[:chart] == "bar"
+        bar_data # right now this is never going to happen
+      elsif @params[:chart] == "pie"
+        pie_data # right now this is never going to happen
+      end
+    end
+
+    def education_query(aggregator_SQL_string)
+    def scatter_data
+      aggregator_SQL_string = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+
+      if @aggregations == "Share of Women with Some Secondary Education"
+        query = GenderInequality::GenderData
+        .select("gender_inequality_index_2014, country, share_of_women_w_some_secondary_education_25_and_up_2005_2014").where("gender_inequality_index_2014 IS NOT null").where("share_of_women_w_some_secondary_education_25_and_up_2005_2014 IS NOT null")
+        @dataset = query.map { |result| [result.gender_inequality_index_2014, result.country, result.share_of_women_w_some_secondary_education_25_and_up_2005_2014] }
+      end
+      label_data = {Country: "education_x"}
+      x_axis = ["education_x"]
+
+      @dataset.each do |subarray|
+        x_axis.push(subarray[2])
+      end
+      full_column_list = []
+      full_column_list.push(x_axis)
+
+      @dataset.each do |subarray|
+        full_column_list.push([subarray[1], subarray[0]])
+      end
+
+      full_column_list
+      # thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+      # query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
+
+      # @dataset = query.map { |row| [row, row.country]}
+
+      # @dataset = @dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
+    end
+
+    def pie_data
+    end
+
+    def bar_data
+    end
+
+    def scatter_data
+      aggregator_SQL_string = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+
+      if @params[:descriptors] == "Country"
+        query = GenderInequality::GenderData
+        .select("gender_inequality_index_rank_2014, country, share_of_women_w_some_secondary_education_25_and_up_2005_2014")
+        @dataset = query.map { |result| [result.country] }
+      end
+    end
+
+  end
+end
 # // this is before it comes back from the database
 
 giant_nested_array = [[64.3666666666667, "White", 1943], [73.3333333333333, "All Races", 1977], [77.5666666666667, "All Races", 2005], [79.0666666666667, "White", 2012], [68.0666666666667, "Black", 1978], [64.9333333333333, "White", 1939], [60.2, "Black", 1948], [77.4666666666667, "White", 2001], [74.4, "White", 1980], [46.3, "Black", 1928], [64.4333333333333, "White", 1933], [71.7666666666667, "White", 1970], [64.5333333333333, "Black", 1961], [67.9666666666667, "All Races", 1949], [74.6, "Black", 2009], [72.0666666666667, "White", 1972], [76.3, "White", 1993], [61.5333333333333, "White", 1924], [70.8666666666667, "White", 1963], [73.6666666666667, "White", 1976], [70.7, "White", 1960], [77.3, "White", 2000], [52.9666666666667, "Black", 1938], [74.5666666666667, "All Races", 1983], [70.2666666666667, "All Races", 1966], [68.3, "All Races", 1950], [60.5, "All Races", 1927], [76.6666666666667, "All Races", 1999]]

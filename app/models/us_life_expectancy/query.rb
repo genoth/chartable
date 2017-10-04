@@ -17,20 +17,6 @@ module USLifeExpectancy
       end
     end
 
-    def scatter_data
-      aggregator_SQL_string = USLifeExpectancy.aggregation_sql_snippits[@params[:aggregations]]
-      if @descriptors == "Races" # "Races" as string
-        labels = ["All Races", "Black", "White"]
-        dataset = race_descriptor_query(aggregator_SQL_string)
-        generate_c3_columns(dataset, labels)
-      elsif @descriptors == "Sexes"
-        labels = ["Both Sexes", "Female", "Male"]
-        dataset = sex_descriptor_query(aggregator_SQL_string)
-        generate_c3_columns(dataset, labels)
-      end
-    end
-
-# ["Statistics", "Races", "Sexes", "Years"]
     def race_descriptor_query(aggregator_SQL_string)
       query = USLifeExpectancy::Statistic
         .select("#{aggregator_SQL_string}, statistics.race_id, statistics.year_id") # race_id
@@ -48,6 +34,21 @@ module USLifeExpectancy
           .group('statistics.sex_id, statistics.year_id')
       @dataset = query.map { |r| [r.points, r.sex.sex, r.year.year] }
     end
+
+    def scatter_data
+      aggregator_SQL_string = USLifeExpectancy.aggregation_sql_snippits[@params[:aggregations]]
+      if @descriptors == "Races" # "Races" as string
+        labels = ["All Races", "Black", "White"]
+        dataset = race_descriptor_query(aggregator_SQL_string)
+        generate_c3_columns(dataset, labels)
+      elsif @descriptors == "Sexes"
+        labels = ["Both Sexes", "Female", "Male"]
+        dataset = sex_descriptor_query(aggregator_SQL_string)
+        generate_c3_columns(dataset, labels)
+      end
+    end
+
+# ["Statistics", "Races", "Sexes", "Years"]
 
     def generate_c3_columns(dataset, labels)
       x_axis = ["years_x"]
