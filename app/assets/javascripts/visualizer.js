@@ -20,6 +20,8 @@ var visFormHandler = function(){
       var dataTitle = serverResponse[1].dataset_title
       var subTitle = serverResponse[1].subtitle
       var chartTitle = [dataTitle,subTitle]
+      // var strongParams = serverResponse[2].strong_params
+      // console.log(strongParams)
       ///// chartData
       var chartData = prepareData(serverResponse[0], chartType);
       if(chartType === "bar" || chartType === "pie"){

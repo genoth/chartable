@@ -36,8 +36,10 @@ class DatasetsController < ApplicationController
       return
     end
 
+    url_params = {params_string: strong_params(params[:aggregations],params[:descriptors],params[:chart])}
     subtitle = {subtitle: "#{params[:aggregations]} by #{params[:descriptors]}"}
-    @descriptive_metadata = dataset_klass.metadata.merge(subtitle)
+    @descriptive_metadata = dataset_klass.metadata.merge(subtitle).merge(url_params)
+    p @descriptive_metadata
     @dataset = dataset_klass::Query.new(params).data
 
     render json: [@dataset, @descriptive_metadata]
@@ -53,6 +55,12 @@ private
       'gender_inequality' => GenderInequality,
       'canadian_climate' => CanadianClimate
     }
+  end
+
+  def strong_params(aggregation, descriptors, chart_type)
+    aggregation = aggregation.split(" ").join("%20")
+    descriptors = descriptors.split(" ").join("%20")
+    return "?aggregation=#{aggregation}&descriptors=#{descriptors}&visualization=#{chart_type}"
   end
 
 end
