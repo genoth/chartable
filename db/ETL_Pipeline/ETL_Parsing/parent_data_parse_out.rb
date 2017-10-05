@@ -32,7 +32,7 @@ def construct_sub_entity(file_name, child_table_headers)
 end
 
 
-filename = 'db/trump_admin_debts.csv'
+filename = 'db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv'
 child_table_headers = [:department, :last_name, :first_name]
 # ^ DI - why did :Department with a capital D not work?
 construct_sub_entity(filename, child_table_headers)

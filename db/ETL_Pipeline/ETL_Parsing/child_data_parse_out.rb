@@ -56,7 +56,7 @@ def construct_parent_table(original_csv_file, child_table_headers, child_table_d
 end
 
 # original_csv_file = 'hard_coded_filepath_string'
-original_csv_file = 'db/trump_admin_debts.csv'
+original_csv_file = 'db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv'
 # child_table_headers = ['hard_coded_array']
 child_table_headers = [:department, :last_name, :first_name]
 # child_table_data = ['hard_coded_array_of_hashes']
