@@ -48,6 +48,12 @@ select, input {
   font-size: 1em;
 }
 
+/*Fonts for dataset show page*/
+#dataset-title p {
+  font-weight: bold;
+}
+
+
 
 
 
