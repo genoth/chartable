@@ -1,10 +1,23 @@
 require 'csv'
 
-def construct_child_table(original_csv_file, parent_table_headers, parent_table_data)
+#get ride of parent_table_data as an argument, it can construct it internally
+def construct_child_table(original_csv_file, parent_table_headers)
+
+  parent_table_data = []
+
+  CSV.foreach(file_name, headers: true, header_converters: :symbol) do |original_row|
+    parent_table_row = Hash.new
+    parent_table_headers.each do |parent_table_column|
+      parent_table_row.store(parent_table_column, original_row[parent_table_column])
+      parent_table_data << parent_table_row
+      parent_table_data.uniq!
+    end
+  end
+
+
 
   original_csv_headers = CSV.read(original_csv_file, headers: true, header_converters: :symbol).headers
   child_table_headers = (original_csv_headers - parent_table_headers)
-  # child_table_headers.unshift(:foreign_key_name)
 
   child_table_data = []
 
