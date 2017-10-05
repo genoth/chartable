@@ -42,8 +42,6 @@ module TrumpAdminDebts
       end
 
       dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
-      puts "This is the PREPARED dataset....."
-      p prepared_data(dataset)
       return prepared_data(dataset)
     end
 
@@ -56,19 +54,12 @@ module TrumpAdminDebts
     end
 
     def sorted_by_amount(dataset)
-      puts "this is what comes into the sorted_by_amount thingy"
-      p dataset
       sorted_dataset = dataset.sort_by { |sub_array| sub_array[1] }
-      puts "this is what comes out of the sroted_by_amount thingy"
-      p sorted_dataset.reverse
       sorted_dataset.reverse
     end
 
     def top_10_and_others(dataset)
-      top_ten = dataset.first(10)
-      puts "this is the top 10"
-      p top_ten
-
+      top_10 = dataset.first(10)
       others = dataset.slice(10, dataset.length)
       others_condensed = ["Others"]
       total_others = 0
@@ -77,12 +68,26 @@ module TrumpAdminDebts
         total_others += sub_array[1]
       end
 
-
       others_condensed.push(total_others)
       all_the_things = top_ten.push(others_condensed)
-      puts "this is all the things man"
-      p all_the_things
     end
 
   end
 end
+
+# def top_n_and_others(dataset)
+#       n = @params[:limit_number]
+#       top_n = dataset.first(n)
+#       puts "this is the top 10"
+
+#       others = dataset.slice(10, dataset.length)
+#       others_condensed = ["Others"]
+#       total_others = 0
+
+#       others.each do |sub_array|
+#         total_others += sub_array[1]
+#       end
+
+#       others_condensed.push(total_others)
+#       all_the_things = top_ten.push(others_condensed)
+#     end

@@ -10,6 +10,7 @@ class DatasetsController < ApplicationController
     end
 
     @descriptive_metadata = dataset_klass.metadata
+    @diagram_types = dataset_klass.metadata
 
     @diagram_form_inputs = {
       pie: {
