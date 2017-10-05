@@ -1,44 +1,27 @@
+
+[
+  [
+    ["White House", 387.085],
+    ["Department of Commerce", 44.365],
+    ["Department of the Treasury", 39.755],
+    ["Department of Education", 6.225],
+    ["Department of Housing and Urban Development", 4.065],
+    ["Environmental Protection Agency", 3.925],
+    ["Department of the Interior", 2.55],
+    ["Department of Labor", 2.1],
+    ["Department of Agriculture", 1.55], [
+    "Department of Health and Human Services", 1.28],
+    ["Others", 6.779999999999999]
+  ],
+  [
+    {hello: "hi", this_cool: "yep"}
+  ]
+]
+
+
 $(document).ready(function(){
-  var url = document.URL;
-  // if no query params
-  if (url.includes('?')){
-    urlFormatter(url)
-  }
-  else{
-    visFormHandler();
-  }
-  // visFormHandler();
-  // urlFormatter(url)
-  //if query params
-  //other method, that makes ajax call w/o $form
+  visFormHandler();
 });
-
-// var autoChart = function(){
-//   $.ajax({
-//     url: '/path/to/file',
-//     type: 'default GET (Other values: POST)',
-//     dataType: 'default: In telligent Guess (Other values: xml, json, script, or html)',
-//     data: {param1: 'value1'},
-//   })
-//   .done(function() {
-//     console.log("success");
-//   })
-// }
-
-var urlFormatter = function(url){
-  console.log("THIS IS THE URL FORMATTER")
-  var paramsIndex = url.search('/datasets/') + 9
-  var urlParams = url.slice(paramsIndex)
-
-  var dataSet =
-  var aggregation =
-  var descriptor =
-  var chartKind =
-  var limit =
-  var order =
-
-
-}
 
 var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
@@ -53,26 +36,34 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
-      var dataTitle = serverResponse[1].dataset_title
-      var subTitle = serverResponse[1].subtitle
-      var chartTitle = [dataTitle,subTitle]
-      // var strongParams = serverResponse[2].strong_params
-      // console.log(strongParams)
-      ///// chartData
-      var chartData = prepareData(serverResponse[0], chartType);
-      if(chartType === "bar" || chartType === "pie"){
-        produceChart(chartData, chartType, chartTitle);
-      }
-      else {
-        console.log("testing our new method")
-        var sortedScatterData = prepareScatterData(serverResponse[0])
-        produceChart(sortedScatterData, chartType, chartTitle);
+      console.log("this is the server response weeeeeeeee")
+      console.log(serverResponse)
+      var descriptives = serverResponse[1]
+      var dataTitle = descriptives.dataset_title
+      var subTitle = descriptives.subtitle
+      var chartTitle = [dataTitle + " - " + subTitle]
+
+      var chartData = serverResponse[0]
+
+      if(chartType === "bar") {
+        renderBarChart(chartData, descriptives, chartTitle)
+      } else if(chartType === "pie"){
+        renderPieChart(chartData, descriptives, chartTitle);
+      } else {
+        renderScatterPlot(chartData, descriptives, chartTitle)
       }
       renderDownloadButton();
     })
   })
 }
 
+// var produceChart = function(data, type, chartTitle){
+//   if (type === "pie") {
+//     renderPieChart(data, chartTitle);
+//   } else {
+//     renderBarChart(data, chartTitle);
+//   }
+// }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
@@ -135,18 +126,6 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
   })
 }
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
-
-var downloadHandler = function(){
-  $("#download-div").on("submit", function(event){
-    event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
-  })
-}
-
 // var prepareData = function(serverResponse, chartType){
 //   // serverResponse.sort(function(a, b){
 //   //   return b.amount - a.amount;
@@ -178,6 +157,17 @@ var downloadHandler = function(){
 //   return series;
 // }
 
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-div").on("submit", function(event){
+    event.preventDefault();
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+  })
+}
 
 // $(document).ready(function(){
 //   visFormHandler();

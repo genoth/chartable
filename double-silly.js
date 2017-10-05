@@ -1,44 +1,6 @@
 $(document).ready(function(){
-  var url = document.URL;
-  // if no query params
-  if (url.includes('?')){
-    urlFormatter(url)
-  }
-  else{
-    visFormHandler();
-  }
-  // visFormHandler();
-  // urlFormatter(url)
-  //if query params
-  //other method, that makes ajax call w/o $form
+  visFormHandler();
 });
-
-// var autoChart = function(){
-//   $.ajax({
-//     url: '/path/to/file',
-//     type: 'default GET (Other values: POST)',
-//     dataType: 'default: In telligent Guess (Other values: xml, json, script, or html)',
-//     data: {param1: 'value1'},
-//   })
-//   .done(function() {
-//     console.log("success");
-//   })
-// }
-
-var urlFormatter = function(url){
-  console.log("THIS IS THE URL FORMATTER")
-  var paramsIndex = url.search('/datasets/') + 9
-  var urlParams = url.slice(paramsIndex)
-
-  var dataSet =
-  var aggregation =
-  var descriptor =
-  var chartKind =
-  var limit =
-  var order =
-
-
-}
 
 var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
@@ -53,31 +15,37 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
+      console.log(serverResponse)
       var dataTitle = serverResponse[1].dataset_title
       var subTitle = serverResponse[1].subtitle
       var chartTitle = [dataTitle,subTitle]
-      // var strongParams = serverResponse[2].strong_params
-      // console.log(strongParams)
-      ///// chartData
       var chartData = prepareData(serverResponse[0], chartType);
       if(chartType === "bar" || chartType === "pie"){
         produceChart(chartData, chartType, chartTitle);
       }
       else {
-        console.log("testing our new method")
-        var sortedScatterData = prepareScatterData(serverResponse[0])
-        produceChart(sortedScatterData, chartType, chartTitle);
+        renderScatterPlot(serverResponse[0], chartTitle)
       }
       renderDownloadButton();
     })
   })
 }
 
+var produceChart = function(data, type, chartTitle){
+  if (type === "pie") {
+    renderPieChart(data, chartTitle);
+  } else if (type === "bar") {
+    renderBarChart(data, chartTitle);
+  }
+  else {
+   return renderScatterPlot(data, chartTitle);
+  }
+}
 
-var renderPieChart = function(chartData, descriptives, chartTitle) {
+var renderPieChart = function(data, chartTitle) {
   c3.generate({
       data: {
-        columns: chartData,
+        columns: data,
         type:'pie'
       },
       pie: {
@@ -88,15 +56,15 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
         }
       },
       title: {
-       text: chartTitle
+       text: chartTitle[0] + " - " + chartTitle[1]
      }
    });
 }
 
-var renderBarChart = function(chartData, descriptives, chartTitle) {
+var renderBarChart = function(data, chartTitle) {
   c3.generate({
     data: {
-      columns: chartData,
+      columns: data,
       type : 'bar'
     },
     axis: {
@@ -105,21 +73,24 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
       }
     },
     title: {
-      text: chartTitle
+      text: chartTitle[0] + " - " + chartTitle[1]
     }
   });
 }
 
-var renderScatterPlot = function(chartData, descriptives, chartTitle) {
+var renderScatterPlot = function(data, chartTitle) {
+  console.log("this is our data we're about to give to C3")
+  console.log(data)
+
   c3.generate({
     data: {
       xsort: false,
-      x:  chartData[0][0],
-      columns: chartData,
+      x:  'years_x',
+      columns: data,
       type: 'scatter'
     },
     title: {
-      text:  chartTitle
+      text:  chartTitle[0] + " - " + chartTitle[1]
     },
     axis: {
       x: {
@@ -135,6 +106,34 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
   })
 }
 
+var prepareData = function(serverResponse, chartType){
+  serverResponse.sort(function(a, b){
+    return b.amount - a.amount;
+  })
+  var nestedArray = []
+  serverResponse.forEach(function(element){
+    var label = element.label;
+    var amount = element.amount;
+    nestedArray.push([label, amount]);
+  })
+  var series = []
+
+  if (chartType === 'pie') {
+    series = nestedArray.slice(0, 10); // use a variable that slices the interesting bit of the data. for education rate of women, you'd want to look at the last 10.
+    var other = 0;
+    for (var i = 10; i < nestedArray.length; i++) {
+      other += nestedArray[i][1];
+    }
+    series.push([String(nestedArray.length - 10) + " Others", Math.round(other, 2)]) // this math might hcange slightly depending on the slicing above
+  } else if (chartType === 'bar'){ // 'bar'
+    series = nestedArray.slice(0, 10); // another dependency on the above
+  }
+  else if (chartType === 'scatter'){ // 'bar'
+    series = nestedArray; // another dependency on the above
+  }
+  return series;
+}
+
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
   downloadHandler();
@@ -146,38 +145,6 @@ var downloadHandler = function(){
     saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
 }
-
-// var prepareData = function(serverResponse, chartType){
-//   // serverResponse.sort(function(a, b){
-//   //   return b.amount - a.amount;
-//   // })
-//   // var nestedArray = []
-//   // serverResponse.forEach(function(element){
-//   //   var label = element.label;
-//   //   var amount = element.amount;
-//   //   nestedArray.push([label, amount]);
-//   // })
-//   // var series = []
-
-//   // if (chartType === 'pie') {
-//   //   series = nestedArray.slice(0, 10); // use a variable that slices the interesting bit of the data. for education rate of women, you'd want to look at the last 10.
-//   //   var other = 0;
-//   //   for (var i = 10; i < nestedArray.length; i++) {
-//   //     other += nestedArray[i][1];
-//   //   }
-//   //   series.push([String(nestedArray.length - 10) + " Others", Math.round(other, 2)]) // this math might hcange slightly depending on the slicing above
-//   // } else if (chartType === 'bar'){ // 'bar'
-//   //   series = nestedArray.slice(0, 10); // another dependency on the above
-//   // }
-//   // else
-//   if (chartType === 'scatter'){ // 'bar'
-//     series = nestedArray; // another dependency on the above
-//   }
-//   console.log("this is the series!!!!!")
-//   console.log(series)
-//   return series;
-// }
-
 
 // $(document).ready(function(){
 //   visFormHandler();
