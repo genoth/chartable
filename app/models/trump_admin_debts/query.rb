@@ -68,9 +68,11 @@ module TrumpAdminDebts
         others_condensed = [ "#{number_of_others} Others"]
         others_condensed.push(total_sum_others)
         return limit_n.push(others_condensed)
+
       elsif @params[:order] == "bottom"
         return dataset.last(limit_selected)
       end
+
     end
 
     def select_limit
