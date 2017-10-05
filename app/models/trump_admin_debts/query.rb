@@ -16,8 +16,6 @@ module TrumpAdminDebts
           .joins(:department)
           .group("departments.name")
         dataset = query.map { |r| [r.sum, r.name] }
-        puts "this is the dataset just after the query happened"
-        p dataset
 
       elsif @params[:descriptors] == "Employees"
         query = TrumpAdminDebts::Debt
@@ -46,7 +44,7 @@ module TrumpAdminDebts
     end
 
     def prepared_data(dataset)
-      top_10_and_others(sorted_by_amount(full_series(dataset)))
+      limit_n_and_others(sorted_by_amount(full_series(dataset)))
     end
 
     def full_series(dataset)
@@ -58,29 +56,48 @@ module TrumpAdminDebts
       sorted_dataset.reverse
     end
 
-    def top_10_and_others(dataset)
-      top_10 = dataset.first(10)
-      others = dataset.slice(10, dataset.length)
-      others_condensed = ["Others"]
-      total_others = 0
+    def limit_n_and_others(dataset)
+      puts "this is the current dataset"
+      p dataset
+      total_amount_others = 0
+      limit_selected = (@params[:limit]).to_i
 
-      others.each do |sub_array|
-        total_others += sub_array[1]
+      if @params[:order] == "top"
+        limit_n = dataset.first(limit_selected)
+        others = dataset.slice(limit_selected, dataset.length)
+        puts "this is others"
+        p others
+      elsif @params[:order] == "bottom"
+        limit_n = dataset.last(limit_selected)
+        others = dataset.slice(0, limit_selected)
+        puts "this is others"
+        p others
       end
 
-      others_condensed.push(total_others)
-      all_the_things = top_10.push(others_condensed)
+      others.each do |sub_array|
+        total_amount_others += sub_array[1]
+      end
+      puts "this is the total amount others"
+      p total_amount_others
+
+
+      others_condensed = ["Others"]
+      others_condensed.push(total_amount_others)
+      all_the_things = limit_n.push(others_condensed)
+    end
+
+    def select_limit
     end
 
   end
 end
 
-# def top_n_and_others(dataset)
+# def limit_n_and_others(dataset)
 #       n = @params[:limit_number]
 #       top_n = dataset.first(n)
-#       puts "this is the top 10"
+#       puts "this is the top n"
 
-#       others = dataset.slice(10, dataset.length)
+#       others = dataset.slice(n, dataset.length)
 #       others_condensed = ["Others"]
 #       total_others = 0
 
