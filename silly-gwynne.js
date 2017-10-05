@@ -1,3 +1,24 @@
+
+[
+  [
+    ["White House", 387.085],
+    ["Department of Commerce", 44.365],
+    ["Department of the Treasury", 39.755],
+    ["Department of Education", 6.225],
+    ["Department of Housing and Urban Development", 4.065],
+    ["Environmental Protection Agency", 3.925],
+    ["Department of the Interior", 2.55],
+    ["Department of Labor", 2.1],
+    ["Department of Agriculture", 1.55], [
+    "Department of Health and Human Services", 1.28],
+    ["Others", 6.779999999999999]
+  ],
+  [
+    {hello: "hi", this_cool: "yep"}
+  ]
+]
+
+
 $(document).ready(function(){
   visFormHandler();
 });
@@ -15,10 +36,13 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
+      console.log("this is the server response weeeeeeeee")
+      console.log(serverResponse)
       var descriptives = serverResponse[1]
       var dataTitle = descriptives.dataset_title
       var subTitle = descriptives.subtitle
       var chartTitle = [dataTitle + " - " + subTitle]
+
       var chartData = serverResponse[0]
 
       if(chartType === "bar") {
@@ -32,6 +56,14 @@ var visFormHandler = function(){
     })
   })
 }
+
+// var produceChart = function(data, type, chartTitle){
+//   if (type === "pie") {
+//     renderPieChart(data, chartTitle);
+//   } else {
+//     renderBarChart(data, chartTitle);
+//   }
+// }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
@@ -94,18 +126,6 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
   })
 }
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
-
-var downloadHandler = function(){
-  $("#download-div").on("submit", function(event){
-    event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
-  })
-}
-
 // var prepareData = function(serverResponse, chartType){
 //   // serverResponse.sort(function(a, b){
 //   //   return b.amount - a.amount;
@@ -137,6 +157,17 @@ var downloadHandler = function(){
 //   return series;
 // }
 
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+var downloadHandler = function(){
+  $("#download-div").on("submit", function(event){
+    event.preventDefault();
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+  })
+}
 
 // $(document).ready(function(){
 //   visFormHandler();
