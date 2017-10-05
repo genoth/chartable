@@ -2,17 +2,16 @@ class DatasetsController < ApplicationController
 # get the form
   def show
     dataset_klass = data_sets[params[:id]]
-    puts "got here"
+    # puts "got here"
     if !dataset_klass
       redirect_to '/'
       #render errors? flash?
       return
     end
-    p dataset_klass
     @descriptive_metadata = dataset_klass.metadata
     @diagram_types = allowed_charts[params[:id]]
-    puts "these are the diagram types"
-    p @diagram_types
+    # puts "these are the diagram types"
+    # p @diagram_types
 
     @diagram_form_inputs = {
       pie: {
@@ -44,15 +43,6 @@ class DatasetsController < ApplicationController
 
 
 private
-  def allowed_charts
-    {
-      'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
-      'life_expectancy' => {:scatter => "Scatter Plot"},
-      'gender_inequality' => {:bar => "Bar Graph"},
-      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
-    }
-  end
-
   def data_sets
     {
       'trump' => TrumpAdminDebts,
@@ -61,6 +51,16 @@ private
       'canadian_climate' => CanadianClimate
     }
   end
+
+  def allowed_charts
+    {
+      'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
+      'life_expectancy' => {:scatter => "Scatter Plot"},
+      'gender_inequality' => {:bar => "Bar Graph", :scatter => "Scatter Plot"},
+      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
+    }
+  end
+
 
 end
 

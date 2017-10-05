@@ -15,6 +15,7 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
+      console.log(serverResponse)
       var descriptives = serverResponse[1]
       var dataTitle = descriptives.dataset_title
       var subTitle = descriptives.subtitle

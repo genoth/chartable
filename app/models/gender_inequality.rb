@@ -1,7 +1,8 @@
 module GenderInequality
 
     def self.descriptors
-      ["Country"]
+      ["Country", {"Gender Inequality Index" => "gender_inequality_index_2014"},
+        {"Gender Inequality Index - World Rank" => "gender_inequality_index_rank_2014"}]
     end
 
     def self.aggregations
@@ -10,8 +11,6 @@ module GenderInequality
 
     def self.aggregation_sql_snippits
       {
-        "Gender Inequality Index" => "gender_inequality_index_2014",
-        "Gender Inequality Index - World Rank" => "gender_inequality_index_rank_2014",
         "Maternal Mortality per 100,000" => "maternal_mortality_per_100k_2013",
         "Adolescent Birth Rate per 1,000" => "adolescent_birth_rate_per_1k",
         "Women's share of seats in Parliament" => "womens_share_of_seats_in_parliament_2014",
@@ -23,15 +22,10 @@ module GenderInequality
     end
 
     # metadata notes
-
     # write a method that determines the appropriate y-axis label for a bar chart based on the form submission
-
     # write a method that determines a unit (e.g. percentage, per 1000, etc.) for the pie chart based on the form submission
-
     # define the data type of each column
-
     # define the number of columns?
-
     # define the column names
 
     def self.metadata

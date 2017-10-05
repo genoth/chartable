@@ -57,38 +57,24 @@ module TrumpAdminDebts
     end
 
     def limit_n_and_others(dataset)
-      puts "this is the current dataset"
-      p dataset
-      total_amount_others = 0
+
       limit_selected = (@params[:limit]).to_i
 
       if @params[:order] == "top"
         limit_n = dataset.first(limit_selected)
         others = dataset.slice(limit_selected, dataset.length)
-        puts "this is others"
-        p others
+        total_sum_others = others.reduce {|sum, sub_array| sub_array[1] }
+        number_of_others = others.length
+        others_condensed = [ "#{number_of_others} Others"]
+        others_condensed.push(total_sum_others)
+        return limit_n.push(others_condensed)
       elsif @params[:order] == "bottom"
-        limit_n = dataset.last(limit_selected)
-        others = dataset.slice(0, limit_selected)
-        puts "this is others"
-        p others
+        return dataset.last(limit_selected)
       end
-
-      others.each do |sub_array|
-        total_amount_others += sub_array[1]
-      end
-      puts "this is the total amount others"
-      p total_amount_others
-
-
-      others_condensed = ["Others"]
-      others_condensed.push(total_amount_others)
-      all_the_things = limit_n.push(others_condensed)
     end
 
     def select_limit
     end
-
   end
 end
 
