@@ -8,9 +8,11 @@ class DatasetsController < ApplicationController
       #render errors? flash?
       return
     end
-
+    p dataset_klass
     @descriptive_metadata = dataset_klass.metadata
-    @diagram_types = dataset_klass.metadata
+    @diagram_types = allowed_charts[params[:id]]
+    puts "these are the diagram types"
+    p @diagram_types
 
     @diagram_form_inputs = {
       pie: {
@@ -41,6 +43,15 @@ class DatasetsController < ApplicationController
     render json: [@dataset, @descriptive_metadata]
   end
 
+  def allowed_charts
+    {
+      'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
+      'life_expectancy' => {:scatter => "Scatter Plot"},
+      'gender_inequality' => {:bar => "Bar Graph"},
+      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
+    }
+  end
+
 private
 
   def data_sets
@@ -55,6 +66,13 @@ private
 end
 
     # EXAMPLE JSON CONTRACT
+  # def chart_types
+  #   {
+  #     'pie', "Pie Chart"],
+  #     'bar' => "Bar Chart",
+  #     'scatter' => "Scatter Plot"
+  #   }
+  # end
     # if params[:aggregations] == "Maximum Debts"
     #   @aggregation = TrumpAdminDebts::Debts.all.to_json
     # end

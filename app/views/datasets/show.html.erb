@@ -14,14 +14,10 @@
   </select>
   as
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
-     <option value="pie">Pie Chart</option>
-     <option value="bar">Bar Graph</option>
-     <option value="scatter">Scatter Plot</option>
+    <%= @diagram_types.each do |key, value| %>
+     <option value="<%= key %>"><%= value %></option>
+     <% end %>
   </select>
-
-
-
-
   <input type="submit" value="Visualize!">
 <% end %>
 

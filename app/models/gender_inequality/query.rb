@@ -10,7 +10,6 @@ module GenderInequality
       if @params[:descriptors] == "Country"
         query = GenderInequality::GenderData
         .select("gender_inequality_index_2014, country, share_of_women_w_some_secondary_education_25_and_up_2005_2014").where("gender_inequality_index_2014 IS NOT null").where("share_of_women_w_some_secondary_education_25_and_up_2005_2014 IS NOT null")
-        p query
         @dataset = query.map { |result| [result.gender_inequality_index_2014, result.country, result.share_of_women_w_some_secondary_education_25_and_up_2005_2014] }
       end
       label_data = {Country: "education_x"}
