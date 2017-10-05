@@ -4,6 +4,7 @@ $(document).ready(function(){
   if (url.includes('?')){
     var paramsObject = getAllUrlParams(url).aggregations.split("%20").join(" ")
     console.log(paramsObject)
+    // URI.decode_www_form_component(s)
     var formUrl = pullFormUrl(url)
     $.ajax({
       url: formUrl + '/query',
