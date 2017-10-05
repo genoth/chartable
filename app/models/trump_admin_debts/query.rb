@@ -40,7 +40,7 @@ module TrumpAdminDebts
           .group("debts.lender_id")
         dataset = query.map { |r| [r.sum, r.lender.name] }
       end
-
+      p dataset
       dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
       puts "This is the PREPARED dataset....."
       p prepared_data(dataset)

@@ -2,42 +2,98 @@ $(document).ready(function(){
   var url = document.URL;
   // if no query params
   if (url.includes('?')){
-    urlFormatter(url)
+    var paramsObject = getAllUrlParams(url).aggregations.split("%20").join(" ")
+    console.log(paramsObject)
+    var formUrl = pullFormUrl(url)
+    $.ajax({
+      url: formUrl + '/query',
+      type: 'POST',
+      async:false,
+      data: paramsObject
+    })
+    .done(function() {
+      console.log("success");
+    })
+    .fail(function() {
+      console.log("error");
+    })
+    .always(function() {
+      console.log("complete");
+    });
+
   }
   else{
     visFormHandler();
   }
-  // visFormHandler();
-  // urlFormatter(url)
-  //if query params
-  //other method, that makes ajax call w/o $form
 });
 
-// var autoChart = function(){
-//   $.ajax({
-//     url: '/path/to/file',
-//     type: 'default GET (Other values: POST)',
-//     dataType: 'default: In telligent Guess (Other values: xml, json, script, or html)',
-//     data: {param1: 'value1'},
-//   })
-//   .done(function() {
-//     console.log("success");
-//   })
-// }
+var getAllUrlParams =function(url) {
 
-var urlFormatter = function(url){
+  // get query string from url (optional) or window
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+  // we'll store the parameters here
+  var obj = {};
+
+  // if query string exists
+  if (queryString) {
+
+    // stuff after # is not part of query string, so get rid of it
+    queryString = queryString.split('#')[0];
+
+    // split our query string into its component parts
+    var arr = queryString.split('&');
+
+    for (var i=0; i<arr.length; i++) {
+      // separate the keys and the values
+      var a = arr[i].split('=');
+
+      // in case params look like: list[]=thing1&list[]=thing2
+      var paramNum = undefined;
+      var paramName = a[0].replace(/\[\d*\]/, function(v) {
+        paramNum = v.slice(1,-1);
+        return '';
+      });
+      // set parameter value (use 'true' if empty)
+      var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+
+      // (optional) keep case consistent
+      paramName = paramName.toLowerCase();
+      paramValue = paramValue.toLowerCase();
+
+      // if parameter name already exists
+      if (obj[paramName]) {
+        // convert value to array (if still string)
+        if (typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]];
+        }
+        // if no array index number specified...
+        if (typeof paramNum === 'undefined') {
+          // put the value on the end of the array
+          obj[paramName].push(paramValue);
+        }
+        // if array index number specified...
+        else {
+          // put the value at that index number
+          obj[paramName][paramNum] = paramValue;
+        }
+      }
+      // if param name doesn't exist yet, set it
+      else {
+        obj[paramName] = paramValue;
+      }
+    }
+  }
+  return obj;
+}
+
+var pullFormUrl = function(url){
   console.log("THIS IS THE URL FORMATTER")
-  var paramsIndex = url.search('/datasets/') + 9
+  var paramsIndex = url.search('/datasets/')
   var urlParams = url.slice(paramsIndex)
-
-  var dataSet =
-  var aggregation =
-  var descriptor =
-  var chartKind =
-  var limit =
-  var order =
-
-
+  // gives /datasets/trump
+  var formUrl = urlParams.slice(urlParams.indexOf('/'),urlParams.indexOf('?'))
+  return formUrl
 }
 
 var visFormHandler = function(){
@@ -411,4 +467,26 @@ var downloadHandler = function(){
 //     event.preventDefault();
 //     saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
 //   })
+// }
+
+//RENDER RESET GRAPH TEST
+// var urlFormatter = function(url){
+//   console.log("THIS IS THE URL FORMATTER")
+//   var paramsIndex = url.search('/datasets/')
+//   var urlParams = url.slice(paramsIndex)
+//   // gives /datasets/trump
+//   var formUrl = urlParams.slice(urlParams.indexOf('/'),urlParams.indexOf('?'))
+//   //gives thing=thing2&thing3=thing4
+//   var formParams = urlParams.slice(urlParams.indexOf('?')+1)
+//   var paramsArray = []
+//   paramsArray.push("aggregation", "descriptor","chartKind","limit","order")
+
+//   paramsArray.map(function(param){
+//     console.log(param)
+//     var paramsLocator = formParams.search(param)
+//     var paramsRetrieveIndex = (param.length)*2+1
+//     return console.log(formParams.slice(paramsLocator, paramsRetrieveLength))
+//   })
+//   return paramsArray
+//   console.log(paramsArray)
 // }

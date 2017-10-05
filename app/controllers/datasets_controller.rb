@@ -34,6 +34,8 @@ class DatasetsController < ApplicationController
     end
 
     url_params = {params_string: strong_params(params[:aggregations],params[:descriptors],params[:chart])}
+
+    #CHANGE ABOVE FOR NEW PARAMS
     subtitle = {subtitle: "#{params[:aggregations]} by #{params[:descriptors]}"}
     @descriptive_metadata = dataset_klass.metadata.merge(subtitle).merge(url_params)
     p @descriptive_metadata
@@ -53,11 +55,12 @@ private
     }
   end
 
-  def strong_params(aggregation, descriptors, chart_type)
-    aggregation = aggregation.split(" ").join("%20")
+  def strong_params(aggregations, descriptors, chart)
+    aggregations = aggregations.split(" ").join("%20")
     descriptors = descriptors.split(" ").join("%20")
-    return "?aggregation=#{aggregation}&descriptors=#{descriptors}&visualization=#{chart_type}"
+    return "?aggregations=#{aggregations}&descriptors=#{descriptors}&chart=#{chart}"
   end
+  #CHANGE ABOVE FOR NEW PARAMS
 
 end
 
