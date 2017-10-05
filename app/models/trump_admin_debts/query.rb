@@ -69,7 +69,7 @@ module TrumpAdminDebts
       end
 
       others_condensed.push(total_others)
-      all_the_things = top_ten.push(others_condensed)
+      all_the_things = top_10.push(others_condensed)
     end
 
   end
