@@ -16,6 +16,8 @@ pipeline_paths = [
   "db/test_destination/eleven.csv",
 ]
 
+raw_data_file = "db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv"
+
 normalization_information = [
   [ [filepath_0],[department, last_name, first_name], [filepath_1, filepath_2] ],
   [ [filepath_1],[department], [filepath_3, filepath_4] ], # 3=departments, 4=employees
