@@ -1,6 +1,44 @@
 $(document).ready(function(){
-  visFormHandler();
+  var url = document.URL;
+  // if no query params
+  if (url.includes('?')){
+    urlFormatter(url)
+  }
+  else{
+    visFormHandler();
+  }
+  // visFormHandler();
+  // urlFormatter(url)
+  //if query params
+  //other method, that makes ajax call w/o $form
 });
+
+// var autoChart = function(){
+//   $.ajax({
+//     url: '/path/to/file',
+//     type: 'default GET (Other values: POST)',
+//     dataType: 'default: In telligent Guess (Other values: xml, json, script, or html)',
+//     data: {param1: 'value1'},
+//   })
+//   .done(function() {
+//     console.log("success");
+//   })
+// }
+
+var urlFormatter = function(url){
+  console.log("THIS IS THE URL FORMATTER")
+  var paramsIndex = url.search('/datasets/') + 9
+  var urlParams = url.slice(paramsIndex)
+
+  var dataSet =
+  var aggregation =
+  var descriptor =
+  var chartKind =
+  var limit =
+  var order =
+
+
+}
 
 var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
@@ -60,6 +98,7 @@ var produceChart = function(data, type, chartTitle){
 }
 
 var renderPieChart = function(data, chartTitle) {
+  console.log(data)
   c3.generate({
       data: {
         columns: data,
