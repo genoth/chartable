@@ -27,7 +27,6 @@ class DatasetsController < ApplicationController
     }
   end
 
-
   def query
     dataset_klass = data_sets[params[:id]]
     if !dataset_klass
@@ -43,6 +42,8 @@ class DatasetsController < ApplicationController
     render json: [@dataset, @descriptive_metadata]
   end
 
+
+private
   def allowed_charts
     {
       'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
@@ -51,8 +52,6 @@ class DatasetsController < ApplicationController
       'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
     }
   end
-
-private
 
   def data_sets
     {
