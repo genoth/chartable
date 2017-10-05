@@ -1,3 +1,6 @@
+require 'csv'
+require 'child_data_parse_out'
+require 'parent_data_parse_out'
 
 
 normalization_information = [
