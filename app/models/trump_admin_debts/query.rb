@@ -15,34 +15,73 @@ module TrumpAdminDebts
           .select("#{aggregator_SQL_string}, departments.name AS name")
           .joins(:department)
           .group("departments.name")
-        @dataset = query.map { |r| [r.sum, r.name] }
+        dataset = query.map { |r| [r.sum, r.name] }
+        puts "this is the dataset just after the query happened"
+        p dataset
+
       elsif @params[:descriptors] == "Employees"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, employees.first_name || ' ' || employees.last_name AS foobar_name")
           .joins(:employee)
           .group("employees.last_name, employees.first_name")
-        @dataset = query.map { |r| [r.sum, r.foobar_name] }
+        dataset = query.map { |r| [r.sum, r.foobar_name] }
 
       elsif @params[:descriptors] == "Debt Types"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, debts.debt_type_id")
           .includes(:debt_type)
           .group("debts.debt_type_id")
-        @dataset = query.map { |r| [r.sum, r.debt_type.description] }
+        dataset = query.map { |r| [r.sum, r.debt_type.description] }
 
       elsif @params[:descriptors] == "Lenders"
         query = TrumpAdminDebts::Debt
           .select("#{aggregator_SQL_string}, debts.lender_id")
           .includes(:lender)
           .group("debts.lender_id")
-        @dataset = query.map { |r| [r.sum, r.lender.name] }
+        dataset = query.map { |r| [r.sum, r.lender.name] }
       end
 
-      @dataset = @dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
+      dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
+      puts "This is the PREPARED dataset....."
+      p prepared_data(dataset)
+      return prepared_data(dataset)
     end
 
-    def self.generate_title
-      "#{@params[:aggregations]} of the Trump Administration by #{@params[:descriptors]}"
+    def prepared_data(dataset)
+      top_10_and_others(sorted_by_amount(full_series(dataset)))
+    end
+
+    def full_series(dataset)
+      dataset.map {|hash| [hash[:label], hash[:amount]]}
+    end
+
+    def sorted_by_amount(dataset)
+      puts "this is what comes into the sorted_by_amount thingy"
+      p dataset
+      sorted_dataset = dataset.sort_by { |sub_array| sub_array[1] }
+      puts "this is what comes out of the sroted_by_amount thingy"
+      p sorted_dataset.reverse
+      sorted_dataset.reverse
+    end
+
+    def top_10_and_others(dataset)
+      top_ten = dataset.first(10)
+      puts "this is the top 10"
+      p top_ten
+
+      others = dataset.slice(10, dataset.length)
+      others_condensed = ["Others"]
+      total_others = 0
+
+      others.each do |sub_array|
+        total_others += sub_array[1]
+      end
+
+
+      others_condensed.push(total_others)
+      all_the_things = top_ten.push(others_condensed)
+      puts "this is all the things man"
+      p all_the_things
     end
 
   end

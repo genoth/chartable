@@ -15,10 +15,7 @@ class DatasetsController < ApplicationController
       pie: {
         descriptors: dataset_klass.descriptors,
         aggregations: dataset_klass.aggregations
-        # filters: {
-        #   :departments => Trump::Department.all
-        #   :employees => Employee.all
-        # },
+        # filters: {:departments => Trump::Department.all, :employees => Employee.all },
       },
       bar: {
         descriptors: dataset_klass.descriptors,#[:departments, :employees],
@@ -41,7 +38,6 @@ class DatasetsController < ApplicationController
     @dataset = dataset_klass::Query.new(params).data
 
     render json: [@dataset, @descriptive_metadata]
-
   end
 
 private
