@@ -13,7 +13,7 @@ module DataPreparer
   end
 
   def full_series(dataset)
-    dataset.map {|hash| [hash[:label], hash[:amount]]}
+    dataset.map {|hash| [hash[:label], (hash[:amount]).floor]}
   end
 
   def sorted_by_amount(dataset)
