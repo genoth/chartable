@@ -34,9 +34,9 @@ module DataPreparer
 
   def limit_n_and_others(dataset)
     limit_selected = (@params[:limit]).to_i
-    if @params[:order] == "top"
+    if @params[:order] == "Top"
       dataset.first(limit_selected)
-    elsif @params[:order] == "bottom"
+    elsif @params[:order] == "Bottom"
       dataset.last(limit_selected)
     end
   end

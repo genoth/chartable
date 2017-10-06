@@ -2,17 +2,18 @@
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
   See <select name="aggregations">
-    <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
+    <% @dataset_klass.aggregations.each do |aggregation| %>
      <option value="<%= aggregation %>"><%=aggregation%></option>
     <% end %>
   </select>
   by
   <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
-    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
+    <% @dataset_klass.descriptors.each do |descriptor| %>
      <option value="<%=descriptor%>"><%=descriptor%></option>
     <% end %>
   </select>
   as
+
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
     <%= @diagram_types.each do |key, value| %>
      <option value="<%= key %>"><%= value %></option>
@@ -20,9 +21,10 @@
   </select>
 
   <select id="order" name="order">
-    <option value="All">All</option>
-    <option id="top" value="top">Top</option>
-    <option id="bottom" value="bottom">Bottom</option>
+    <% @dataset_klass.orders.each do |order| %>
+     <option value="<%= order %>"><%=order%></option>
+    <% end %>
+
   </select>
 
   <select id="limit" name="limit" class="hidden">

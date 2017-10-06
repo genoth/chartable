@@ -1,29 +1,17 @@
 class DatasetsController < ApplicationController
 # get the form
   def show
-    dataset_klass = data_sets[params[:id]]
+    @dataset_klass = data_sets[params[:id]]
     # puts "got here"
-    if !dataset_klass
+    if !@dataset_klass
       redirect_to '/'
       #render errors? flash?
       return
     end
-    @descriptive_metadata = dataset_klass.metadata
+    @descriptive_metadata = @dataset_klass.metadata
     @diagram_types = allowed_charts[params[:id]]
     # puts "these are the diagram types"
     # p @diagram_types
-
-    @diagram_form_inputs = {
-      pie: {
-        descriptors: dataset_klass.descriptors,
-        aggregations: dataset_klass.aggregations
-        # filters: {:departments => Trump::Department.all, :employees => Employee.all },
-      },
-      bar: {
-        descriptors: dataset_klass.descriptors,#[:departments, :employees],
-        aggregation: dataset_klass.aggregations # [:max_debts, :avg_debts]
-      }
-    }
   end
 
   def query
