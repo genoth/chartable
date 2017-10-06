@@ -2,7 +2,7 @@ module TrumpAdminDebts
   class Query
     def initialize(params)
       @params = params
-      p params
+      p @params
     end
 
     def data
@@ -40,6 +40,7 @@ module TrumpAdminDebts
       end
 
       dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
+
       return prepared_data(dataset)
     end
 
@@ -63,6 +64,7 @@ module TrumpAdminDebts
       if @params[:order] == "top"
         limit_n = dataset.first(limit_selected)
         others = dataset.slice(limit_selected, dataset.length)
+
         total_sum_others = others.reduce {|sum, sub_array| sub_array[1] }
         number_of_others = others.length
         others_condensed = [ "#{number_of_others} Others"]

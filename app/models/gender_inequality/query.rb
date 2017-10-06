@@ -61,6 +61,21 @@ module GenderInequality
       @dataset = query.map { |row| [row, row.country]}
 
       @dataset = @dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
+      puts "this is the bar chart data for gender inequality"
+      return prepared_data(dataset)
+    end
+
+    def prepared_data(dataset)
+      sorted_by_amount(full_series(dataset)))
+    end
+
+    def full_series(dataset)
+      dataset.map {|hash| [hash[:label], hash[:amount]]}
+    end
+
+    def sorted_by_amount(dataset)
+      sorted_by_amount = dataset.sort_by {|sub_array| sub_array[1]}
+      sorted_dataset.reverse
     end
 
     # def scatter_data

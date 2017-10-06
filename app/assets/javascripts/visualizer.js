@@ -1,6 +1,20 @@
 $(document).ready(function(){
   visFormHandler();
+  orderDropdownListener();
 });
+
+var orderDropdownListener = function(){
+  $("#order").on("change", orderDropdownHandler)
+}
+
+var orderDropdownHandler = function(){
+  var orderSelector = $("#order")
+  if (orderSelector.val() === "top" || orderSelector.val() === "bottom") {
+    $("#limit").hide();
+  } else {
+    $("#limit").show();
+  }
+}
 
 var visFormHandler = function(){
   $("#vis-form").on("submit",function(event){
