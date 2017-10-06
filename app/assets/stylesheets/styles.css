@@ -6,9 +6,16 @@ html *{
   display: none;
 }
 
+.link-share {
+  text-align: center;
+}
+.big-button {
+  font-size: 10em;
+  font-weight: bold;
+}
+
 body {
   margin:2%;
-  background-color: #E6E6FA;
 }
 
 h1, h3, form, .topics-list {

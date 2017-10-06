@@ -51,7 +51,7 @@ var loadGraph = function(){
         renderScatterPlot(chartData, descriptives, chartTitle)
       }
       renderDownloadButton();
-      renderURL();
+      renderURLButton();
     })
 }
 
@@ -99,7 +99,10 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
   }
 
   c3.generate({
-    data: {
+    point: {
+      r: 6.5
+    },
+     data: {
       xsort: false,
       x:  chartData[0][0],
       columns: chartData,
@@ -113,13 +116,13 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       x: {
-        label: 'Year',
+        label: 'Percentage',
         tick: {
           fit: true,
         }
       },
       y: {
-        label: 'Age'
+        label: 'Index (Best Score is 0)'
       }
     }
   })
@@ -130,12 +133,31 @@ var renderDownloadButton = function(){
   downloadHandler();
 }
 
-var renderURL = function(){
+var renderURLButton = function(){
   var currentPath = window.location.pathname
   var params = $("#vis-form select").serialize()
   var urlforSharing = currentPath + "?" + params
+  $("#url-div a").text("Share")
   $("#url-div a").attr("href", urlforSharing)
-  // $("#url-div a").attr("href").text (urlforSharing)
+  shareClickListener()
+}
+
+var shareClickListener = function(){
+  $(".share").on("click", function(e){
+    $("link-share").text("");
+    e.preventDefault();
+    renderURL();
+  })
+}
+
+var renderURL = function(){
+  // $("#url-div a").attr("href", urlforSharing)
+  var currentPath = window.location.pathname
+  var params = $("#vis-form select").serialize()
+  var urlforSharing = currentPath + "?" + params
+  $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
+  $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
+  // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
 }
 
 var downloadHandler = function(){
@@ -144,3 +166,15 @@ var downloadHandler = function(){
     saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
 }
+
+// var renderURL = function(){
+//   // $("#url-div a").attr("href", urlforSharing)
+//   var currentPath = window.location.pathname
+//   var params = $("#vis-form select").serialize()
+//   var urlforSharing = currentPath + "?" + params
+//   var fullURL = 'http://chartable.herokuapp.com' + urlforSharing
+//   var fullURLwithTags = "<a href=" + fullURL + "></a>"
+//   $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
+//   $("#administrative-metadata").append("<p class='link-share'>" + fullURLwithTags + "</p>")
+//   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+// }

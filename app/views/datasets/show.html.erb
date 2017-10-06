@@ -40,7 +40,7 @@
     <option value="5">5</option>
   </select>
   <p>
-  <input type="submit" value="Visualize!">
+  <input type="submit" class="big-button" value="Visualize!">
   </p>
 <% end %>
 
@@ -54,7 +54,7 @@
     <input type="submit" value="Download">
     <% end %>
   </div>
-  <div id="url-div"><a href="">Share</a></div>
+  <div id="url-div"><a class="share" href=""></a></div>
   <br>
   <br>
   <div id="descriptive-metadata">
@@ -63,6 +63,7 @@
   </div>
   <div id="administrative-metadata">
     <p>Source: <a href="<%= @descriptive_metadata[:dataset_url] %>"><%= @descriptive_metadata[:dataset_source] %></a></p>
+    <p class="intro-link-share"></p>
   </div>
 
 
