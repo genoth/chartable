@@ -4,14 +4,18 @@ module TrumpAdminDebts
       ["Departments", "Employees", "Debt Types", "Lenders"]
     end
 
+    def self.orders
+      ["All", "Top", "Bottom"]
+    end
+
     def self.aggregations
       aggregation_sql_snippits.keys
     end
 
     def self.aggregation_sql_snippits
       {
-        "Sum Maximum Debts" => "sum(max_amount) / 1000000 as sum",
         "Sum Minimum Debts" => "sum(min_amount) / 1000000 as sum",
+        "Sum Maximum Debts" => "sum(max_amount) / 1000000 as sum",
         "Avg Min Debt" => "avg(min_amount) / 1000000 as sum"
       }
     end

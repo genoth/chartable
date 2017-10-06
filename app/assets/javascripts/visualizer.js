@@ -1,11 +1,32 @@
 $(document).ready(function(){
-  visFormHandler();
+  visFormListener();
+  orderDropdownListener();
+  loadGraph();
 });
 
-var visFormHandler = function(){
+var orderDropdownListener = function(){
+  $("#order").on("change", orderDropdownHandler)
+}
+
+var orderDropdownHandler = function(){
+  var orderSelector = $("#order")
+  if (orderSelector.val() === "Top" || orderSelector.val() === "Bottom") {
+    $("#limit").show();
+    console.log("MADE IT")
+  } else {
+    $("#limit").hide();
+  }
+}
+
+var visFormListener = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
-    var $form = $(this);
+    loadGraph();
+  })
+}
+
+var loadGraph = function(){
+  var $form = $("#vis-form");
     console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     $request = $.ajax({
@@ -15,6 +36,7 @@ var visFormHandler = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
+      console.log(serverResponse)
       var descriptives = serverResponse[1]
       var dataTitle = descriptives.dataset_title
       var subTitle = descriptives.subtitle
@@ -29,8 +51,8 @@ var visFormHandler = function(){
         renderScatterPlot(chartData, descriptives, chartTitle)
       }
       renderDownloadButton();
+      renderURL();
     })
-  })
 }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
@@ -60,7 +82,7 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       y: {
-        label:'In Millions' // this should be a variable
+        label:'In Millions'  // this should be a variable
       }
     },
     title: {
@@ -70,6 +92,12 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 }
 
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
+
+  var showLabels = true;
+  if (chartData[0].length > 20) {
+    showLabels = true;
+  }
+
   c3.generate({
     data: {
       xsort: false,
@@ -79,6 +107,9 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     },
     title: {
       text:  chartTitle
+    },
+    legend: {
+      hide: showLabels
     },
     axis: {
       x: {
@@ -97,6 +128,14 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
   downloadHandler();
+}
+
+var renderURL = function(){
+  var currentPath = window.location.pathname
+  var params = $("#vis-form select").serialize()
+  var urlforSharing = currentPath + "?" + params
+  $("#url-div a").attr("href", urlforSharing)
+  // $("#url-div a").attr("href").text (urlforSharing)
 }
 
 var downloadHandler = function(){

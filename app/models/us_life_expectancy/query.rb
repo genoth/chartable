@@ -40,17 +40,19 @@ module USLifeExpectancy
       if @descriptors == "Races" # "Races" as string
         labels = ["All Races", "Black", "White"]
         dataset = race_descriptor_query(aggregator_SQL_string)
-        generate_c3_columns(dataset, labels)
-      elsif @descriptors == "Sexes"
+        p dataset
+        generate_scatter_data(dataset, labels)
+      elsif @descriptors == "
+        Sexes"
         labels = ["Both Sexes", "Female", "Male"]
         dataset = sex_descriptor_query(aggregator_SQL_string)
-        generate_c3_columns(dataset, labels)
+        generate_scatter_data(dataset, labels)
       end
     end
 
 # ["Statistics", "Races", "Sexes", "Years"]
 
-    def generate_c3_columns(dataset, labels)
+    def generate_scatter_data(dataset, labels)
       x_axis = ["years_x"]
       descriptor_both_id_1 = [labels[0]] #["All Races"]
       descriptor_id_2 = [labels[1]] # ["Black"]
@@ -71,7 +73,13 @@ module USLifeExpectancy
           descriptor_both_id_1 << sub_array[0]
         end
       end
-      Array.new.push(x_axis.uniq, descriptor_both_id_1, descriptor_id_2, descriptor_id_3)
+      thing = Array.new.push(x_axis.uniq, descriptor_both_id_1, descriptor_id_2, descriptor_id_3)
+    end
+
+  private
+
+    def should_condense?
+      false
     end
 
   end

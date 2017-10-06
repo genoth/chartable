@@ -1,32 +1,18 @@
 class DatasetsController < ApplicationController
 # get the form
   def show
-    dataset_klass = data_sets[params[:id]]
-    puts "got here"
-    if !dataset_klass
+    @dataset_klass = data_sets[params[:id]]
+    # puts "got here"
+    if !@dataset_klass
       redirect_to '/'
       #render errors? flash?
       return
     end
-    p dataset_klass
-    @descriptive_metadata = dataset_klass.metadata
+    @descriptive_metadata = @dataset_klass.metadata
     @diagram_types = allowed_charts[params[:id]]
-    puts "these are the diagram types"
-    p @diagram_types
-
-    @diagram_form_inputs = {
-      pie: {
-        descriptors: dataset_klass.descriptors,
-        aggregations: dataset_klass.aggregations
-        # filters: {:departments => Trump::Department.all, :employees => Employee.all },
-      },
-      bar: {
-        descriptors: dataset_klass.descriptors,#[:departments, :employees],
-        aggregation: dataset_klass.aggregations # [:max_debts, :avg_debts]
-      }
-    }
+    # puts "these are the diagram types"
+    # p @diagram_types
   end
-
 
   def query
     dataset_klass = data_sets[params[:id]]
@@ -43,17 +29,8 @@ class DatasetsController < ApplicationController
     render json: [@dataset, @descriptive_metadata]
   end
 
-  def allowed_charts
-    {
-      'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
-      'life_expectancy' => {:scatter => "Scatter Plot"},
-      'gender_inequality' => {:bar => "Bar Graph"},
-      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
-    }
-  end
 
 private
-
   def data_sets
     {
       'trump' => TrumpAdminDebts,
@@ -62,6 +39,16 @@ private
       'canadian_climate' => CanadianClimate
     }
   end
+
+  def allowed_charts
+    {
+      'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
+      'life_expectancy' => {:scatter => "Scatter Plot"},
+      'gender_inequality' => {:scatter => "Scatter Plot", :bar => "Bar Graph"},
+      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
+    }
+  end
+
 
 end
 

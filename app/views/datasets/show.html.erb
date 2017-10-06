@@ -1,24 +1,47 @@
-<h1>Data Visualization</h1>
+    <%= javascript_include_tag 'application' %>
+
+
+<h1><%= @dataset_klass.metadata[:dataset_title] %></h1>
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
+
   See <select name="aggregations">
-    <% (@diagram_form_inputs[:pie][:aggregations]).each do |aggregation| %>
-     <option value="<%= aggregation %>"><%=aggregation%></option>
+    <% @dataset_klass.aggregations.each do |aggregation| %>
+    <% selected = (aggregation == params[:aggregations] ? "selected" : nil) %>
+     <option value="<%= aggregation %>" <%= selected %>><%=aggregation%></option>
     <% end %>
   </select>
   by
   <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
-    <% (@diagram_form_inputs[:pie][:descriptors]).each do |descriptor| %>
-     <option value="<%=descriptor%>"><%=descriptor%></option>
+    <% @dataset_klass.descriptors.each do |descriptor| %>
+      <% selected = (descriptor == params[:descriptors] ? "selected" : nil) %>
+      <option value="<%=descriptor%>" <%= selected %>><%= descriptor %></option>
     <% end %>
   </select>
   as
+
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
-    <%= @diagram_types.each do |key, value| %>
-     <option value="<%= key %>"><%= value %></option>
+    <%= @diagram_types.each do |v, dis| %>
+      <% selected = (v == params[:chart] ? "selected" : nil) %>
+     <option value="<%= v %>" <%= selected %>><%= dis %></option>
      <% end %>
   </select>
+
+  <select id="order" name="order">
+    <% @dataset_klass.orders.each do |order| %>
+      <% selected = (order == params[:order] ? "selected" : nil) %>
+     <option value="<%= order %>" <%= selected %>><%= order %></option>
+    <% end %>
+  </select>
+
+  <select id="limit" name="limit" class="hidden">
+    <option value="20">20</option>
+    <option value="10">10</option>
+    <option value="5">5</option>
+  </select>
+  <p>
   <input type="submit" value="Visualize!">
+  </p>
 <% end %>
 
   <div id="our-data">
@@ -31,12 +54,19 @@
     <input type="submit" value="Download">
     <% end %>
   </div>
+  <div id="url-div"><a href="">Share</a></div>
+  <br>
+  <br>
   <div id="descriptive-metadata">
-    <p><%= @descriptive_metadata[:dataset_title] %></p>
-    <p><%= @descriptive_metadata[:description] %></p>
-    <p><%= @descriptive_metadata[:dataset_source] %></p>
-    <p><%= @descriptive_metadata[:dataset_url] %></p>
+    <p id="dataset-title"><%= @descriptive_metadata[:dataset_title] %></p>
+    <p id="dataset-description"><%= @descriptive_metadata[:description] %></p>
   </div>
+  <div id="administrative-metadata">
+    <p>Source: <a href="<%= @descriptive_metadata[:dataset_url] %>"><%= @descriptive_metadata[:dataset_source] %></a></p>
+  </div>
+
+
+
 
 
 

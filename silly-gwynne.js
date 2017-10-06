@@ -1,4 +1,34 @@
 
+var chart = c3.generate({
+    data: {
+        xs: {
+            usa: 'percentage_x',
+            ca: 'percentage_x',
+        },
+        // iris data from R
+        columns: [
+            ["percentage_x", 0, 1, 2, 3, 4, 5],
+            ["usa", 0.1],
+            ["ca", 0.5, 0.3, 0.3, 0.9, 0.5],
+        ],
+        type: 'scatter'
+    },
+    axis: {
+        x: {
+            label: 'Sepal.Width',
+            tick: {
+                fit: false
+            }
+        },
+        y: {
+            label: 'Petal.Width'
+        }
+    }
+});
+
+
+
+
 [
   [
     ["White House", 387.085],
