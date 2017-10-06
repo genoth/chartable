@@ -82,7 +82,7 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       y: {
-        label:'In Millions' // this should be a variable
+        label:'In Millions'  // this should be a variable
       }
     },
     title: {

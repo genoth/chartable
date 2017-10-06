@@ -67,6 +67,7 @@ module GenderInequality
     def bar_data
       thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
       query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
+        .where("gender_inequality_index_2014 IS NOT null")
 
       dataset = query.map { |row| [row, row.country]}
 
