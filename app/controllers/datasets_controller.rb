@@ -27,7 +27,6 @@ class DatasetsController < ApplicationController
   end
 
   def query
-    p params
     dataset_klass = data_sets[params[:id]]
     if !dataset_klass
       redirect_to '/'

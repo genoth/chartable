@@ -1,5 +1,6 @@
 module GenderInequality
   class Query
+    include DataPreparer
 
     def initialize(params)
       @params = params
@@ -40,7 +41,6 @@ module GenderInequality
       x_axis = ["education_x"]
       descriptor_id = [labels[0]]
       datset = dataset.sort_by { |sub_array| sub_array.last }
-      p dataset
       dataset.each do |sub_array|
         x_axis.push(sub_array)
       end
@@ -50,7 +50,6 @@ module GenderInequality
         end
       end
       new_array = Array.new(push(x_axis, descriptor_id))
-      p new_array
     end
 
 
@@ -58,24 +57,11 @@ module GenderInequality
       thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
       query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
 
-      @dataset = query.map { |row| [row, row.country]}
+      dataset = query.map { |row| [row, row.country]}
 
-      @dataset = @dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
+      dataset = dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
       puts "this is the bar chart data for gender inequality"
       return prepared_data(dataset)
-    end
-
-    def prepared_data(dataset)
-      sorted_by_amount(full_series(dataset)))
-    end
-
-    def full_series(dataset)
-      dataset.map {|hash| [hash[:label], hash[:amount]]}
-    end
-
-    def sorted_by_amount(dataset)
-      sorted_by_amount = dataset.sort_by {|sub_array| sub_array[1]}
-      sorted_dataset.reverse
     end
 
     # def scatter_data
@@ -87,6 +73,11 @@ module GenderInequality
     #     @dataset = query.map { |result| [result.country] }
     #   end
     # end
+   private
+
+    def should_condense?
+      false
+    end
 
   end
 end

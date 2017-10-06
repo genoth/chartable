@@ -74,6 +74,12 @@ module USLifeExpectancy
       Array.new.push(x_axis.uniq, descriptor_both_id_1, descriptor_id_2, descriptor_id_3)
     end
 
+  private
+
+    def should_condense?
+      false
+    end
+
   end
 end
 
