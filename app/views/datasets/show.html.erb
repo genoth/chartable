@@ -1,31 +1,37 @@
+    <%= javascript_include_tag 'application' %>
+
+
 <h1><%= @dataset_klass.metadata[:dataset_title] %></h1>
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
-  See <select name="aggregations" >
+
+  See <select name="aggregations">
     <% @dataset_klass.aggregations.each do |aggregation| %>
-     <option value="<%= aggregation %>"><%=aggregation%></option>
+    <% selected = (aggregation == params[:aggregations] ? "selected" : nil) %>
+     <option value="<%= aggregation %>" <%= selected %>><%=aggregation%></option>
     <% end %>
   </select>
   by
-  <select name="descriptors" value="<%= (params[:descriptors]) %>"> <!--Supplement an id here instead of using 'name'-->
+  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
     <% @dataset_klass.descriptors.each do |descriptor| %>
       <% selected = (descriptor == params[:descriptors] ? "selected" : nil) %>
-      <option value="<%=descriptor%>" <%= selected %>><%=descriptor%></option>
+      <option value="<%=descriptor%>" <%= selected %>><%= descriptor %></option>
     <% end %>
   </select>
   as
 
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
-    <%= @diagram_types.each do |key, value| %>
-     <option value="<%= key %>"><%= value %></option>
+    <%= @diagram_types.each do |v, dis| %>
+      <% selected = (v == params[:chart] ? "selected" : nil) %>
+     <option value="<%= v %>" <%= selected %>><%= dis %></option>
      <% end %>
   </select>
 
   <select id="order" name="order">
     <% @dataset_klass.orders.each do |order| %>
-     <option value="<%= order %>"><%=order%></option>
+      <% selected = (order == params[:order] ? "selected" : nil) %>
+     <option value="<%= order %>" <%= selected %>><%= order %></option>
     <% end %>
-
   </select>
 
   <select id="limit" name="limit" class="hidden">
