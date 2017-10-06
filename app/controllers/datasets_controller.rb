@@ -44,7 +44,7 @@ private
     {
       'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
       'life_expectancy' => {:scatter => "Scatter Plot"},
-      'gender_inequality' => {:bar => "Bar Graph", :scatter => "Scatter Plot"},
+      'gender_inequality' => {:scatter => "Scatter Plot", :bar => "Bar Graph"},
       'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
     }
   end

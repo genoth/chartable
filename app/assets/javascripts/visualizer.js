@@ -10,8 +10,9 @@ var orderDropdownListener = function(){
 
 var orderDropdownHandler = function(){
   var orderSelector = $("#order")
-  if (orderSelector.val() === "top" || orderSelector.val() === "bottom") {
+  if (orderSelector.val() === "Top" || orderSelector.val() === "Bottom") {
     $("#limit").show();
+    console.log("MADE IT")
   } else {
     $("#limit").hide();
   }
@@ -94,7 +95,7 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
 
   var showLabels = true;
   if (chartData[0].length > 20) {
-    showLabels = false;
+    showLabels = true;
   }
 
   c3.generate({

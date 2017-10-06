@@ -56,7 +56,7 @@ module GenderInequality
         x_axis.push(sub_array)
       end
       dataset.each do |sub_array|
-        if sub_array[0] == discriptor_id
+        if sub_array[0] == descriptor_id
             descriptor_id << sub_array[0]
         end
       end
