@@ -56,7 +56,7 @@ module GenderInequality
         x_axis.push(sub_array)
       end
       dataset.each do |sub_array|
-        if sub_array[0] == discriptor_id
+        if sub_array[0] == descriptor_id
             descriptor_id << sub_array[0]
         end
       end
@@ -67,6 +67,7 @@ module GenderInequality
     def bar_data
       thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
       query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
+        .where("gender_inequality_index_2014 IS NOT null")
 
       dataset = query.map { |row| [row, row.country]}
 
