@@ -45,7 +45,11 @@ module TrumpAdminDebts
     end
 
     def prepared_data(dataset)
-      limit_n_and_others(sorted_by_amount(full_series(dataset)))
+      if @params[:order] == "All"
+        condense_others(sorted_by_amount(full_series(dataset)))
+      else
+        limit_n_and_others(sorted_by_amount(full_series(dataset)))
+      end
     end
 
     def full_series(dataset)
@@ -57,24 +61,24 @@ module TrumpAdminDebts
       sorted_dataset.reverse
     end
 
+    def condense_others(dataset)
+      limited = dataset.first(10)
+      others = dataset.slice(limited.length, dataset.length)
+      total_sum_others = others.reduce {|sum, sub_array| sub_array[1] }
+      number_of_others = others.length
+      others_condensed = [ "#{number_of_others} Others"]
+      others_condensed.push(total_sum_others)
+      limited.push(others_condensed)
+    end
+
+
     def limit_n_and_others(dataset)
-
       limit_selected = (@params[:limit]).to_i
-
       if @params[:order] == "top"
-        limit_n = dataset.first(limit_selected)
-        others = dataset.slice(limit_selected, dataset.length)
-
-        total_sum_others = others.reduce {|sum, sub_array| sub_array[1] }
-        number_of_others = others.length
-        others_condensed = [ "#{number_of_others} Others"]
-        others_condensed.push(total_sum_others)
-        return limit_n.push(others_condensed)
-
+        dataset.first(limit_selected)
       elsif @params[:order] == "bottom"
-        return dataset.last(limit_selected)
+        dataset.last(limit_selected)
       end
-
     end
 
     def select_limit
