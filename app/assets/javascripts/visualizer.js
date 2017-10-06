@@ -10,9 +10,9 @@ var orderDropdownListener = function(){
 var orderDropdownHandler = function(){
   var orderSelector = $("#order")
   if (orderSelector.val() === "top" || orderSelector.val() === "bottom") {
-    $("#limit").hide();
-  } else {
     $("#limit").show();
+  } else {
+    $("#limit").hide();
   }
 }
 
