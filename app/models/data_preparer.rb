@@ -13,7 +13,7 @@ module DataPreparer
   end
 
   def full_series(dataset)
-    dataset.map {|hash| [hash[:label], (hash[:amount]).floor]}
+    dataset.map {|hash| [hash[:label], (hash[:amount]).round(1)]}
   end
 
   def sorted_by_amount(dataset)
@@ -24,10 +24,12 @@ module DataPreparer
   def condense_others(dataset)
     limited = dataset.first(10)
     others = dataset.slice(limited.length, dataset.length)
-    total_sum_others = others.reduce {|sum, sub_array| sub_array[1] }
+
+    total_sum_others = others.reduce(0) {|sum, sub_array| sum + sub_array[1] }
+
     number_of_others = others.length
     others_condensed = [ "#{number_of_others} Others"]
-    others_condensed.push(total_sum_others)
+    others_condensed.push(total_sum_others.to_i)
     limited.push(others_condensed)
   end
 
