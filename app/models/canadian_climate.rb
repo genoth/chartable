@@ -4,6 +4,10 @@ module CanadianClimate
       ["Years"]
     end
 
+    def self.orders
+      ["All", "Top", "Bottom"]
+    end
+
     def self.aggregations
       aggregation_sql_snippits.keys
     end

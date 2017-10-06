@@ -1,8 +1,10 @@
 module TrumpAdminDebts
   class Query
+    include DataPreparer
+
     def initialize(params)
       @params = params
-      p params
+      p @params
     end
 
     def data
@@ -40,53 +42,14 @@ module TrumpAdminDebts
       end
 
       dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0] } }
+
       return prepared_data(dataset)
     end
 
-    def prepared_data(dataset)
-      limit_n_and_others(sorted_by_amount(full_series(dataset)))
-    end
+    private
 
-    def full_series(dataset)
-      dataset.map {|hash| [hash[:label], hash[:amount]]}
-    end
-
-    def sorted_by_amount(dataset)
-      sorted_dataset = dataset.sort_by { |sub_array| sub_array[1] }
-      sorted_dataset.reverse
-    end
-
-    def limit_n_and_others(dataset)
-      puts "this is the current dataset"
-      p dataset
-      total_amount_others = 0
-      limit_selected = (@params[:limit]).to_i
-
-      if @params[:order] == "top"
-        limit_n = dataset.first(limit_selected)
-        others = dataset.slice(limit_selected, dataset.length)
-        puts "this is others"
-        p others
-      elsif @params[:order] == "bottom"
-        limit_n = dataset.last(limit_selected)
-        others = dataset.slice(0, limit_selected)
-        puts "this is others"
-        p others
-      end
-
-      others.each do |sub_array|
-        total_amount_others += sub_array[1]
-      end
-      puts "this is the total amount others"
-      p total_amount_others
-
-
-      others_condensed = ["Others"]
-      others_condensed.push(total_amount_others)
-      all_the_things = limit_n.push(others_condensed)
-    end
-
-    def select_limit
+    def should_condense?
+      true
     end
 
   end
