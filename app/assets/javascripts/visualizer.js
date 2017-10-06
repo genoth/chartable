@@ -1,6 +1,7 @@
 $(document).ready(function(){
-  visFormHandler();
+  visFormListener();
   orderDropdownListener();
+  loadGraph();
 });
 
 var orderDropdownListener = function(){
@@ -16,10 +17,15 @@ var orderDropdownHandler = function(){
   }
 }
 
-var visFormHandler = function(){
+var visFormListener = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
-    var $form = $(this);
+    loadGraph();
+  })
+}
+
+var loadGraph = function(){
+  var $form = $("#vis-form");
     console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     $request = $.ajax({
@@ -45,7 +51,6 @@ var visFormHandler = function(){
       }
       renderDownloadButton();
     })
-  })
 }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
