@@ -50,6 +50,7 @@ var loadGraph = function(){
         renderScatterPlot(chartData, descriptives, chartTitle)
       }
       renderDownloadButton();
+      renderURL();
     })
 }
 
@@ -90,6 +91,12 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 }
 
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
+
+  var showLabels = true;
+  if (chartData[0].length > 20) {
+    showLabels = false;
+  }
+
   c3.generate({
     data: {
       xsort: false,
@@ -99,6 +106,9 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     },
     title: {
       text:  chartTitle
+    },
+    legend: {
+      hide: showLabels
     },
     axis: {
       x: {
@@ -117,6 +127,14 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
 var renderDownloadButton = function(){
   $("#download-div").removeClass("hidden");
   downloadHandler();
+}
+
+var renderURL = function(){
+  var currentPath = window.location.pathname
+  var params = $("#vis-form select").serialize()
+  var urlforSharing = currentPath + "?" + params
+  $("#url-div a").attr("href", urlforSharing)
+  // $("#url-div a").attr("href").text (urlforSharing)
 }
 
 var downloadHandler = function(){

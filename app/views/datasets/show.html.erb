@@ -1,15 +1,16 @@
-<h1>Data Visualization</h1>
+<h1><%= @dataset_klass.metadata[:dataset_title] %></h1>
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
-  See <select name="aggregations">
+  See <select name="aggregations" >
     <% @dataset_klass.aggregations.each do |aggregation| %>
      <option value="<%= aggregation %>"><%=aggregation%></option>
     <% end %>
   </select>
   by
-  <select name="descriptors"> <!--Supplement an id here instead of using 'name'-->
+  <select name="descriptors" value="<%= (params[:descriptors]) %>"> <!--Supplement an id here instead of using 'name'-->
     <% @dataset_klass.descriptors.each do |descriptor| %>
-     <option value="<%=descriptor%>"><%=descriptor%></option>
+      <% selected = (descriptor == params[:descriptors] ? "selected" : nil) %>
+      <option value="<%=descriptor%>" <%= selected %>><%=descriptor%></option>
     <% end %>
   </select>
   as
@@ -47,6 +48,7 @@
     <input type="submit" value="Download">
     <% end %>
   </div>
+  <div id="url-div"><a href="">Share</a></div>
   <br>
   <br>
   <div id="descriptive-metadata">

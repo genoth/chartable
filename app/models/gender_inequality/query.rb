@@ -18,23 +18,34 @@ module GenderInequality
       end
     end
 
-    def education_descriptor_query(aggregator_SQL_string)
-      query = GenderInequality::GenderData
-      .select("#{aggregator_SQL_string}, country, gender_inequality_index_2014")
-      .where("gender_inequality_index_2014 IS NOT null").where("share_of_women_w_some_secondary_education_25_and_up_2005_2014 IS NOT null")
-        .group('country, share_of_women_w_some_secondary_education_25_and_up_2005_2014')
-      p query
-        p dataset = query.map { |result| [result.gender_inequality_index_2014, result.country, result.share_of_women_w_some_secondary_education_25_and_up_2005_2014] }
-      end
 
     def scatter_data
-      aggregator_SQL_string = USLifeExpectancy.aggregation_sql_snippits[@params[:aggregations]]
-        labels = ["Country"]
-        dataset = education_descriptor_query(aggregator_SQL_string)
-        puts "this is the dataset"
-        p dataset
-        generate_c3_columns(dataset, labels)
+      p "!!!!!!!!!!!!!!!!"
+      perc_col = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+      p perc_col
+      query = GenderInequality::GenderData
+        .select("#{perc_col} AS perc, country, gender_inequality_index_2014 AS idx")
+        .where("gender_inequality_index_2014 IS NOT null")
+        .where("#{perc_col} IS NOT null")
+
+      answer = []
+      answer << ["perc_x"] + (0..100).to_a
+      query.each do |result|
+        country_row = [result.country]
+        empty_array = 100.times.map { nil }
+        perc_int = (result.perc * 100).floor
+        empty_array[result.perc.floor] = result.idx
+        country_row += empty_array
+        answer << country_row
+      end
+
+      puts "this is the dataset"
+      #p answer
+      #generate_c3_columns(dataset, labels)
+
+      answer
     end
+     # [index, country, percentage]
 
     def generate_c3_columns(dataset, labels)
       label_data = {Country: "education_x"}
