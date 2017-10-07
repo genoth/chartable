@@ -27,7 +27,7 @@ end
 # Trump Debts
 
 counter_t = 0
-CSV.foreach("db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
+CSV.foreach("db/ETL_Pipeline/raw_CSVs/updated_trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
   counter_t += 1
   print 't' if counter_t % 100 == 0
 
