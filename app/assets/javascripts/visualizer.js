@@ -83,8 +83,13 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
       type : 'bar'
     },
     axis: {
+      x: {
+        label: 'x_axis_label'
+      }
+    },
+    axis: {
       y: {
-        label:'In Millions'  // this should be a variable
+        label: 'y_axis_label'  // this should be a variable
       }
     },
     title: {
@@ -119,13 +124,13 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       x: {
-        label: 'Percentage',
+        label: 'x_axis_label',
         tick: {
           fit: true,
         }
       },
       y: {
-        label: 'Index (Best Score is 0)'
+        label: 'y_axis_label'
       }
     }
   })
