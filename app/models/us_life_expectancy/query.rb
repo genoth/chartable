@@ -42,8 +42,7 @@ module USLifeExpectancy
         dataset = race_descriptor_query(aggregator_SQL_string)
         p dataset
         generate_scatter_data(dataset, labels)
-      elsif @descriptors == "
-        Sexes"
+      elsif @descriptors == "Sexes"
         labels = ["Both Sexes", "Female", "Male"]
         dataset = sex_descriptor_query(aggregator_SQL_string)
         generate_scatter_data(dataset, labels)

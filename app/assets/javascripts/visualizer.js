@@ -42,6 +42,8 @@ var loadGraph = function(){
       var subTitle = descriptives.subtitle
       var chartTitle = [dataTitle + " - " + subTitle]
       var chartData = serverResponse[0]
+      console.log("this is the server response")
+      console.log(serverResponse)
 
       if(chartType === "bar") {
         renderBarChart(chartData, descriptives, chartTitle)
@@ -94,13 +96,14 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
 
   var showLabels = true;
+  console.log(chartData);
   if (chartData[0].length > 20) {
     showLabels = true;
   }
 
   c3.generate({
     point: {
-      r: 6.5
+      r: 4
     },
      data: {
       xsort: false,
