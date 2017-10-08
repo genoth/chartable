@@ -86,10 +86,10 @@ end
 
     # def prepareData(@dataset, descriptors, aggregations)
     # end
-    # def labels
-    #   if @descriptors == "Races"
-    #     ["All Races", "Black", "White"]
-    #   elsif @descriptors == "Sex"
-    #     ["Both Sexes", "Female", "Male"]
-    #   end
-    # end
+    def labels
+      if @descriptors == "Races"
+        ["All Races", "Black", "White"]
+      elsif @descriptors == "Sex"
+        ["Both Sexes", "Female", "Male"]
+      end
+    end

@@ -5,6 +5,8 @@ module DataPreparer
       if should_condense?
         condense_others(sorted_by_amount(full_series(dataset)))
       else
+        puts "this is the sorted by amount full series dataset"
+        p sorted_by_amount(full_series(dataset))
         sorted_by_amount(full_series(dataset))
       end
     else

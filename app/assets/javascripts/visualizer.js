@@ -38,9 +38,14 @@ var loadGraph = function(){
       $("#chart").empty();
       console.log(serverResponse)
       var descriptives = serverResponse[1]
+
       var dataTitle = descriptives.dataset_title
       var subTitle = descriptives.subtitle
       var chartTitle = [dataTitle + " - " + subTitle]
+
+      var x_axis_label = descriptives.x_axis_label
+      var y_axis_label = descriptives.y_axis_label
+
       var chartData = serverResponse[0]
       console.log("this is the server response")
       console.log(serverResponse)
@@ -84,12 +89,15 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       x: {
-        label: 'x_axis_label'
+        label: descriptives.x_axis_label,
+        tick: {
+          fit: true,
+        }
       }
     },
     axis: {
       y: {
-        label: 'y_axis_label'  // this should be a variable
+        label: descriptives.y_axis_label  // this should be a variable
       }
     },
     title: {
@@ -124,16 +132,20 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       x: {
-        label: 'x_axis_label',
+        label: descriptives.x_axis_label,
         tick: {
           fit: true,
         }
       },
       y: {
-        label: 'y_axis_label'
+        label: descriptives.y_axis_label
       }
     }
   })
+}
+
+var renderTimeSeries = function(){
+
 }
 
 var renderDownloadButton = function(){
