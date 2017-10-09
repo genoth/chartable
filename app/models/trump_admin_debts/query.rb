@@ -7,6 +7,14 @@ module TrumpAdminDebts
       p @params
     end
 
+    def x_axis
+      # believe will always be the departments, lenders, etc. who are ideally labeled
+    end
+
+    def y_axis
+      # believe will always be in millions of dollars
+    end
+
     def data
       aggregator_SQL_string = TrumpAdminDebts.aggregation_sql_snippits[@params[:aggregations]]
 
@@ -49,6 +57,10 @@ module TrumpAdminDebts
     private
 
     def should_condense?
+      true
+    end
+
+    def should_sort_by_amount?
       true
     end
 

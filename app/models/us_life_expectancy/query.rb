@@ -7,6 +7,14 @@ module USLifeExpectancy
       @aggregations = @params[:aggregations]
     end
 
+    def x_axis
+      # will always be age in years e.g. 80 years old
+    end
+
+    def y_axis
+      # will always be year e.g. 1948. this is a time series.
+    end
+
     def data
       if @params[:chart] == "scatter"
         scatter_data
@@ -78,6 +86,10 @@ module USLifeExpectancy
   private
 
     def should_condense?
+      false
+    end
+
+    def should_sort_by_amount?
       false
     end
 

@@ -8,6 +8,14 @@ module GenderInequality
       @aggregations = @params[:aggregations]
     end
 
+    def x_axis
+      # x_axis will either be a percentage (for scatter plot), OR just the countries labeled (for bar chart).
+    end
+
+    def y_axis
+      # y_axis will either be the GII index (for scatter plot), OR just the percentages (bar chart)
+    end
+
     def data
       if @params[:chart] == "scatter"
         scatter_data
@@ -35,10 +43,6 @@ module GenderInequality
         country_row += empty_array
         answer << country_row
       end
-
-      puts "this is the dataset"
-      #p answer
-      #generate_c3_columns(dataset, labels)
       answer
     end
      # [index, country, percentage]
@@ -55,6 +59,10 @@ module GenderInequality
    private
 
     def should_condense?
+      false
+    end
+
+    def should_sort_by_amount?
       false
     end
 

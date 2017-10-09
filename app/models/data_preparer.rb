@@ -3,15 +3,26 @@ module DataPreparer
   def prepared_data(dataset)
     if @params[:order] == "All"
       if should_condense?
-        condense_others(sorted_by_amount(full_series(dataset)))
+        thing = condense_others(sorted_by_amount(full_series(dataset)))
+      elsif should_sort_by_amount?
+        thing = sorted_by_amount(full_series(dataset))
       else
-        puts "this is the sorted by amount full series dataset"
-        p sorted_by_amount(full_series(dataset))
-        sorted_by_amount(full_series(dataset))
+        thing = full_series(dataset)
       end
     else
-      limit_n_and_others(sorted_by_amount(full_series(dataset)))
+      thing = limit_n_and_others(sorted_by_amount(full_series(dataset)))
     end
+    # tried formatting it the way it's done in canadian temperature data- doesn't work getting NaN error. I think because the departments are strings (as opposed to the years which are integers)
+    #  x_axis = ["x_departments"]
+    # y_axis = ["money stuff"]
+
+    # thing.each do |subarray|
+    #   x_axis.push(subarray[0])
+    #   y_axis.push(subarray[1])
+    # end
+    # sending_back = []
+    # p sending_back.push(x_axis, y_axis)
+    # sending_back
   end
 
   def full_series(dataset)

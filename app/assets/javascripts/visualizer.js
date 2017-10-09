@@ -36,6 +36,7 @@ var loadGraph = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
+      console.log("This is the serverResponse")
       console.log(serverResponse)
       var descriptives = serverResponse[1]
 
@@ -82,9 +83,34 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
 }
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
+
+  if (chartData[0][0].length > 2){
+    timeSeries(chartData, descriptives, chartTitle);
+  } else {
+
   c3.generate({
     data: {
       columns: chartData,
+      type : 'bar'
+    },
+    axis: {
+      y: {
+        label: descriptives.y_axis_label
+      }
+    },
+    title: {
+      text: chartTitle
+    }
+  });
+}
+}
+
+var timeSeries = function(chartData,descriptives, chartTitle) {
+  console.log("hit the time series")
+  c3.generate({
+    data: {
+      columns: chartData,
+      x: chartData[0][0],
       type : 'bar'
     },
     axis: {
@@ -97,7 +123,7 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
     },
     axis: {
       y: {
-        label: descriptives.y_axis_label  // this should be a variable
+        label: descriptives.y_axis_label
       }
     },
     title: {
@@ -109,7 +135,8 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
 
   var showLabels = true;
-  console.log(chartData);
+  console.log("this thing is making the chart data")
+  console.log(chartData[0][0]);
   if (chartData[0].length > 20) {
     showLabels = true;
   }
@@ -142,10 +169,6 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
       }
     }
   })
-}
-
-var renderTimeSeries = function(){
-
 }
 
 var renderDownloadButton = function(){

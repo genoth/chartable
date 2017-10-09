@@ -23,6 +23,7 @@ class DatasetsController < ApplicationController
     end
 
     subtitle = {subtitle: "#{params[:aggregations]} by #{params[:descriptors]}"}
+
     @descriptive_metadata = dataset_klass.metadata.merge(subtitle)
     @dataset = dataset_klass::Query.new(params).data
 
@@ -49,6 +50,30 @@ private
     }
   end
 
+  # should we put the x-axis y-axis data in here?
+
+  # Canadian Climate:
+    # x-axis will always be years (timeseries)
+    # y-axis will always be temperature deviations
+
+  # Gender Inequality:
+    # Scatter:
+      # x-axis will always be the percentage
+      # y-axis will be the GII
+    # Bar
+      # x-axis will be the country labeled
+      # y-axis will be the percentage
+
+  # Life Expectancy
+    # Scatter:
+      # x-axis will always be the years (timeseries) e.g. 1950
+      # y-axis will always be the life expectancy in years (e.g. 80 years old)
+    # Bar?
+
+  # Trump Data
+    # Bar
+      # x-axis will always be the categories/departments named
+      # y-axis will always be the amount in millions
 
 end
 
