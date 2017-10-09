@@ -27,7 +27,6 @@ var visFormListener = function(){
 
 var loadGraph = function(){
   var $form = $("#vis-form");
-    console.log($form.attr("url"));
     var chartType = $(":selected")[2].value;
     $request = $.ajax({
       url: $form.attr("url"),
@@ -36,8 +35,6 @@ var loadGraph = function(){
     })
     $request.done(function(serverResponse){
       $("#chart").empty();
-      console.log("This is the serverResponse")
-      console.log(serverResponse)
       var descriptives = serverResponse[1]
 
       var dataTitle = descriptives.dataset_title
@@ -78,9 +75,12 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
 }
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
-  if (chartData[0][0].length > 2){
+  console.log(chartData)
+  console.log(chartData[0])
+  if ((chartData[0]).length > 2){
     timeSeries(chartData, descriptives, chartTitle);
   } else {
+  console.log(chartData)
   c3.generate({
     data: {
       columns: chartData,
@@ -99,6 +99,7 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 }
 
 var timeSeries = function(chartData,descriptives, chartTitle) {
+  console.log("in the time series")
   c3.generate({
     data: {
       columns: chartData,
@@ -108,6 +109,7 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
     axis: {
       x: {
         label: descriptives.x_axis_label,
+        position: 'outer-center',
         tick: {
           fit: false,
         },
@@ -116,7 +118,10 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
     },
     axis: {
       y: {
-        label: descriptives.y_axis_label
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        }
       }
     },
     title: {
@@ -141,7 +146,6 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
   if (chartData[0].length > 20) {
     showLabels = true;
   }
-
   c3.generate({
     point: {
       r: 4
@@ -166,7 +170,10 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
         }
       },
       y: {
-        label: descriptives.y_axis_label
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        }
       }
     },
     grid: {

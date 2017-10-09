@@ -37,8 +37,8 @@ module GenderInequality
       dataset_title: "Gender Inequality Index (GII) Data",
       dataset_url: "https://data.humdata.org/dataset/gender-inequality-index",
       dataset_source: "United Nations Development Programme",
-      x_axis_label: "Percent",
-      y_axis_label: "GII: 0 means absolute equality"
+      # x_axis_label: "Percent",
+      # y_axis_label: "GII: 0 means absolute equality"
       }
     end
 end

@@ -10,8 +10,6 @@ class DatasetsController < ApplicationController
     end
     @descriptive_metadata = @dataset_klass.metadata
     @diagram_types = allowed_charts[params[:id]]
-    # puts "these are the diagram types"
-    # p @diagram_types
   end
 
   def query
@@ -23,7 +21,6 @@ class DatasetsController < ApplicationController
     end
 
     subtitle = {subtitle: "#{params[:aggregations]} by #{params[:descriptors]}"}
-
     @descriptive_metadata = dataset_klass.metadata.merge(subtitle)
     @dataset = dataset_klass::Query.new(params).data
 

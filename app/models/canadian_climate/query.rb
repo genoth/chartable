@@ -13,14 +13,6 @@ module CanadianClimate
       end
     end
 
-    def x_axis
-      # x_axis will always be years.
-    end
-
-    def y_axis
-      # y_axis will always be temperature deviations. note: need to figure out how to move x-axis to the 0 positin
-    end
-
     def bar_data
       aggregator_SQL_string = CanadianClimate.aggregation_sql_snippits[@params[:aggregations]]
       if @params[:descriptors] == "Years"
@@ -32,7 +24,7 @@ module CanadianClimate
       end
        dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
        x_years = ["x_years"]
-       temps = ["Temperature"]
+       temps = ["#{@params[:aggregations]}"]
        puts "********** this is after the 2nd mapping, before x_years is added"
        p dataset
       dataset.each do |hash|
