@@ -44,15 +44,10 @@ var loadGraph = function(){
       var subTitle = descriptives.subtitle
       var chartTitle = [dataTitle + " - " + subTitle]
 
-      var x_axis_label = descriptives.x_axis_label
-      var y_axis_label = descriptives.y_axis_label
-
       var chartData = serverResponse[0]
-      console.log("this is the server response")
-      console.log(serverResponse)
 
       if(chartType === "bar") {
-        renderBarChart(chartData, descriptives, chartTitle)
+        renderBarChart(chartData, descriptives, chartTitle);
       } else if(chartType === "pie"){
         renderPieChart(chartData, descriptives, chartTitle);
       } else {
@@ -83,11 +78,9 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
 }
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
-
   if (chartData[0][0].length > 2){
     timeSeries(chartData, descriptives, chartTitle);
   } else {
-
   c3.generate({
     data: {
       columns: chartData,
@@ -106,7 +99,6 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
 }
 
 var timeSeries = function(chartData,descriptives, chartTitle) {
-  console.log("hit the time series")
   c3.generate({
     data: {
       columns: chartData,
@@ -117,8 +109,9 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
       x: {
         label: descriptives.x_axis_label,
         tick: {
-          fit: true,
-        }
+          fit: false,
+        },
+        y: 0
       }
     },
     axis: {
@@ -128,8 +121,16 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
     },
     title: {
       text: chartTitle
+    },
+  grid: {
+    y: {
+      show: true,
+      lines: [
+      {value: 0},
+      ]
     }
-  });
+  }
+  })
 }
 
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
@@ -167,7 +168,15 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
       y: {
         label: descriptives.y_axis_label
       }
+    },
+    grid: {
+    y: {
+      show: true,
+      lines: [
+      {value: 0},
+      ]
     }
+  }
   })
 }
 
