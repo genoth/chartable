@@ -3,8 +3,8 @@ require 'fileutils'
 require_relative 'child_data_parse_out'
 require_relative 'parent_data_parse_out'
 require_relative 'etl'
-
-
+require_relative 'general_parser'
+require_relative '../../../config/environment'
 
 pipeline_paths = [
   "db/ETL_Pipeline/ETL_staging/one.csv",
@@ -22,7 +22,7 @@ pipeline_paths = [
 
 raw_data_file = "db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv"
 
-normalization_information = [
+normalization_information_for_trump = [
   ['db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv',[:department, :last_name, :first_name], 'db/ETL_Pipeline/ETL_staging/one.csv', 'db/ETL_Pipeline/ETL_staging/two.csv'],
   ['db/ETL_Pipeline/ETL_staging/one.csv',[:department], 'db/ETL_Pipeline/ETL_staging/three.csv', 'db/ETL_Pipeline/ETL_staging/four.csv'], # 3=departments, 4=employees
   ['db/ETL_Pipeline/ETL_staging/two.csv',[:lender_name],'db/ETL_Pipeline/ETL_staging/five.csv', 'db/ETL_Pipeline/ETL_staging/six.csv'], # 5=lenders
@@ -31,7 +31,7 @@ normalization_information = [
 
 
 finished_files = []
-normalization_information.each do |files|
+normalization_information_for_trump.each do |files|
   split_tables(files[0], files[1], files[2], files[3])
   finished_files << files[2]
   finished_files << files[3]
@@ -40,6 +40,19 @@ normalization_information.each do |files|
   end
   finished_files -= [files[0]]
 end
+# p finished_files
+name = TrumpAdminDebts::Department
+general_parser('db/ETL_Pipeline/ETL_staging/three.csv', name)
+name = TrumpAdminDebts::Employee
+general_parser('db/ETL_Pipeline/ETL_staging/four.csv', name)
+name = TrumpAdminDebts::Lender
+general_parser('db/ETL_Pipeline/ETL_staging/five.csv', name)
+name = TrumpAdminDebts::DebtType
+general_parser('db/ETL_Pipeline/ETL_staging/seven.csv', name)
+name = TrumpAdminDebts::Debt
+general_parser('db/ETL_Pipeline/ETL_staging/eight.csv', name)
+
+
 
 # file = 'db/ETL_Pipeline/raw_CSVs/two.csv'
 # split_tables(file, [:lender_name], 'db/ETL_Pipeline/ETL_staging/five.csv', 'db/ETL_Pipeline/ETL_staging/six.csv')
