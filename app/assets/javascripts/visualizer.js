@@ -36,11 +36,9 @@ var loadGraph = function(){
     $request.done(function(serverResponse){
       $("#chart").empty();
       var descriptives = serverResponse[1]
-
       var dataTitle = descriptives.dataset_title
       var subTitle = descriptives.subtitle
       var chartTitle = [dataTitle + " - " + subTitle]
-
       var chartData = serverResponse[0]
 
       if(chartType === "bar") {
@@ -89,14 +87,28 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
     axis: {
       y: {
         label: descriptives.y_axis_label
+      },
+      x: {
+        type: 'category',
+        tick: 14
       }
     },
     title: {
       text: chartTitle
-    }
-  });
+    },
+  })
+    removeZeroBug();
 }
 }
+
+var removeZeroBug = function(){
+  var gTick = $(".c3-axis.c3-axis-x").find("g.tick")
+  gTick.find("text").find("tspan").html("");
+  gTick.find("line").attr("y2", "");
+// $(".c3-axis.c3-axis-x").find("g.tick").find("text").find("tspan").html("");
+// $(".c3-axis.c3-axis-x").find("g.tick").find("line").attr("y2", "")
+}
+
 
 var timeSeries = function(chartData,descriptives, chartTitle) {
   console.log("in the time series")
@@ -236,4 +248,25 @@ var downloadHandler = function(){
 //   $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
 //   $("#administrative-metadata").append("<p class='link-share'>" + fullURLwithTags + "</p>")
 //   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+// }
+
+//  This is to label each individual column rather than have a legend. IT's pretty ugly and impractical. All comes as same color
+// var chart = function(chartData, descriptives, chartTitle){
+//   c3.generate({
+//     data: {
+//         x : 'x',
+//         columns: chartData,
+//         type: 'bar'
+//     },
+//     axis: {
+//         x: {
+//             type: 'category',
+//             tick: {
+//                 rotate: 55,
+//                 multiline: false
+//             },
+//             height: 130
+//         }
+//     }
+// });
 // }

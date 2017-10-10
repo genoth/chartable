@@ -5,7 +5,7 @@ module GenderInequality
     end
 
     def self.orders
-      ["Top", "Bottom", "All"]
+      ["All", "Top", "Bottom"]
     end
 
     def self.aggregations

@@ -1,6 +1,7 @@
 module CanadianClimate
   class Query
     include DataPreparer
+
     def initialize(params)
       @params = params
     end
