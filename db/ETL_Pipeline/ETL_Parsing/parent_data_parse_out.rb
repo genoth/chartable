@@ -14,6 +14,7 @@ def construct_parent_table(original_csv_file, parent_table_headers, destination_
     end
   end
 
+
   CSV.open(destination_file_path, "w") do |csv|
     csv << parent_table_headers
     new_row_for_csv = []

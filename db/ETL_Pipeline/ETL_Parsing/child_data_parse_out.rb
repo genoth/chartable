@@ -13,10 +13,15 @@ def construct_child_table(original_csv_file, parent_table_headers, destination_f
     end
   end
 
+
   original_csv_headers = CSV.read(original_csv_file, headers: true, header_converters: :symbol).headers
   child_table_headers = (original_csv_headers - parent_table_headers)
 
   child_table_data = []
+  foreign_key_name = parent_table_headers[0].to_s
+  foreign_key_name += "_fk"
+  foreign_key_name_header = foreign_key_name.to_sym
+  p foreign_key_name_header
 
   CSV.foreach(original_csv_file, headers: true, header_converters: :symbol) do |original_row|
     child_table_search_term = Hash.new
@@ -28,7 +33,7 @@ def construct_child_table(original_csv_file, parent_table_headers, destination_f
 
     # Now what we have to do is clone the data from the original csv file, except with foreign key values rapced for redundant data:
     new_table_row = Hash.new
-    new_table_row.store(:foreign_key_name, foreign_key_value)
+    new_table_row.store(foreign_key_name_header, foreign_key_value)
     # ^ DI real foreign key name will eventurally get passed into this method as an argument.
     child_table_headers.each do |new_table_column|
       new_table_row.store(new_table_column, original_row[new_table_column])
@@ -38,7 +43,7 @@ def construct_child_table(original_csv_file, parent_table_headers, destination_f
 
 
   # Write new data into new CSV file
-  child_table_headers.unshift(:foreign_key_name)
+  child_table_headers.unshift(foreign_key_name_header)
   CSV.open(destination_file_path, "w") do |csv|
     csv << child_table_headers
     new_row_for_child_table = []

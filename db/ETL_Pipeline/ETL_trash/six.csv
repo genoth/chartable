@@ -1,311 +1,311 @@
-foreign_key_name,foreign_key_name,"",debt_type,min_amount,max_amount,year_incurred,rate,term
-1,1,Mortgage on Personal Residence,500001,1000000,2016,2.74,30 years
-1,2,Home Equity Line of Credit,15001,50000,2016,4.49,Revolving
-1,3,Mortgage on Personal Residence,500001,1000000,2011,3.91,30
-1,4,Home Equity Line of Credit,15001,50000,2013,4.15,Revolving
-2,1,Student Loan,50001,100000,2004,3.375,30 years
-3,1,Credit Card,15001,50000,2017,,
-3,2,CAPITAL CALL STRUCTURE ALTERNATIVE INVESTMENT,100001,250000,2014,NA,ON DEMAND
-3,3,CAPITAL CALL STRUCTURE ALTERNATIVE INVESTMENT,100001,250000,2014,NA,ON DEMAND
-4,1,Personal Loan,100001,250000,2015,5%,4 year
-5,1,Mortgage (investment/ren tal property),250001,500000,2002,3.13%,30 YEAR
-5,2,Mortgage (investment/ren tal property),250001,500000,2006,3.63%,Matures January 2037
-5,3,Mortgage (investment/ren tal property),500001,1000000,2004,3.63%,30 YEAR
-5,4,Mortgage (investment/ren tal property),100001,250000,2015,4.13%,30 YEAR
-5,5,SECURED RECOURSE PROMISSORY NOTE,50001,100000,2016,3.50%,5 YEARS
-6,1,Credit Card,10001,15000,2015,17.74% and 29.74%,open-ended
-6,2,Student Loan,15001,50000,2004,3.63%,8/2036
-6,3,Student Loan,15001,50000,2004,3.63%,8/2036
-7,1,Student Loan,15001,50000,2002,4.7,
-8,1,Mortgage on Personal Residence,500001,1000000,2016,3.50%,30 years
-8,2,Mortgage on Personal Residence,500001,1000000,2012,4.50%,29 years
-9,1,Mortgage (investment/ren tal property),100001,250000,2005,3.50%,5/1 ARM Mortgage from 2005
-10,1,Credit Card,15001,50000,2017,Paid in Full Every Month,revolving
-10,2,Exercised Line of Credit,500001,1000000,2016,3.5,NA- revolving line of credit
-11,1,Student Loan,50001,100000,2003,1.625,20 year
-12,1,Mortgage on Personal Residence,500001,1000000,2011,2.88%,30
-12,2,Exercised Line of Credit,100001,250000,2011,4.00%,5
-13,1,Student Loan,15001,50000,2006,1.875,20
-14,1,Mortgage on Personal Residence,250001,500000,2013,3.80%,30 years
-15,1,Student Loan,10001,15000,2006,4.38,141 Months
-16,1,Mortgage on Personal Residence,250001,500000,2013,3.125,30
-16,2,Mortgage on Personal Residence,250001,500000,2011,4,10
-17,1,Student Loan,15001,50000,2001,3.875,134 months
-18,1,,10001,15000,,,
-19,1,Student Loan,100001,250000,2001,4%,30 years
-19,2,Mortgage (investment/ren tal property),10001,15000,2006,5.25%,30 years
-19,3,Credit Card,10001,15000,2016,16.49%,revolving
-19,4,Student Loan,50001,100000,2001,4%,30 years
-19,5,Taxes,15001,50000,2012,n/a,5 years
-20,1,Mortgage (investment/ren tal property),250001,500000,2013,3.60%,30-Year
-20,2,Exercised Line of Credit,50001,100000,2012,2.50%,10-Year
-20,3,Student Loan,50001,100000,2002,4.38%,30-year
-20,4,Student Loan,50001,100000,2004,5.38%,30-year
-21,1,Capital Call,50001,100000,2004,n/a,On Demand
-21,2,Capital Call,1000001,5000000,2007,n/a,On Demand
-21,3,Capital Call,15001,50000,2006,n/a,On Demand
-21,4,Capital Call,50001,100000,2000,n/a,On Demand
-21,5,Capital Call,15001,50000,2012,n/a,On Demand
-22,1,Credit Card,15001,50000,2017,,
-23,1,Credit Card,10001,15000,2013,15%,revolving credit
-23,2,Installment Agreement,15001,50000,2012,3%,on demand
-23,3,Credit Card,15001,50000,2012,16.74%,revolving credit
-24,1,Credit Card,15001,50000,2016,15.74,revolving credit
-25,1,Mortgage (investment/ren tal property),100001,250000,2006,2.5,30 YR- ARM
-25,2,Mortgage (investment/ren tal property),100001,250000,2005,5,30 YR
-25,3,Mortgage (investment/ren tal property),100001,250000,2010,4.375,30YR
-25,4,HELOC,250001,500000,2013,5,10 YR
-25,5,Mortgage (investment/ren tal property),250001,500000,2007,5,30 YR
-26,1,Mortgage (investment/ren tal property),100001,250000,2010,4.875,30
-27,1,Personal Loan,1000000,,2015,3.77%,5 years
-27,2,Unfunded Capital Commitments,1000001,5000000,2015,0%,On Demand
-27,3,Exercised Line of Credit,1000000,,2016,0.74%,3 years
-27,4,Credit Card,15001,50000,2016,7.40%,Revolving line
-28,1,Mortgage (investment/ren tal property),100001,250000,2009,4.75,30
-28,2,Mortgage (investment/ren tal property),100001,250000,2009,4.625,30
-29,1,Student Loan,10001,15000,2008,2.250% (variable),20 years
-29,2,Student Loan,15001,50000,2009,3.67% (variable),236 Months
-29,3,Student Loan,15001,50000,2004,4.63%,20 years
-29,4,Student Loan,15001,50000,2004,2.625% (variable),20 years
-30,1,Student Loan,10001,15000,2012,6.8,10 years
-30,2,Student Loan,10001,15000,2012,6.8,10 years
-30,3,Student Loan,15001,50000,2012,7.9,10 years
-31,1,Credit Card,10001,15000,2009,8.24,Revolving
-32,1,Mortgage (investment/ren tal property),50001,100000,2003,5.81,15 years
-32,2,Student Loan,50001,100000,2010,4.75%,10 years
-33,1,Student Loan,10001,15000,2009,6.55% to 8.25%,117 to 119 months
-33,2,Student Loan,10001,15000,2008,6.55% to 7.90%,120 months
-34,1,Student Loan,50001,100000,2004,Avg. 3.5%,Graduated
-34,2,Student Loan,15001,50000,2005,2.88%,Level
-35,1,Student Loan Co-Signer (Collection Agency),10001,15000,2010,N/A,N/A
-36,1,Mortgage (investment property),250001,500000,2014,3.88% fixed,15 years
-36,2,Mortgage (personal residence),500001,1000000,2016,3.25% fixed,30 years
-36,3,Exercised Line of Credit,15001,50000,2016,4.64% variable,N/A
-37,1,Student Loan,15001,50000,2005,6.50%,10 years
-38,1,Student Loan,10001,15000,2002,2.25%,301 Months
-39,1,Student Loan,100001,250000,2012,7%,15 Years
-39,2,Credit Card,10001,15000,2012,10%,Revolving
-39,3,Student Loan,100001,250000,2012,7%,30yrs
-40,1,Mortgage (investment/ren tal property),500001,1000000,2015,3.75,30 year
-40,2,Mortgage (investment/ren tal property),500001,1000000,2016,4,30 years
-41,1,Mortgage on Personal Residence,250001,500000,2013,3.5,30
-42,1,Exercised Line of Credit,250001,500000,2016,LIBOR + 3%,No term
-43,1,Exercised Line of Credit,10001,15000,2015,1.90%,Rev.
-44,1,Credit Card,10001,15000,2016,17,revolving
-44,2,Student Loan,100001,250000,2010,6.25,20 years
-45,1,Personal Loan,50001,100000,2016,2.50%,5 years
-46,1,Exercised Line of Credit,50001,100000,2011,LIBOR + 3%,on demand
-47,1,Personal Loan,10001,15000,2010,3.27%,8 years
-47,2,Credit Card,15001,50000,2014,19.49%,Revolving
-47,3,Credit Card,15001,50000,2014,25.74%,Revolving
-47,4,Mortgage (investment/ren tal property),15001,50000,2014,4.75%,5 years
-47,5,Credit Card,10001,15000,2014,15.74%,Revolving
-47,6,Mortgage on Personal Residence,500001,1000000,2013,3.25%,30 years
-47,7,Home Equity Loan on Personal Residence,50001,100000,2013,5.24%,8/25/2043
-48,1,Mortgage on Personal Residence,50001,100000,2011,3.25,15 Year Fixed Rate
-49,1,Mortgage (investment/ren tal property),50001,100000,2010,2.10%,25 years
-49,2,Mortgage (investment/ren tal property),100001,250000,2015,4.25,30 years
-49,3,Mortgage (investment/ren tal property),100001,250000,2015,4.25,30 years
-49,4,Student Loan,10001,15000,2004,1.75,30 years
-50,1,Credit Card,15001,50000,2013,11.9,Revolving
-50,2,Credit Card,10001,15000,2013,6.9,Revolving
-50,3,Credit Card,10001,15000,2013,6.9,Revolving
-51,1,Student Loan,50001,100000,2015,4.99,10
-52,1,Student Loan,100001,250000,2015,3.40%,10 years
-53,1,Credit Card,10001,15000,2015,0%,N/A
-53,2,Credit Card,10001,15000,2016,7.40%,N/A
-54,1,Exercised Line of Credit,1000001,5000000,2014,1.513,
-55,1,Student Loan,10001,15000,2006,8,
-56,1,Student Loan,10001,15000,2009,5.5,15
-57,1,Exercised Line of Credit,100001,250000,2003,3.25,on demand
-57,2,Mortgage on Personal Residence,500001,1000000,2003,3.25,30 year
-58,1,Mortgage (investment/ren tal property),15001,50000,2009,4.375,15 Years
-58,2,Mortgage on Personal Residence,100001,250000,2011,4.125,30 Years
-58,3,Mortgage on Personal Residence,100001,250000,2008,4.5,30 Years
-58,4,Mortgage on Personal Residence,500001,1000000,2016,3.6,30 Years
-59,1,Student Loan,15001,50000,2005,5%,20 Years
-59,2,Student Loan,10001,15000,2005,5%,15 years
-60,1,Student Loan,15001,50000,2007,6.5,25
-61,1,Unsecured line of credit,5000001,25000000,2015,PRIME+0.75%,revolving
-61,2,Unsecured line of credit,5000001,25000000,2015,LIBOR+2.5%,revolving
-61,3,Unsecured line of credit,1000001,5000000,2016,LIBOR+2.5%,revolving
-61,4,Unsecured line of credit,1000001,5000000,2016,4.50%,revolving
-61,5,Unsecured line of credit,1000001,5000000,2016,PRIME (3.25% F),revolving
-61,6,Unsecured line of credit,1000001,5000000,2015,LIBOR+2.9%,revolving
-61,7,Unsecured line of credit,1000001,5000000,2016,PRIME+0.5% (4% F),revolving
-61,8,Unsecured line of credit,1000001,5000000,2015,PRIME (3.25% F),revolving
-61,9,Unsecured line of credit,1000001,5000000,2016,PRIME (3.5% F),revolving
-61,10,Secured line of credit,1000001,5000000,2016,PRIME+0.5% (4% F),revolving
-61,11,Note payable,1000001,5000000,2015,LIBOR+2.75%,6/15/2018
-61,12,Credit Card,100001,250000,2008,13.74%,revolving
-61,13,Credit Card,15001,50000,2008,13.74%,revolving
-62,1,Student Loan,15001,50000,2015,Prime + 2,120
-63,1,Student Loan,15001,50000,2001,7.875,20 years
-64,1,Student Loan,50001,100000,2015,10,120 months
-65,1,Credit Card,15001,50000,2016,13.49%,Revolving
-65,2,Credit Card,15001,50000,2016,15.49%,Revolving
-65,3,Credit Card,50001,100000,2016,18.49%,Revolving
-65,4,Credit Card,15001,50000,2016,Variable,Revolving
-66,1,Mortgage on Personal Residence,100001,250000,2011,4.25%,30 years
-67,1,Credit Card,10001,15000,2011,12.4,revolving
-67,2,Credit Card,10001,15000,2011,17.49,revolving
-67,3,Student Loan,15001,50000,2013,6.4% - 7.2%,10 years
-67,4,Student Loan,15001,50000,2013,6.4% - 7.2%,10 Years post graduation
-68,1,Mortgage on Personal Residence,1000001,5000000,2016,3.75,30 year
-68,2,Mortgage on Personal Residence,500001,1000000,2014,4.375,30 year
-68,3,Exercised Line of Credit,1000000,,2014,3.75,Revolving
-69,1,Student Loan,50001,100000,1998,5% - 7%,20 years
-70,1,Credit Card,15001,50000,2014,18%,REVOLVING
-71,1,Student Loan,100001,250000,2006,5%,30 years
-71,2,Personal Loan,10001,15000,2016,7%,36  months
-72,1,Student Loan,50001,100000,2014,5,10 years
-73,1,Exercised Line of Credit,100001,250000,2014,2.5,36 months
-74,1,Personal Loan,10001,15000,2014,15.25,60 months
-74,2,Personal Loan,10001,15000,2013,10.49,72 months
-74,3,Personal Loan,10001,15000,2014,10.75,60 months
-75,1,Credit Card,15001,50000,2016,10.00%,revolving
-75,2,Student Loan,15001,50000,2016,4.50%,347 months
-76,1,Business line of credit,15001,50000,2016,4.75%,annual renewal
-76,2,Business partner buyout loan,100001,250000,2015,3.83%,64 months
-77,1,Credit Card,10001,15000,2015,0% (promotional offer),no end date(interest free until July 2017)
-77,2,Student Loan,10001,15000,2014,5,10 years
-77,3,Student Loan,15001,50000,2016,6.31,10 years
-77,4,Student Loan,15001,50000,2015,5.84,10 years
-77,5,Student Loan,50001,100000,2015,6.84,10 years
-77,6,Student Loan,15001,50000,2014,6.21,10 years
-77,7,Student Loan,15001,50000,2014,7.21,10 years
-77,8,Student Loan,10001,15000,2014,6.41,10 years
-77,9,Student Loan,15001,50000,2013,5.41,10 years
-77,10,Student Loan,50001,100000,2013,6.41,10 years
-77,11,Student Loan,15001,50000,2012,6.8,10 years
-77,12,Student Loan,50001,100000,2012,7.9,10 years
-77,13,Student Loan,15001,50000,2011,6.8,10 years
-77,14,Student Loan,15001,50000,2011,6.8,10 years
-77,15,Student Loan,50001,100000,2011,7.9,10 years
-78,1,Credit Card,15001,50000,2016,15.49%,Revolving
-78,2,Capital Call,100001,250000,2005,NA,On demand
-78,3,Personal Loan,5000001,25000000,2014,"2% until 2017, then LIBOR + 2.375%,",30 years
-79,1,Student Loan,50001,100000,2007,5.13%,2039
-79,2,Student Loan,15001,50000,2007,5.13%,2039
-80,1,Campaign Debt,50001,100000,2014,4%,Due Oct 2018
-80,2,Mortgage on Personal Residence,100001,250000,2015,3.75%,Due May 2045
-80,3,Mortgage (investment/ren tal property),1000001,5000000,2008,4%,Due/In Foreclosure
-80,4,Loan to Purchase Mortgage,1000001,5000000,2016,4%,Due April 2018
-81,1,Credit Card,15001,50000,2016,18.74,revolving
-81,2,Credit Card,15001,50000,2016,15.74,revolving
-81,3,Credit Card,15001,50000,2016,15.74%,revolving
-81,4,Credit Card,10001,15000,2016,13.74%,revolving
-82,1,Student Loan,15001,50000,2006,,30 years
-83,1,Mortgage (investment/ren tal property),250001,500000,2014,5%,30 years
-83,2,Mortgage (investment/ren tal property),100001,250000,2016,5%,30
-84,1,Mortgage (investment/ren tal property),50001,100000,2001,5.75,30 Years
-85,1,Student Loan,50001,100000,2011,7.9,Monthly payments until fully repaid
-85,2,Student Loan,15001,50000,2011,6.9,Monthly payments until fully repaid
-85,3,Student Loan,15001,50000,2011,6.9,Monthly payments until fully repaid
-85,4,Student Loan,50001,100000,2011,8.3,Monthly payments until fully repaid
-86,1,Student Loan,10001,15000,2001,3.875,30
-87,1,capital account loan/ DLA Piper partnership,100001,250000,2012,1 month Libor plus 1.75%,5 years interest only
-88,1,Mortgage on Personal Residence,500001,1000000,2012,3.52,30
-88,2,Mortgage on Personal Residence,250001,500000,2015,3.875,30
-88,3,Exercised Line of Credit,100001,250000,2006,Variable,Revolving
-89,1,Personal Loan,15001,50000,2016,2.25%,12/2017
-89,2,Loan Guarantor 50%,500001,1000000,2013,3.25%,12/2021
-89,3,Loan Guarantor 50%,500001,1000000,2013,3.25%,12/2021
-89,4,Loan Guarantor,250001,500000,2016,4.45%,192 Months
-90,1,Personal Loan,50001,100000,2015,2.65,5
-90,2,Mortgage (investment/ren tal property),100001,250000,2013,4.625,30
-90,3,Mortgage on Personal Residence,1000000,,2015,3.75,30
-90,4,Capital Commitment,100001,250000,2016,n/a,over next 3 years
-90,5,Student Loan,50001,100000,2002,3.875,20 years
-91,1,Margin Loan,1000001,5000000,2015,5.75%,NA
-92,1,Mortgage on Personal Residence,250001,500000,2012,3.38%,15 years
-92,2,Exercised Line of Credit,250001,500000,2016,variable,30 years
-93,1,Mortgage on Personal Residence,250001,500000,2009,3.50%,30 years
-94,1,Capital Call,100001,250000,2016,N/A,On Demand
-94,2,Capital Call,50001,100000,2015,N/A,On Demand
-94,3,Capital Call,10001,15000,2011,N/A,On Demand
-94,4,Capital Call,10001,15000,2011,N/A,On Demand
-95,1,Mortgage on Personal Residence,500001,1000000,2012,3.885,10 years
-96,1,Student Loan,10001,15000,2016,10.25%,72 months
-96,2,Student Loan,15001,50000,2016,6.80%,10 year
-97,1,Mortgage on Personal Residence,500001,1000000,2013,3.38%,30 years
-97,2,Mortgage on Personal Residence,50001,100000,2013,3.5% fixed,3/1 yr ARM
-98,1,Guarantee of Loan to Social Club,500001,1000000,2016,N/A,2-Year Fixed Term
-98,2,Capital Commitment,15001,50000,2014,N/A,Life of fund
-98,3,Capital Commitment,15001,50000,2016,N/A,Life of fund
-98,4,Capital commitment,1000001,5000000,2006,N/A,Life of fund
-98,5,Capital Commitment,10001,15000,2013,N/A,Life of fund
-98,6,Capital Commitment,1000001,5000000,2013,N/A,Life of fund
-98,7,Capital Commitment,500001,1000000,2013,N/A,Life of fund
-98,8,Capital Commitment,100001,250000,2015,N/A,Life of fund
-98,9,Capital Commitment,500001,1000000,2007,N/A,Life of fund
-98,10,Capital Commitment,5000001,25000000,2007,N/A,Life of fund
-98,11,Capital Commitment,1000001,5000000,2010,N/A,Life of fund
-98,12,Capital Commitment,250001,500000,2009,N/A,Life of fund
-98,13,Capital Commitment,250001,500000,2016,N/A,Life of fund
-99,1,Credit Card,15001,50000,2017,4,Revolving
-100,1,Student Loan,15001,50000,2008,3,
-100,2,Student Loan,15001,50000,2008,3,
-101,1,Mortgage on Personal Residence,250001,500000,2015,3.875,30 Year Fixec
-102,1,Student Loan,50001,100000,1998,6%,30 years
-103,1,Student Loan,10001,15000,2012,6.55%,10 years
-103,2,Student Loan,10001,15000,2009,6.80%,10 years
-103,3,Student Loan,10001,15000,2008,6.80%,10 years
-103,4,Student Loan,15001,50000,2009,8.75%,20 years
-103,5,Student Loan,15001,50000,2008,2%,25 years
-103,6,Student Loan,15001,50000,2007,2.62%,20 years
-103,7,Student Loan,15001,50000,2012,6.63%,20 years
-104,1,Mortgage on Personal Residence,250001,500000,2012,3.25%,25 years
-104,2,Mortgage on Personal Residence,100001,250000,2015,3.25%,30 years
-105,1,Student Loan,15001,50000,2002,0.0175,30 years
-105,2,Credit Card,10001,15000,,,
-106,1,Student Loan,15001,50000,2003,4%,20
-106,2,Mortgage (investment/ren tal property),250001,500000,2015,7%,30 year
-107,1,Credit Card,15001,50000,2016,10%,None
-108,1,Mortgage (investment/ren tal property),100001,250000,2012,3.50%,30 Years
-109,1,Student Loan,100001,250000,2011,6.50%,20
-110,1,Mortgage (investment/ren tal property),50001,100000,2017,4.75,30
-110,2,Mortgage (investment/ren tal property),100001,250000,2017,4.65,30
-110,3,Mortgage (investment/ren tal property),100001,250000,2017,4.75,30
-110,4,Mortgage (investment/ren tal property),250001,500000,2017,4.125,30
-110,5,Credit Card,10001,15000,2010,9%,Revolving
-110,6,Credit Card,10001,15000,2000,9%,Revolving
-110,7,Personal Loan,15001,50000,2016,10.75%,5
-111,1,Capital Call,250001,500000,2014,,on demand
-111,2,Capital Call,50001,100000,2015,,on demand
-112,1,Exercised Line of Credit,50001,100000,2016,2.65,Indefinite
-113,1,Exercised Line of Credit,100001,250000,2016,3.99,36 months
-114,1,Trump Tower Commercial LLC - mortgage,50000000,,2012,4.20%,Matures in 2022
-114,2,40 Wall Street LLC - loan,50000000,,2015,3.67%,Matures in 2025
-114,3,Trump National Doral - mortgage,50000000,,2012,LIBOR + 1.75% or Prime minus .75%,Matures in 2023
-114,4,Trump National Doral - mortgage,5000001,25000000,2012,LIBOR + 1.75% or Prime minus .75%,Matures in 2023
-114,5,Fifty-Seventh Street Associates LLC - issuer of secured lease bonds,500001,1000000,1996,7.13%,Matures in 2017
-114,6,Trump Park Avenue LLC - mortgage,5000001,25000000,2010,3.25%,Matures in 2020
-114,7,Trump Plaza LLC - mortgage,5000001,25000000,2014,3.85%,Matures in 2024
-114,8,Trump National Golf Club Colts Neck LLC - mortgage,5000001,25000000,2008,5.25%,Matures in 2028
-114,9,Trump National Golf Club Washington DC LLC - mortgage,5000001,25000000,2009,5.50%,Matures in 2029
-114,10,Seven Springs - mortgage,5000001,25000000,2000,4.00%,Matures in 2019
-114,11a,TIHT Commercial LLC - mortgage,5000001,25000000,2006,6.18%,Matures in 2016
-114,11b,TIHT Commercial LLC - mortgage,5000001,25000000,2016,4.05%,Matures in 2026
-114,12,1094 S Ocean Blvd - mortgage,100001,250000,1994,Six month LIBOR +1.50%,Matures in 2019
-114,13,124 Woodbridge Road - mortgage,50001,100000,1993,Six month LIBOR +1.75%,Matures in 2019
-114,14,TIHT Chicago - springing loan,50000000,,2012,Prime + 5%,Springing loan
-114,15,TIHT Chicago - term loan,25000001,50000000,2012,LIBOR + 2.00% or Prime minus .50%,Matures in 2024
-114,16,Trump Old Post Office - loan,50000000,,2015,LIBOR or Prime + 2.00%,Matures in 2024
-115,1,Student Loan,10001,15000,2013,6.80%,10 years
-115,2,Student Loan,10001,15000,2011,3.40%,10 years
-115,3,Student Loan,10001,15000,2010,4.50%,10 years
-116,1,Mortgage on Personal Residence,100001,250000,2013,3.50%,20 YEARS
-116,2,Mortgage on Personal Residence,100001,250000,2012,4.25%,30 YEARS
-116,3,Mortgage (investment/ren tal property),50001,100000,2016,4.13%,19 YEARS
-116,4,Mortgage (investment/ren tal property),50001,100000,2003,6.63%,30 YEARS
-116,5,Mortgage (investment/ren tal property),50001,100000,2003,6.63%,30 YEARS
-116,6,Mortgage (investment/ren tal property),50001,100000,2004,6.88%,30 YEARS
-116,7,Mortgage (investment/ren tal property),50001,100000,2013,4.00%,24 Years
-116,8,Mortgage (investment/ren tal property),50001,100000,2006,6.375,30 YEARS
-117,1,Credit Card,10001,15000,2013,9%,
-117,2,Credit Card,10001,15000,2015,10.49%,
-118,1,Student Loan,50001,100000,2010,6,10
-119,1,Mortgage (investment/ren tal property),100001,250000,2004,3.5,30 year
-119,2,Mortgage on Personal Residence,100001,250000,2004,3.5,30 year
-119,3,Personal Loan,15001,50000,2013,3.5,7 year
+lender_name_fk,department_fk,"",debt_type,min_amount,max_amount,year_incurred,rate,term
+1,1,1,Mortgage on Personal Residence,500001,1000000,2016,2.74,30 years
+1,1,2,Home Equity Line of Credit,15001,50000,2016,4.49,Revolving
+2,1,3,Mortgage on Personal Residence,500001,1000000,2011,3.91,30
+3,1,4,Home Equity Line of Credit,15001,50000,2013,4.15,Revolving
+4,2,1,Student Loan,50001,100000,2004,3.375,30 years
+5,3,1,Credit Card,15001,50000,2017,,
+6,3,2,CAPITAL CALL STRUCTURE ALTERNATIVE INVESTMENT,100001,250000,2014,NA,ON DEMAND
+7,3,3,CAPITAL CALL STRUCTURE ALTERNATIVE INVESTMENT,100001,250000,2014,NA,ON DEMAND
+8,4,1,Personal Loan,100001,250000,2015,5%,4 year
+9,5,1,Mortgage (investment/ren tal property),250001,500000,2002,3.13%,30 YEAR
+10,5,2,Mortgage (investment/ren tal property),250001,500000,2006,3.63%,Matures January 2037
+11,5,3,Mortgage (investment/ren tal property),500001,1000000,2004,3.63%,30 YEAR
+12,5,4,Mortgage (investment/ren tal property),100001,250000,2015,4.13%,30 YEAR
+13,5,5,SECURED RECOURSE PROMISSORY NOTE,50001,100000,2016,3.50%,5 YEARS
+5,6,1,Credit Card,10001,15000,2015,17.74% and 29.74%,open-ended
+14,6,2,Student Loan,15001,50000,2004,3.63%,8/2036
+15,6,3,Student Loan,15001,50000,2004,3.63%,8/2036
+16,7,1,Student Loan,15001,50000,2002,4.7,
+17,8,1,Mortgage on Personal Residence,500001,1000000,2016,3.50%,30 years
+17,8,2,Mortgage on Personal Residence,500001,1000000,2012,4.50%,29 years
+18,9,1,Mortgage (investment/ren tal property),100001,250000,2005,3.50%,5/1 ARM Mortgage from 2005
+5,10,1,Credit Card,15001,50000,2017,Paid in Full Every Month,revolving
+19,10,2,Exercised Line of Credit,500001,1000000,2016,3.5,NA- revolving line of credit
+20,11,1,Student Loan,50001,100000,2003,1.625,20 year
+21,12,1,Mortgage on Personal Residence,500001,1000000,2011,2.88%,30
+22,12,2,Exercised Line of Credit,100001,250000,2011,4.00%,5
+23,13,1,Student Loan,15001,50000,2006,1.875,20
+24,14,1,Mortgage on Personal Residence,250001,500000,2013,3.80%,30 years
+25,15,1,Student Loan,10001,15000,2006,4.38,141 Months
+26,16,1,Mortgage on Personal Residence,250001,500000,2013,3.125,30
+27,16,2,Mortgage on Personal Residence,250001,500000,2011,4,10
+28,17,1,Student Loan,15001,50000,2001,3.875,134 months
+29,18,1,,10001,15000,,,
+30,19,1,Student Loan,100001,250000,2001,4%,30 years
+31,19,2,Mortgage (investment/ren tal property),10001,15000,2006,5.25%,30 years
+21,19,3,Credit Card,10001,15000,2016,16.49%,revolving
+32,19,4,Student Loan,50001,100000,2001,4%,30 years
+33,19,5,Taxes,15001,50000,2012,n/a,5 years
+34,20,1,Mortgage (investment/ren tal property),250001,500000,2013,3.60%,30-Year
+35,20,2,Exercised Line of Credit,50001,100000,2012,2.50%,10-Year
+36,20,3,Student Loan,50001,100000,2002,4.38%,30-year
+28,20,4,Student Loan,50001,100000,2004,5.38%,30-year
+37,21,1,Capital Call,50001,100000,2004,n/a,On Demand
+38,21,2,Capital Call,1000001,5000000,2007,n/a,On Demand
+39,21,3,Capital Call,15001,50000,2006,n/a,On Demand
+40,21,4,Capital Call,50001,100000,2000,n/a,On Demand
+41,21,5,Capital Call,15001,50000,2012,n/a,On Demand
+5,22,1,Credit Card,15001,50000,2017,,
+5,23,1,Credit Card,10001,15000,2013,15%,revolving credit
+33,23,2,Installment Agreement,15001,50000,2012,3%,on demand
+5,23,3,Credit Card,15001,50000,2012,16.74%,revolving credit
+5,24,1,Credit Card,15001,50000,2016,15.74,revolving credit
+42,25,1,Mortgage (investment/ren tal property),100001,250000,2006,2.5,30 YR- ARM
+43,25,2,Mortgage (investment/ren tal property),100001,250000,2005,5,30 YR
+43,25,3,Mortgage (investment/ren tal property),100001,250000,2010,4.375,30YR
+44,25,4,HELOC,250001,500000,2013,5,10 YR
+45,25,5,Mortgage (investment/ren tal property),250001,500000,2007,5,30 YR
+21,26,1,Mortgage (investment/ren tal property),100001,250000,2010,4.875,30
+46,27,1,Personal Loan,1000000,,2015,3.77%,5 years
+47,27,2,Unfunded Capital Commitments,1000001,5000000,2015,0%,On Demand
+48,27,3,Exercised Line of Credit,1000000,,2016,0.74%,3 years
+46,27,4,Credit Card,15001,50000,2016,7.40%,Revolving line
+49,28,1,Mortgage (investment/ren tal property),100001,250000,2009,4.75,30
+50,28,2,Mortgage (investment/ren tal property),100001,250000,2009,4.625,30
+51,29,1,Student Loan,10001,15000,2008,2.250% (variable),20 years
+52,29,2,Student Loan,15001,50000,2009,3.67% (variable),236 Months
+53,29,3,Student Loan,15001,50000,2004,4.63%,20 years
+51,29,4,Student Loan,15001,50000,2004,2.625% (variable),20 years
+28,30,1,Student Loan,10001,15000,2012,6.8,10 years
+28,30,2,Student Loan,10001,15000,2012,6.8,10 years
+28,30,3,Student Loan,15001,50000,2012,7.9,10 years
+54,31,1,Credit Card,10001,15000,2009,8.24,Revolving
+55,32,1,Mortgage (investment/ren tal property),50001,100000,2003,5.81,15 years
+56,32,2,Student Loan,50001,100000,2010,4.75%,10 years
+57,33,1,Student Loan,10001,15000,2009,6.55% to 8.25%,117 to 119 months
+28,33,2,Student Loan,10001,15000,2008,6.55% to 7.90%,120 months
+58,34,1,Student Loan,50001,100000,2004,Avg. 3.5%,Graduated
+59,34,2,Student Loan,15001,50000,2005,2.88%,Level
+60,35,1,Student Loan Co-Signer (Collection Agency),10001,15000,2010,N/A,N/A
+49,36,1,Mortgage (investment property),250001,500000,2014,3.88% fixed,15 years
+61,36,2,Mortgage (personal residence),500001,1000000,2016,3.25% fixed,30 years
+62,36,3,Exercised Line of Credit,15001,50000,2016,4.64% variable,N/A
+28,37,1,Student Loan,15001,50000,2005,6.50%,10 years
+28,38,1,Student Loan,10001,15000,2002,2.25%,301 Months
+63,39,1,Student Loan,100001,250000,2012,7%,15 Years
+5,39,2,Credit Card,10001,15000,2012,10%,Revolving
+28,39,3,Student Loan,100001,250000,2012,7%,30yrs
+64,40,1,Mortgage (investment/ren tal property),500001,1000000,2015,3.75,30 year
+65,40,2,Mortgage (investment/ren tal property),500001,1000000,2016,4,30 years
+66,41,1,Mortgage on Personal Residence,250001,500000,2013,3.5,30
+67,42,1,Exercised Line of Credit,250001,500000,2016,LIBOR + 3%,No term
+68,43,1,Exercised Line of Credit,10001,15000,2015,1.90%,Rev.
+52,44,1,Credit Card,10001,15000,2016,17,revolving
+69,44,2,Student Loan,100001,250000,2010,6.25,20 years
+70,45,1,Personal Loan,50001,100000,2016,2.50%,5 years
+71,46,1,Exercised Line of Credit,50001,100000,2011,LIBOR + 3%,on demand
+72,47,1,Personal Loan,10001,15000,2010,3.27%,8 years
+49,47,2,Credit Card,15001,50000,2014,19.49%,Revolving
+72,47,3,Credit Card,15001,50000,2014,25.74%,Revolving
+73,47,4,Mortgage (investment/ren tal property),15001,50000,2014,4.75%,5 years
+52,47,5,Credit Card,10001,15000,2014,15.74%,Revolving
+74,47,6,Mortgage on Personal Residence,500001,1000000,2013,3.25%,30 years
+74,47,7,Home Equity Loan on Personal Residence,50001,100000,2013,5.24%,8/25/2043
+75,48,1,Mortgage on Personal Residence,50001,100000,2011,3.25,15 Year Fixed Rate
+76,49,1,Mortgage (investment/ren tal property),50001,100000,2010,2.10%,25 years
+77,49,2,Mortgage (investment/ren tal property),100001,250000,2015,4.25,30 years
+77,49,3,Mortgage (investment/ren tal property),100001,250000,2015,4.25,30 years
+28,49,4,Student Loan,10001,15000,2004,1.75,30 years
+5,50,1,Credit Card,15001,50000,2013,11.9,Revolving
+72,50,2,Credit Card,10001,15000,2013,6.9,Revolving
+21,50,3,Credit Card,10001,15000,2013,6.9,Revolving
+78,51,1,Student Loan,50001,100000,2015,4.99,10
+79,52,1,Student Loan,100001,250000,2015,3.40%,10 years
+24,53,1,Credit Card,10001,15000,2015,0%,N/A
+77,53,2,Credit Card,10001,15000,2016,7.40%,N/A
+80,54,1,Exercised Line of Credit,1000001,5000000,2014,1.513,
+81,55,1,Student Loan,10001,15000,2006,8,
+28,56,1,Student Loan,10001,15000,2009,5.5,15
+82,57,1,Exercised Line of Credit,100001,250000,2003,3.25,on demand
+82,57,2,Mortgage on Personal Residence,500001,1000000,2003,3.25,30 year
+49,58,1,Mortgage (investment/ren tal property),15001,50000,2009,4.375,15 Years
+49,58,2,Mortgage on Personal Residence,100001,250000,2011,4.125,30 Years
+83,58,3,Mortgage on Personal Residence,100001,250000,2008,4.5,30 Years
+65,58,4,Mortgage on Personal Residence,500001,1000000,2016,3.6,30 Years
+84,59,1,Student Loan,15001,50000,2005,5%,20 Years
+85,59,2,Student Loan,10001,15000,2005,5%,15 years
+86,60,1,Student Loan,15001,50000,2007,6.5,25
+87,61,1,Unsecured line of credit,5000001,25000000,2015,PRIME+0.75%,revolving
+88,61,2,Unsecured line of credit,5000001,25000000,2015,LIBOR+2.5%,revolving
+49,61,3,Unsecured line of credit,1000001,5000000,2016,LIBOR+2.5%,revolving
+89,61,4,Unsecured line of credit,1000001,5000000,2016,4.50%,revolving
+90,61,5,Unsecured line of credit,1000001,5000000,2016,PRIME (3.25% F),revolving
+91,61,6,Unsecured line of credit,1000001,5000000,2015,LIBOR+2.9%,revolving
+92,61,7,Unsecured line of credit,1000001,5000000,2016,PRIME+0.5% (4% F),revolving
+93,61,8,Unsecured line of credit,1000001,5000000,2015,PRIME (3.25% F),revolving
+94,61,9,Unsecured line of credit,1000001,5000000,2016,PRIME (3.5% F),revolving
+92,61,10,Secured line of credit,1000001,5000000,2016,PRIME+0.5% (4% F),revolving
+49,61,11,Note payable,1000001,5000000,2015,LIBOR+2.75%,6/15/2018
+95,61,12,Credit Card,100001,250000,2008,13.74%,revolving
+95,61,13,Credit Card,15001,50000,2008,13.74%,revolving
+16,62,1,Student Loan,15001,50000,2015,Prime + 2,120
+96,63,1,Student Loan,15001,50000,2001,7.875,20 years
+32,64,1,Student Loan,50001,100000,2015,10,120 months
+21,65,1,Credit Card,15001,50000,2016,13.49%,Revolving
+97,65,2,Credit Card,15001,50000,2016,15.49%,Revolving
+98,65,3,Credit Card,50001,100000,2016,18.49%,Revolving
+5,65,4,Credit Card,15001,50000,2016,Variable,Revolving
+74,66,1,Mortgage on Personal Residence,100001,250000,2011,4.25%,30 years
+99,67,1,Credit Card,10001,15000,2011,12.4,revolving
+99,67,2,Credit Card,10001,15000,2011,17.49,revolving
+100,67,3,Student Loan,15001,50000,2013,6.4% - 7.2%,10 years
+100,67,4,Student Loan,15001,50000,2013,6.4% - 7.2%,10 Years post graduation
+21,68,1,Mortgage on Personal Residence,1000001,5000000,2016,3.75,30 year
+101,68,2,Mortgage on Personal Residence,500001,1000000,2014,4.375,30 year
+102,68,3,Exercised Line of Credit,1000000,,2014,3.75,Revolving
+103,69,1,Student Loan,50001,100000,1998,5% - 7%,20 years
+104,70,1,Credit Card,15001,50000,2014,18%,REVOLVING
+32,71,1,Student Loan,100001,250000,2006,5%,30 years
+105,71,2,Personal Loan,10001,15000,2016,7%,36  months
+106,72,1,Student Loan,50001,100000,2014,5,10 years
+107,73,1,Exercised Line of Credit,100001,250000,2014,2.5,36 months
+108,74,1,Personal Loan,10001,15000,2014,15.25,60 months
+109,74,2,Personal Loan,10001,15000,2013,10.49,72 months
+109,74,3,Personal Loan,10001,15000,2014,10.75,60 months
+110,75,1,Credit Card,15001,50000,2016,10.00%,revolving
+25,75,2,Student Loan,15001,50000,2016,4.50%,347 months
+111,76,1,Business line of credit,15001,50000,2016,4.75%,annual renewal
+112,76,2,Business partner buyout loan,100001,250000,2015,3.83%,64 months
+72,77,1,Credit Card,10001,15000,2015,0% (promotional offer),no end date(interest free until July 2017)
+113,77,2,Student Loan,10001,15000,2014,5,10 years
+114,77,3,Student Loan,15001,50000,2016,6.31,10 years
+114,77,4,Student Loan,15001,50000,2015,5.84,10 years
+114,77,5,Student Loan,50001,100000,2015,6.84,10 years
+114,77,6,Student Loan,15001,50000,2014,6.21,10 years
+114,77,7,Student Loan,15001,50000,2014,7.21,10 years
+114,77,8,Student Loan,10001,15000,2014,6.41,10 years
+114,77,9,Student Loan,15001,50000,2013,5.41,10 years
+114,77,10,Student Loan,50001,100000,2013,6.41,10 years
+114,77,11,Student Loan,15001,50000,2012,6.8,10 years
+114,77,12,Student Loan,50001,100000,2012,7.9,10 years
+114,77,13,Student Loan,15001,50000,2011,6.8,10 years
+114,77,14,Student Loan,15001,50000,2011,6.8,10 years
+114,77,15,Student Loan,50001,100000,2011,7.9,10 years
+115,78,1,Credit Card,15001,50000,2016,15.49%,Revolving
+116,78,2,Capital Call,100001,250000,2005,NA,On demand
+117,78,3,Personal Loan,5000001,25000000,2014,"2% until 2017, then LIBOR + 2.375%,",30 years
+118,79,1,Student Loan,50001,100000,2007,5.13%,2039
+118,79,2,Student Loan,15001,50000,2007,5.13%,2039
+119,80,1,Campaign Debt,50001,100000,2014,4%,Due Oct 2018
+120,80,2,Mortgage on Personal Residence,100001,250000,2015,3.75%,Due May 2045
+121,80,3,Mortgage (investment/ren tal property),1000001,5000000,2008,4%,Due/In Foreclosure
+119,80,4,Loan to Purchase Mortgage,1000001,5000000,2016,4%,Due April 2018
+49,81,1,Credit Card,15001,50000,2016,18.74,revolving
+5,81,2,Credit Card,15001,50000,2016,15.74,revolving
+72,81,3,Credit Card,15001,50000,2016,15.74%,revolving
+52,81,4,Credit Card,10001,15000,2016,13.74%,revolving
+30,82,1,Student Loan,15001,50000,2006,,30 years
+122,83,1,Mortgage (investment/ren tal property),250001,500000,2014,5%,30 years
+83,83,2,Mortgage (investment/ren tal property),100001,250000,2016,5%,30
+21,84,1,Mortgage (investment/ren tal property),50001,100000,2001,5.75,30 Years
+123,85,1,Student Loan,50001,100000,2011,7.9,Monthly payments until fully repaid
+124,85,2,Student Loan,15001,50000,2011,6.9,Monthly payments until fully repaid
+125,85,3,Student Loan,15001,50000,2011,6.9,Monthly payments until fully repaid
+125,85,4,Student Loan,50001,100000,2011,8.3,Monthly payments until fully repaid
+126,86,1,Student Loan,10001,15000,2001,3.875,30
+72,87,1,capital account loan/ DLA Piper partnership,100001,250000,2012,1 month Libor plus 1.75%,5 years interest only
+83,88,1,Mortgage on Personal Residence,500001,1000000,2012,3.52,30
+21,88,2,Mortgage on Personal Residence,250001,500000,2015,3.875,30
+22,88,3,Exercised Line of Credit,100001,250000,2006,Variable,Revolving
+127,89,1,Personal Loan,15001,50000,2016,2.25%,12/2017
+128,89,2,Loan Guarantor 50%,500001,1000000,2013,3.25%,12/2021
+128,89,3,Loan Guarantor 50%,500001,1000000,2013,3.25%,12/2021
+129,89,4,Loan Guarantor,250001,500000,2016,4.45%,192 Months
+130,90,1,Personal Loan,50001,100000,2015,2.65,5
+131,90,2,Mortgage (investment/ren tal property),100001,250000,2013,4.625,30
+132,90,3,Mortgage on Personal Residence,1000000,,2015,3.75,30
+133,90,4,Capital Commitment,100001,250000,2016,n/a,over next 3 years
+134,90,5,Student Loan,50001,100000,2002,3.875,20 years
+62,91,1,Margin Loan,1000001,5000000,2015,5.75%,NA
+135,92,1,Mortgage on Personal Residence,250001,500000,2012,3.38%,15 years
+136,92,2,Exercised Line of Credit,250001,500000,2016,variable,30 years
+137,93,1,Mortgage on Personal Residence,250001,500000,2009,3.50%,30 years
+138,94,1,Capital Call,100001,250000,2016,N/A,On Demand
+139,94,2,Capital Call,50001,100000,2015,N/A,On Demand
+140,94,3,Capital Call,10001,15000,2011,N/A,On Demand
+141,94,4,Capital Call,10001,15000,2011,N/A,On Demand
+142,95,1,Mortgage on Personal Residence,500001,1000000,2012,3.885,10 years
+32,96,1,Student Loan,10001,15000,2016,10.25%,72 months
+30,96,2,Student Loan,15001,50000,2016,6.80%,10 year
+72,97,1,Mortgage on Personal Residence,500001,1000000,2013,3.38%,30 years
+72,97,2,Mortgage on Personal Residence,50001,100000,2013,3.5% fixed,3/1 yr ARM
+143,98,1,Guarantee of Loan to Social Club,500001,1000000,2016,N/A,2-Year Fixed Term
+144,98,2,Capital Commitment,15001,50000,2014,N/A,Life of fund
+145,98,3,Capital Commitment,15001,50000,2016,N/A,Life of fund
+146,98,4,Capital commitment,1000001,5000000,2006,N/A,Life of fund
+147,98,5,Capital Commitment,10001,15000,2013,N/A,Life of fund
+148,98,6,Capital Commitment,1000001,5000000,2013,N/A,Life of fund
+149,98,7,Capital Commitment,500001,1000000,2013,N/A,Life of fund
+150,98,8,Capital Commitment,100001,250000,2015,N/A,Life of fund
+151,98,9,Capital Commitment,500001,1000000,2007,N/A,Life of fund
+152,98,10,Capital Commitment,5000001,25000000,2007,N/A,Life of fund
+153,98,11,Capital Commitment,1000001,5000000,2010,N/A,Life of fund
+154,98,12,Capital Commitment,250001,500000,2009,N/A,Life of fund
+155,98,13,Capital Commitment,250001,500000,2016,N/A,Life of fund
+49,99,1,Credit Card,15001,50000,2017,4,Revolving
+28,100,1,Student Loan,15001,50000,2008,3,
+156,100,2,Student Loan,15001,50000,2008,3,
+66,101,1,Mortgage on Personal Residence,250001,500000,2015,3.875,30 Year Fixec
+79,102,1,Student Loan,50001,100000,1998,6%,30 years
+157,103,1,Student Loan,10001,15000,2012,6.55%,10 years
+157,103,2,Student Loan,10001,15000,2009,6.80%,10 years
+157,103,3,Student Loan,10001,15000,2008,6.80%,10 years
+158,103,4,Student Loan,15001,50000,2009,8.75%,20 years
+25,103,5,Student Loan,15001,50000,2008,2%,25 years
+25,103,6,Student Loan,15001,50000,2007,2.62%,20 years
+28,103,7,Student Loan,15001,50000,2012,6.63%,20 years
+159,104,1,Mortgage on Personal Residence,250001,500000,2012,3.25%,25 years
+160,104,2,Mortgage on Personal Residence,100001,250000,2015,3.25%,30 years
+161,105,1,Student Loan,15001,50000,2002,0.0175,30 years
+5,105,2,Credit Card,10001,15000,,,
+16,106,1,Student Loan,15001,50000,2003,4%,20
+162,106,2,Mortgage (investment/ren tal property),250001,500000,2015,7%,30 year
+5,107,1,Credit Card,15001,50000,2016,10%,None
+83,108,1,Mortgage (investment/ren tal property),100001,250000,2012,3.50%,30 Years
+53,109,1,Student Loan,100001,250000,2011,6.50%,20
+52,110,1,Mortgage (investment/ren tal property),50001,100000,2017,4.75,30
+136,110,2,Mortgage (investment/ren tal property),100001,250000,2017,4.65,30
+136,110,3,Mortgage (investment/ren tal property),100001,250000,2017,4.75,30
+163,110,4,Mortgage (investment/ren tal property),250001,500000,2017,4.125,30
+52,110,5,Credit Card,10001,15000,2010,9%,Revolving
+130,110,6,Credit Card,10001,15000,2000,9%,Revolving
+164,110,7,Personal Loan,15001,50000,2016,10.75%,5
+165,111,1,Capital Call,250001,500000,2014,,on demand
+166,111,2,Capital Call,50001,100000,2015,,on demand
+107,112,1,Exercised Line of Credit,50001,100000,2016,2.65,Indefinite
+72,113,1,Exercised Line of Credit,100001,250000,2016,3.99,36 months
+167,114,1,Trump Tower Commercial LLC - mortgage,50000000,,2012,4.20%,Matures in 2022
+168,114,2,40 Wall Street LLC - loan,50000000,,2015,3.67%,Matures in 2025
+169,114,3,Trump National Doral - mortgage,50000000,,2012,LIBOR + 1.75% or Prime minus .75%,Matures in 2023
+169,114,4,Trump National Doral - mortgage,5000001,25000000,2012,LIBOR + 1.75% or Prime minus .75%,Matures in 2023
+170,114,5,Fifty-Seventh Street Associates LLC - issuer of secured lease bonds,500001,1000000,1996,7.13%,Matures in 2017
+93,114,6,Trump Park Avenue LLC - mortgage,5000001,25000000,2010,3.25%,Matures in 2020
+167,114,7,Trump Plaza LLC - mortgage,5000001,25000000,2014,3.85%,Matures in 2024
+171,114,8,Trump National Golf Club Colts Neck LLC - mortgage,5000001,25000000,2008,5.25%,Matures in 2028
+172,114,9,Trump National Golf Club Washington DC LLC - mortgage,5000001,25000000,2009,5.50%,Matures in 2029
+173,114,10,Seven Springs - mortgage,5000001,25000000,2000,4.00%,Matures in 2019
+174,114,11a,TIHT Commercial LLC - mortgage,5000001,25000000,2006,6.18%,Matures in 2016
+175,114,11b,TIHT Commercial LLC - mortgage,5000001,25000000,2016,4.05%,Matures in 2026
+176,114,12,1094 S Ocean Blvd - mortgage,100001,250000,1994,Six month LIBOR +1.50%,Matures in 2019
+176,114,13,124 Woodbridge Road - mortgage,50001,100000,1993,Six month LIBOR +1.75%,Matures in 2019
+177,114,14,TIHT Chicago - springing loan,50000000,,2012,Prime + 5%,Springing loan
+169,114,15,TIHT Chicago - term loan,25000001,50000000,2012,LIBOR + 2.00% or Prime minus .50%,Matures in 2024
+169,114,16,Trump Old Post Office - loan,50000000,,2015,LIBOR or Prime + 2.00%,Matures in 2024
+69,115,1,Student Loan,10001,15000,2013,6.80%,10 years
+178,115,2,Student Loan,10001,15000,2011,3.40%,10 years
+69,115,3,Student Loan,10001,15000,2010,4.50%,10 years
+179,116,1,Mortgage on Personal Residence,100001,250000,2013,3.50%,20 YEARS
+180,116,2,Mortgage on Personal Residence,100001,250000,2012,4.25%,30 YEARS
+181,116,3,Mortgage (investment/ren tal property),50001,100000,2016,4.13%,19 YEARS
+182,116,4,Mortgage (investment/ren tal property),50001,100000,2003,6.63%,30 YEARS
+183,116,5,Mortgage (investment/ren tal property),50001,100000,2003,6.63%,30 YEARS
+184,116,6,Mortgage (investment/ren tal property),50001,100000,2004,6.88%,30 YEARS
+185,116,7,Mortgage (investment/ren tal property),50001,100000,2013,4.00%,24 Years
+186,116,8,Mortgage (investment/ren tal property),50001,100000,2006,6.375,30 YEARS
+187,117,1,Credit Card,10001,15000,2013,9%,
+188,117,2,Credit Card,10001,15000,2015,10.49%,
+189,118,1,Student Loan,50001,100000,2010,6,10
+83,119,1,Mortgage (investment/ren tal property),100001,250000,2004,3.5,30 year
+83,119,2,Mortgage on Personal Residence,100001,250000,2004,3.5,30 year
+130,119,3,Personal Loan,15001,50000,2013,3.5,7 year

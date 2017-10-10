@@ -41,6 +41,10 @@ normalization_information.each do |files|
   finished_files -= [files[0]]
 end
 
+# file = 'db/ETL_Pipeline/raw_CSVs/two.csv'
+# split_tables(file, [:lender_name], 'db/ETL_Pipeline/ETL_staging/five.csv', 'db/ETL_Pipeline/ETL_staging/six.csv')
+
+
 # p finished_files => ["db/ETL_Pipeline/ETL_staging/three.csv", "db/ETL_Pipeline/ETL_staging/four.csv", "db/ETL_Pipeline/ETL_staging/five.csv", "db/ETL_Pipeline/ETL_staging/seven.csv", "db/ETL_Pipeline/ETL_staging/eight.csv"]
 
 # three == departments is coming out correct

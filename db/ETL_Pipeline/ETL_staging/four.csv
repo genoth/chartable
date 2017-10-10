@@ -1,4 +1,4 @@
-foreign_key_name,last_name,first_name
+department_fk,last_name,first_name
 1,Acosta,Rene Alexander
 2,Amin,Stacy
 2,Augustine,Rene I
