@@ -1,6 +1,8 @@
 require 'csv'
-#require_relative 'child_data_parse_out'
-#require_relative 'parent_data_parse_out'
+require_relative 'child_data_parse_out'
+require_relative 'parent_data_parse_out'
+require_relative 'etl'
+
 
 pipeline_paths = [
   "db/test_destination/one.csv",
