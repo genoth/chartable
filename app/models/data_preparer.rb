@@ -2,6 +2,8 @@ module DataPreparer
 
   def prepared_data(dataset)
     puts "Hit the data preparer!***********************"
+    puts "how did the data come in?"
+    p dataset
     if @params[:order] == "All"
       if should_condense?
         condense_others(sorted_by_amount(full_series(dataset)))
@@ -13,17 +15,6 @@ module DataPreparer
     else
       limit_n_and_others(sorted_by_amount(full_series(dataset)))
     end
-    # tried formatting it the way it's done in canadian temperature data- doesn't work getting NaN error. I think because the departments are strings (as opposed to the years which are integers)
-    #  x_axis = ["x_departments"]
-    # y_axis = ["money stuff"]
-
-    # thing.each do |subarray|
-    #   x_axis.push(subarray[0])
-    #   y_axis.push(subarray[1])
-    # end
-    # sending_back = []
-    # p sending_back.push(x_axis, y_axis)
-    # sending_back
   end
 
   def full_series(dataset)
@@ -43,17 +34,20 @@ module DataPreparer
     total_sum_others = others.reduce(0) {|sum, sub_array| sum + sub_array[1] }
     number_of_others = others.length
     others_condensed = [ "#{number_of_others} Others"]
-    others_condensed.push(total_sum_others.to_i)
+    others_condensed.push(total_sum_others.round(1))
     limited.push(others_condensed)
   end
 
 
   def limit_n_and_others(dataset)
+    puts "***************** hit the limit N and others method"
     limit_selected = (@params[:limit]).to_i
     if @params[:order] == "Top"
-      dataset.first(limit_selected)
+      selected = dataset.first(limit_selected)
     elsif @params[:order] == "Bottom"
-      dataset.last(limit_selected)
+      selected = dataset.last(limit_selected)
     end
+    p selected
+    selected
   end
 end

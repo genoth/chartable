@@ -26,7 +26,6 @@ module TrumpAdminDebts
       dataset_title: "Personal Debts of President Trump and his Appointees",
       dataset_url: "https://www.publicintegrity.org/2017/06/07/20910/database-trump-administration-officials-personal-finances-grows",
       dataset_source: "Center for Public Integrity",
-      y_axis_label: "In millions"
       }
     end
 end

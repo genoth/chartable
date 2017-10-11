@@ -7,12 +7,24 @@ module TrumpAdminDebts
       p @params
     end
 
-    def x_axis
-      # believe will always be the departments, lenders, etc. who are ideally labeled
+    def axis_labels
+      {x_axis_label: x_axis_label, y_axis_label: y_axis_label}
     end
 
-    def y_axis
-      # believe will always be in millions of dollars
+    def x_axis_label
+      return @params[:descriptors]
+    end
+
+    def y_axis_label
+      return "In Millions"
+    end
+
+    def aggregator_prefix
+      return "$"
+    end
+
+    def aggregator_unit
+      return "M"
     end
 
     def data

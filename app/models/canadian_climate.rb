@@ -27,8 +27,6 @@ module CanadianClimate
       dataset_title: "Seasonal average temperature departures compared with the 1961–1990 reference value, Canada, 1948 to 2014",
       dataset_url: "www.ec.gc.ca/dccha-ahccd/Default.asp?lang=En&n=B1F8423A-1",
       dataset_source: "Environment and Climate Change Canada (2015) Adjusted and Homogenized Canadian Climate Data",
-      x_axis_label: "Year",
-      y_axis_label: "Temp. deviation (Celsius)"
       #www.ec.gc.ca/indicateurs-indicators/default.asp?lang=En was also given as a url
       }
     end

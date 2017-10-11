@@ -8,12 +8,24 @@ module GenderInequality
       @aggregations = @params[:aggregations]
     end
 
-    def x_axis
-      # x_axis will either be a percentage (for scatter plot), OR just the countries labeled (for bar chart).
+    def axis_labels
+      {x_axis_label: x_axis_label, y_axis_label: y_axis_label}
     end
 
-    def y_axis
-      # y_axis will either be the GII index (for scatter plot), OR just the percentages (bar chart)
+    def x_axis_label
+      if @params[:chart] == "scatter"
+        return "Percentage"
+      else
+        return "Country"
+      end
+    end
+
+    def y_axis_label
+      if @params[:chart] == "scatter"
+        return "GII Index (0 = absolute equality)"
+      else
+        return "Percentage"
+      end
     end
 
     def data
@@ -63,7 +75,7 @@ module GenderInequality
     end
 
     def should_sort_by_amount?
-      false
+      true
     end
 
   end

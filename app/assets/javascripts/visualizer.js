@@ -36,9 +36,7 @@ var loadGraph = function(){
     $request.done(function(serverResponse){
       $("#chart").empty();
       var descriptives = serverResponse[1]
-      var dataTitle = descriptives.dataset_title
-      var subTitle = descriptives.subtitle
-      var chartTitle = [dataTitle + " - " + subTitle]
+      var chartTitle = [descriptives.dataset_title + " - " + descriptives.subtitle]
       var chartData = serverResponse[0]
 
       if(chartType === "bar") {
@@ -51,166 +49,6 @@ var loadGraph = function(){
       renderDownloadButton();
       renderURLButton();
     })
-}
-
-var renderPieChart = function(chartData, descriptives, chartTitle) {
-  c3.generate({
-      data: {
-        columns: chartData,
-        type:'pie'
-      },
-      pie: {
-        label: {
-          format: function (value, ratio, id) {
-            var dollars = d3.format('$')(value)+"M";
-            var percentage = d3.format('%')(ratio.toFixed(4));
-            return dollars
-            // + ' (' + percentage + ')'// this should be a 'prefix' variable and a units variable
-          }
-        }
-      },
-      title: {
-       text: chartTitle
-     },
-     tooltip: {
-        format: {
-          title: function(value, ratio, id){
-            return id; },
-          value: function(value, ratio, id){
-            var dollars = d3.format('$')(value)+"M";
-            var percentage = d3.format('%')(ratio.toFixed(4));
-            return dollars + ' (' + percentage + ')'
-          }
-        }
-      }
-   });
- }
-
-var renderBarChart = function(chartData, descriptives, chartTitle) {
-  console.log(chartData)
-  console.log(chartData[0])
-  if ((chartData[0]).length > 2){
-    timeSeries(chartData, descriptives, chartTitle);
-  } else {
-  console.log(chartData)
-  c3.generate({
-    data: {
-      columns: chartData,
-      type : 'bar'
-    },
-    axis: {
-      y: {
-        label: descriptives.y_axis_label
-      },
-      x: {
-        type: 'category',
-        tick: 14
-      }
-    },
-    title: {
-      text: chartTitle
-    },
-  })
-    removeZeroBug();
-}
-}
-
-var removeZeroBug = function(){
-  var gTick = $(".c3-axis.c3-axis-x").find("g.tick")
-  gTick.find("text").find("tspan").html("");
-  gTick.find("line").attr("y2", "");
-// $(".c3-axis.c3-axis-x").find("g.tick").find("text").find("tspan").html("");
-// $(".c3-axis.c3-axis-x").find("g.tick").find("line").attr("y2", "")
-}
-
-
-var timeSeries = function(chartData,descriptives, chartTitle) {
-  console.log("in the time series")
-  c3.generate({
-    data: {
-      columns: chartData,
-      x: chartData[0][0],
-      type : 'bar'
-    },
-    axis: {
-      x: {
-        label: descriptives.x_axis_label,
-        position: 'outer-center',
-        tick: {
-          fit: false,
-        },
-        y: 0
-      }
-    },
-    axis: {
-      y: {
-        label: {
-          text: descriptives.y_axis_label,
-          position: 'outer-center'
-        }
-      }
-    },
-    title: {
-      text: chartTitle
-    },
-  grid: {
-    y: {
-      show: true,
-      lines: [
-      {value: 0},
-      ]
-    }
-  }
-  })
-}
-
-var renderScatterPlot = function(chartData, descriptives, chartTitle) {
-  console.log(chartData)
-  var hideLabels = false;
-  console.log("this thing is making the chart data")
-  console.log(chartData[0][0]);
-  if (chartData.length > 20) {
-    hideLabels = true;
-  }
-  c3.generate({
-    point: {
-      r: 4
-    },
-     data: {
-      xsort: false,
-      x:  chartData[0][0],
-      columns: chartData,
-      type: 'scatter'
-    },
-    title: {
-      text:  chartTitle
-    },
-    legend: {
-      hide: hideLabels
-    },
-    axis: {
-      x: {
-        label: descriptives.x_axis_label,
-        tick: {
-          fit: false,
-        }
-      },
-      y: {
-        label: {
-          text: descriptives.y_axis_label,
-          position: 'outer-center'
-        }
-      }
-    },
-    grid: {
-    y: {
-      show: true,
-      lines: [
-      {value: 0},
-      ]
-    }
-  }
-  })
 }
 
 var renderDownloadButton = function(){
@@ -251,6 +89,178 @@ var downloadHandler = function(){
     saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
 }
+
+var renderPieChart = function(chartData, descriptives, chartTitle) {
+  c3.generate({
+      data: {
+        columns: chartData,
+        type:'pie'
+      },
+      pie: {
+        label: {
+          format: function (value, ratio, id) {
+            var dollars = d3.format('$')(value)+"M";
+            var percentage = d3.format('%')(ratio.toFixed(4));
+            return dollars
+            // + ' (' + percentage + ')'// if we have other datasets that use pie charts, this should be a 'prefix' variable and a units variable
+          }
+        }
+      },
+      title: {
+       text: chartTitle
+     },
+     tooltip: {
+        format: {
+          title: function(value, ratio, id){
+            return id; },
+          value: function(value, ratio, id){
+            var dollars = d3.format('$')(value)+"M";
+            var percentage = d3.format('%')(ratio.toFixed(4));
+            return dollars + ' (' + percentage + ')'
+            // if we have other datasets that use pie charts, this should be a 'prefix' variable and a units variable
+          }
+        }
+      }
+   });
+ }
+
+var renderBarChart = function(chartData, descriptives, chartTitle) {
+  var barLabelsChoice = true;
+  var legendChoice = false;
+
+  if (chartData.length > 20) {
+    legendChoice = true;
+  }
+  if (chartData.length > 10 || chartData[0].length > 10) {
+    barLabelsChoice = false
+  }
+  if (descriptives.x_axis_label === "Year"){
+    timeSeries(chartData, descriptives, chartTitle);
+  } else {
+  c3.generate({
+    data: {
+      columns: chartData,
+      type : 'bar',
+      labels: barLabelsChoice
+    },
+    axis: {
+      y: {
+        label: descriptives.y_axis_label
+      },
+      x: {
+        type: 'category'
+      }
+    },
+    title: {
+      text: chartTitle
+    },
+    legend: {
+      hide: legendChoice
+    },
+    grid: {
+    y: {
+      show: true,
+      lines: [
+      {value: 0},
+      ]
+    },
+  }
+  })
+    removeZeroBug();
+}
+}
+
+var removeZeroBug = function(){
+  var gTick = $(".c3-axis.c3-axis-x").find("g.tick")
+  gTick.find("text").find("tspan").html("");
+  gTick.find("line").attr("y2", "");
+  // This only fixes it on the first render. After you interact with the diagram (e.g. click to hide Trump's debts the bug comes back.)
+}
+
+var timeSeries = function(chartData,descriptives, chartTitle) {
+  console.log("in the time series")
+  c3.generate({
+    data: {
+      columns: chartData,
+      x: chartData[0][0],
+      type : 'bar'
+    },
+    axis: {
+      x: {
+        label: descriptives.x_axis_label,
+        tick: {
+          fit: false,
+        }
+      },
+    },
+    axis: {
+      y: {
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        }
+      }
+    },
+    title: {
+      text: chartTitle
+    },
+  grid: {
+    y: {
+      show: true,
+      lines: [
+      {value: 0},
+      ]
+    }
+  }
+  })
+}
+
+var renderScatterPlot = function(chartData, descriptives, chartTitle) {
+  console.log(chartData)
+  console.log(descriptives)
+  var legendChoice = false;
+
+  if (chartData.length > 20) {
+    legendChoice = true;
+  }
+  c3.generate({
+    point: {
+      r: 4
+    },
+     data: {
+      xsort: false,
+      x:  chartData[0][0],
+      columns: chartData,
+      type: 'scatter'
+    },
+    title: {
+      text:  chartTitle
+    },
+    legend: {
+      hide: legendChoice
+    },
+    axis: {
+      x: {
+        label: {
+          text: descriptives.x_axis_label,
+          position: 'outer-center'
+        }
+      },
+      y: {
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        }
+      }
+    },
+    grid: {
+    y: {
+      show: true,
+    }
+  }
+  })
+}
+
 
 // var renderURL = function(){
 //   // $("#url-div a").attr("href", urlforSharing)

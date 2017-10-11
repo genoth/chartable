@@ -7,12 +7,16 @@ module USLifeExpectancy
       @aggregations = @params[:aggregations]
     end
 
-    def x_axis
-      # will always be age in years e.g. 80 years old
+    def axis_labels
+      {x_axis_label: x_axis_label, y_axis_label: y_axis_label}
     end
 
-    def y_axis
-      # will always be year e.g. 1948. this is a time series.
+    def x_axis_label
+      return "Year"
+    end
+
+    def y_axis_label
+      return "Age"
     end
 
     def data
