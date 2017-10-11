@@ -62,15 +62,29 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
       pie: {
         label: {
           format: function (value, ratio, id) {
-            return d3.format('$')(value)+"M"; // this should be a 'prefix' variable and a units variable
+            var dollars = d3.format('$')(value)+"M";
+            var percentage = d3.format('%')(ratio.toFixed(4));
+            return dollars
+            // + ' (' + percentage + ')'// this should be a 'prefix' variable and a units variable
           }
         }
       },
       title: {
        text: chartTitle
-     }
+     },
+     tooltip: {
+        format: {
+          title: function(value, ratio, id){
+            return id; },
+          value: function(value, ratio, id){
+            var dollars = d3.format('$')(value)+"M";
+            var percentage = d3.format('%')(ratio.toFixed(4));
+            return dollars + ' (' + percentage + ')'
+          }
+        }
+      }
    });
-}
+ }
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
   console.log(chartData)
