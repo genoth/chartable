@@ -31,7 +31,7 @@ module USLifeExpectancy
         .includes(:race) # :race
         .includes(:year)
         .group('statistics.race_id, statistics.year_id') # race_id
-      @dataset = query.map { |r| [r.points, r.race.race, r.year.year] } # r.race.race=
+      @dataset = query.map { |r| [r.points.round(2), r.race.race, r.year.year] } # r.race.race=
    end
 
     def sex_descriptor_query(aggregator_SQL_string)
@@ -40,7 +40,7 @@ module USLifeExpectancy
           .includes(:sex)
           .includes(:year)
           .group('statistics.sex_id, statistics.year_id')
-      @dataset = query.map { |r| [r.points, r.sex.sex, r.year.year] }
+      @dataset = query.map { |r| [r.points.round(2), r.sex.sex, r.year.year] }
     end
 
     def scatter_data

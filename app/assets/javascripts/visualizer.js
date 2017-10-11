@@ -165,12 +165,12 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
 }
 
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
-
-  var showLabels = true;
+  console.log(chartData)
+  var hideLabels = false;
   console.log("this thing is making the chart data")
   console.log(chartData[0][0]);
-  if (chartData[0].length > 20) {
-    showLabels = true;
+  if (chartData.length > 20) {
+    hideLabels = true;
   }
   c3.generate({
     point: {
@@ -186,13 +186,13 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
       text:  chartTitle
     },
     legend: {
-      hide: showLabels
+      hide: hideLabels
     },
     axis: {
       x: {
         label: descriptives.x_axis_label,
         tick: {
-          fit: true,
+          fit: false,
         }
       },
       y: {
