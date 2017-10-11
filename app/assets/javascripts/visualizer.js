@@ -243,7 +243,7 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
       x: {
         label: {
           text: descriptives.x_axis_label,
-          position: 'outer-center'
+          position: 'right'
         }
       },
       y: {
