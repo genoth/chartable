@@ -34,6 +34,8 @@ var loadGraph = function(){
     method: $form.attr("method")
   })
   $request.done(function(serverResponse){
+    console.log("**** SERVER RESPONSE")
+    console.log(serverResponse)
     $("#chart").empty();
     var descriptives = serverResponse[1]
     var chartTitle = [descriptives.dataset_title + " - " + descriptives.subtitle]
