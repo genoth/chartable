@@ -15,7 +15,7 @@ module CanadianClimate
     end
 
     def y_axis_label
-      return "Deviation from Average"
+      return "Deviation from Average (Celsius)"
     end
 
     def data

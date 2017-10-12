@@ -1,9 +1,6 @@
 module DataPreparer
 
   def prepared_data(dataset)
-    puts "Hit the data preparer!***********************"
-    puts "how did the data come in?"
-    p dataset
     if @params[:order] == "All"
       if should_condense?
         condense_others(sorted_by_amount(full_series(dataset)))
@@ -40,7 +37,6 @@ module DataPreparer
 
 
   def limit_n_and_others(dataset)
-    puts "***************** hit the limit N and others method"
     limit_selected = (@params[:limit]).to_i
     if @params[:order] == "Top"
       selected = dataset.first(limit_selected)

@@ -27,28 +27,28 @@ var visFormListener = function(){
 
 var loadGraph = function(){
   var $form = $("#vis-form");
-    var chartType = $(":selected")[2].value;
-    $request = $.ajax({
-      url: $form.attr("url"),
-      data: $form.serialize(),
-      method: $form.attr("method")
-    })
-    $request.done(function(serverResponse){
-      $("#chart").empty();
-      var descriptives = serverResponse[1]
-      var chartTitle = [descriptives.dataset_title + " - " + descriptives.subtitle]
-      var chartData = serverResponse[0]
+  var chartType = $(":selected")[2].value;
+  $request = $.ajax({
+    url: $form.attr("url"),
+    data: $form.serialize(),
+    method: $form.attr("method")
+  })
+  $request.done(function(serverResponse){
+    $("#chart").empty();
+    var descriptives = serverResponse[1]
+    var chartTitle = [descriptives.dataset_title + " - " + descriptives.subtitle]
+    var chartData = serverResponse[0]
 
-      if(chartType === "bar") {
-        renderBarChart(chartData, descriptives, chartTitle);
-      } else if(chartType === "pie"){
-        renderPieChart(chartData, descriptives, chartTitle);
-      } else {
-        renderScatterPlot(chartData, descriptives, chartTitle)
-      }
-      renderDownloadButton();
-      renderURLButton();
-    })
+    if(chartType === "bar") {
+      renderBarChart(chartData, descriptives, chartTitle);
+    } else if(chartType === "pie"){
+      renderPieChart(chartData, descriptives, chartTitle);
+    } else {
+      renderScatterPlot(chartData, descriptives, chartTitle)
+    }
+    renderDownloadButton();
+    renderURL();
+  })
 }
 
 var renderDownloadButton = function(){
@@ -56,32 +56,44 @@ var renderDownloadButton = function(){
   downloadHandler();
 }
 
-var renderURLButton = function(){
-  var currentPath = window.location.pathname
-  var params = $("#vis-form select").serialize()
-  var urlforSharing = currentPath + "?" + params
-  $("#url-div a").text("Share")
-  $("#url-div a").attr("href", urlforSharing)
-  shareClickListener()
-}
-
-var shareClickListener = function(){
-  $(".share").on("click", function(e){
-    $("link-share").text("");
-    e.preventDefault();
-    renderURL();
-  })
-}
 
 var renderURL = function(){
-  // $("#url-div a").attr("href", urlforSharing)
   var currentPath = window.location.pathname
   var params = $("#vis-form select").serialize()
   var urlforSharing = currentPath + "?" + params
-  $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
-  $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
-  // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+  $("#url-div a").attr("href", urlforSharing)
+  // $("#url-div a").attr("href").text (urlforSharing)
 }
+
+// var renderURLButton = function(){
+//   var currentPath = window.location.pathname
+//   var params = $("#vis-form select").serialize()
+//   var urlforSharing = currentPath + "?" + params
+//   $("#url-div a").text("Share")
+//   $("#url-div a").attr("href", urlforSharing)
+//   shareClickListener()
+// }
+
+// var shareClickListener = function(){
+//   $(".share").on("click", function(e){
+//     $()
+//   })
+//   // $(".share").on("click", function(e){
+//   //   $("link-share").text("");
+//   //   e.preventDefault();
+//   //   renderURL();
+//   // })
+// }
+
+// var renderURL = function(){
+//   // $("#url-div a").attr("href", urlforSharing)
+//   var currentPath = window.location.pathname
+//   var params = $("#vis-form select").serialize()
+//   var urlforSharing = currentPath + "?" + params
+//   // $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
+//   // $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
+//   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+// }
 
 var downloadHandler = function(){
   $("#download-div").on("submit", function(event){
@@ -92,16 +104,16 @@ var downloadHandler = function(){
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
-      data: {
-        columns: chartData,
-        type:'pie'
-      },
-      pie: {
-        label: {
-          format: function (value, ratio, id) {
-            var dollars = d3.format('$')(value)+"M";
-            var percentage = d3.format('%')(ratio.toFixed(4));
-            return dollars
+    data: {
+      columns: chartData,
+      type:'pie'
+    },
+    pie: {
+      label: {
+        format: function (value, ratio, id) {
+          var dollars = d3.format('$')(value)+"M";
+          var percentage = d3.format('%')(ratio.toFixed(4));
+          return dollars
             // + ' (' + percentage + ')'// if we have other datasets that use pie charts, this should be a 'prefix' variable and a units variable
           }
         }
@@ -110,9 +122,9 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
        text: chartTitle
      },
      tooltip: {
-        format: {
-          title: function(value, ratio, id){
-            return id; },
+      format: {
+        title: function(value, ratio, id){
+          return id; },
           value: function(value, ratio, id){
             var dollars = d3.format('$')(value)+"M";
             var percentage = d3.format('%')(ratio.toFixed(4));
@@ -121,8 +133,8 @@ var renderPieChart = function(chartData, descriptives, chartTitle) {
           }
         }
       }
-   });
- }
+    });
+}
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
   var barLabelsChoice = true;
@@ -137,37 +149,40 @@ var renderBarChart = function(chartData, descriptives, chartTitle) {
   if (descriptives.x_axis_label === "Year"){
     timeSeries(chartData, descriptives, chartTitle);
   } else {
-  c3.generate({
-    data: {
-      columns: chartData,
-      type : 'bar',
-      labels: barLabelsChoice
-    },
-    axis: {
-      y: {
-        label: descriptives.y_axis_label
+    c3.generate({
+      data: {
+        columns: chartData,
+        type : 'bar',
+        labels: barLabelsChoice
       },
-      x: {
-        type: 'category'
+      axis: {
+        y: {
+          label: descriptives.y_axis_label,
+          padding: {
+            bottom: 0
+          }
+        },
+        x: {
+          type: 'category'
+        }
+      },
+      title: {
+        text: chartTitle
+      },
+      legend: {
+        hide: legendChoice
+      },
+      grid: {
+        y: {
+          show: true,
+          lines: [
+          {value: 0},
+          ]
+        },
       }
-    },
-    title: {
-      text: chartTitle
-    },
-    legend: {
-      hide: legendChoice
-    },
-    grid: {
-    y: {
-      show: true,
-      lines: [
-      {value: 0},
-      ]
-    },
-  }
-  })
+    })
     removeZeroBug();
-}
+  }
 }
 
 var removeZeroBug = function(){
@@ -204,14 +219,14 @@ var timeSeries = function(chartData,descriptives, chartTitle) {
     title: {
       text: chartTitle
     },
-  grid: {
-    y: {
-      show: true,
-      lines: [
-      {value: 0},
-      ]
+    grid: {
+      y: {
+        show: true,
+        lines: [
+        {value: 0},
+        ]
+      }
     }
-  }
   })
 }
 
@@ -227,7 +242,7 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
     point: {
       r: 4
     },
-     data: {
+    data: {
       xsort: false,
       x:  chartData[0][0],
       columns: chartData,
@@ -250,14 +265,17 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
         label: {
           text: descriptives.y_axis_label,
           position: 'outer-center'
+        },
+        padding: {
+          bottom: 0
         }
       }
     },
     grid: {
-    y: {
-      show: true,
+      y: {
+        show: true,
+      }
     }
-  }
   })
 }
 
