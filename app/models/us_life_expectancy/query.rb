@@ -7,6 +7,18 @@ module USLifeExpectancy
       @aggregations = @params[:aggregations]
     end
 
+    def axis_labels
+      {x_axis_label: x_axis_label, y_axis_label: y_axis_label}
+    end
+
+    def x_axis_label
+      return "Year"
+    end
+
+    def y_axis_label
+      return "Age"
+    end
+
     def data
       if @params[:chart] == "scatter"
         scatter_data
@@ -23,7 +35,7 @@ module USLifeExpectancy
         .includes(:race) # :race
         .includes(:year)
         .group('statistics.race_id, statistics.year_id') # race_id
-      @dataset = query.map { |r| [r.points, r.race.race, r.year.year] } # r.race.race=
+      @dataset = query.map { |r| [r.points.round(2), r.race.race, r.year.year] } # r.race.race=
    end
 
     def sex_descriptor_query(aggregator_SQL_string)
@@ -32,7 +44,7 @@ module USLifeExpectancy
           .includes(:sex)
           .includes(:year)
           .group('statistics.sex_id, statistics.year_id')
-      @dataset = query.map { |r| [r.points, r.sex.sex, r.year.year] }
+      @dataset = query.map { |r| [r.points.round(2), r.sex.sex, r.year.year] }
     end
 
     def scatter_data
@@ -42,8 +54,7 @@ module USLifeExpectancy
         dataset = race_descriptor_query(aggregator_SQL_string)
         p dataset
         generate_scatter_data(dataset, labels)
-      elsif @descriptors == "
-        Sexes"
+      elsif @descriptors == "Sexes"
         labels = ["Both Sexes", "Female", "Male"]
         dataset = sex_descriptor_query(aggregator_SQL_string)
         generate_scatter_data(dataset, labels)
@@ -82,15 +93,19 @@ module USLifeExpectancy
       false
     end
 
+    def should_sort_by_amount?
+      false
+    end
+
   end
 end
 
     # def prepareData(@dataset, descriptors, aggregations)
     # end
-    # def labels
-    #   if @descriptors == "Races"
-    #     ["All Races", "Black", "White"]
-    #   elsif @descriptors == "Sex"
-    #     ["Both Sexes", "Female", "Male"]
-    #   end
-    # end
+    def labels
+      if @descriptors == "Races"
+        ["All Races", "Black", "White"]
+      elsif @descriptors == "Sex"
+        ["Both Sexes", "Female", "Male"]
+      end
+    end

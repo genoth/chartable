@@ -7,6 +7,26 @@ module TrumpAdminDebts
       p @params
     end
 
+    def axis_labels
+      {x_axis_label: x_axis_label, y_axis_label: y_axis_label}
+    end
+
+    def x_axis_label
+      return @params[:descriptors]
+    end
+
+    def y_axis_label
+      return "In Millions"
+    end
+
+    def aggregator_prefix
+      return "$"
+    end
+
+    def aggregator_unit
+      return "M"
+    end
+
     def data
       aggregator_SQL_string = TrumpAdminDebts.aggregation_sql_snippits[@params[:aggregations]]
 
@@ -49,6 +69,10 @@ module TrumpAdminDebts
     private
 
     def should_condense?
+      true
+    end
+
+    def should_sort_by_amount?
       true
     end
 

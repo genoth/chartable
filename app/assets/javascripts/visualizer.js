@@ -27,82 +27,224 @@ var visFormListener = function(){
 
 var loadGraph = function(){
   var $form = $("#vis-form");
-    console.log($form.attr("url"));
-    var chartType = $(":selected")[2].value;
-    $request = $.ajax({
-      url: $form.attr("url"),
-      data: $form.serialize(),
-      method: $form.attr("method")
-    })
-    $request.done(function(serverResponse){
-      $("#chart").empty();
-      console.log(serverResponse)
-      var descriptives = serverResponse[1]
-      var dataTitle = descriptives.dataset_title
-      var subTitle = descriptives.subtitle
-      var chartTitle = [dataTitle + " - " + subTitle]
-      var chartData = serverResponse[0]
+  var chartType = $(":selected")[2].value;
+  $request = $.ajax({
+    url: $form.attr("url"),
+    data: $form.serialize(),
+    method: $form.attr("method")
+  })
+  $request.done(function(serverResponse){
+    console.log("**** SERVER RESPONSE")
+    console.log(serverResponse)
+    $("#chart").empty();
+    var descriptives = serverResponse[1]
+    var chartTitle = [descriptives.dataset_title + " - " + descriptives.subtitle]
+    var chartData = serverResponse[0]
 
-      if(chartType === "bar") {
-        renderBarChart(chartData, descriptives, chartTitle)
-      } else if(chartType === "pie"){
-        renderPieChart(chartData, descriptives, chartTitle);
-      } else {
-        renderScatterPlot(chartData, descriptives, chartTitle)
-      }
-      renderDownloadButton();
-      renderURLButton();
-    })
+    if(chartType === "bar") {
+      renderBarChart(chartData, descriptives, chartTitle);
+    } else if(chartType === "pie"){
+      renderPieChart(chartData, descriptives, chartTitle);
+    } else {
+      renderScatterPlot(chartData, descriptives, chartTitle)
+    }
+    renderDownloadButton();
+    renderURL();
+  })
+}
+
+var renderDownloadButton = function(){
+  $("#download-div").removeClass("hidden");
+  downloadHandler();
+}
+
+
+var renderURL = function(){
+  var currentPath = window.location.pathname
+  var params = $("#vis-form select").serialize()
+  var urlforSharing = currentPath + "?" + params
+  $("#url-div a").attr("href", urlforSharing)
+  // $("#url-div a").attr("href").text (urlforSharing)
+}
+
+// var renderURLButton = function(){
+//   var currentPath = window.location.pathname
+//   var params = $("#vis-form select").serialize()
+//   var urlforSharing = currentPath + "?" + params
+//   $("#url-div a").text("Share")
+//   $("#url-div a").attr("href", urlforSharing)
+//   shareClickListener()
+// }
+
+// var shareClickListener = function(){
+//   $(".share").on("click", function(e){
+//     $()
+//   })
+//   // $(".share").on("click", function(e){
+//   //   $("link-share").text("");
+//   //   e.preventDefault();
+//   //   renderURL();
+//   // })
+// }
+
+// var renderURL = function(){
+//   // $("#url-div a").attr("href", urlforSharing)
+//   var currentPath = window.location.pathname
+//   var params = $("#vis-form select").serialize()
+//   var urlforSharing = currentPath + "?" + params
+//   // $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
+//   // $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
+//   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+// }
+
+var downloadHandler = function(){
+  $("#download-div").on("submit", function(event){
+    event.preventDefault();
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+  })
 }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
-      data: {
-        columns: chartData,
-        type:'pie'
-      },
-      pie: {
-        label: {
-          format: function (value, ratio, id) {
-            return d3.format('$')(value)+"M"; // this should be a 'prefix' variable and a units variable
+    data: {
+      columns: chartData,
+      type:'pie'
+    },
+    pie: {
+      label: {
+        format: function (value, ratio, id) {
+          var dollars = d3.format('$')(value)+"M";
+          var percentage = d3.format('%')(ratio.toFixed(4));
+          return dollars
+            // + ' (' + percentage + ')'// if we have other datasets that use pie charts, this should be a 'prefix' variable and a units variable
           }
         }
       },
       title: {
        text: chartTitle
-     }
-   });
+     },
+     tooltip: {
+      format: {
+        title: function(value, ratio, id){
+          return id; },
+          value: function(value, ratio, id){
+            var dollars = d3.format('$')(value)+"M";
+            var percentage = d3.format('%')(ratio.toFixed(4));
+            return dollars + ' (' + percentage + ')'
+            // if we have other datasets that use pie charts, this should be a 'prefix' variable and a units variable
+          }
+        }
+      }
+    });
 }
 
 var renderBarChart = function(chartData, descriptives, chartTitle) {
+  var barLabelsChoice = true;
+  var legendChoice = false;
+
+  if (chartData.length > 20) {
+    legendChoice = true;
+  }
+  if (chartData.length > 10 || chartData[0].length > 10) {
+    barLabelsChoice = false
+  }
+  if (descriptives.x_axis_label === "Year"){
+    timeSeries(chartData, descriptives, chartTitle);
+  } else {
+    c3.generate({
+      data: {
+        columns: chartData,
+        type : 'bar',
+        labels: barLabelsChoice
+      },
+      axis: {
+        y: {
+          label: descriptives.y_axis_label,
+          padding: {
+            bottom: 0
+          }
+        },
+        x: {
+          type: 'category'
+        }
+      },
+      title: {
+        text: chartTitle
+      },
+      legend: {
+        hide: legendChoice
+      },
+      grid: {
+        y: {
+          show: true,
+          lines: [
+          {value: 0},
+          ]
+        },
+      }
+    })
+    removeZeroBug();
+  }
+}
+
+var removeZeroBug = function(){
+  var gTick = $(".c3-axis.c3-axis-x").find("g.tick")
+  gTick.find("text").find("tspan").html("");
+  gTick.find("line").attr("y2", "");
+  // This only fixes it on the first render. After you interact with the diagram (e.g. click to hide Trump's debts the bug comes back.)
+}
+
+var timeSeries = function(chartData,descriptives, chartTitle) {
+  console.log("in the time series")
   c3.generate({
     data: {
       columns: chartData,
+      x: chartData[0][0],
       type : 'bar'
     },
     axis: {
+      x: {
+        label: descriptives.x_axis_label,
+        tick: {
+          fit: false,
+        }
+      },
+    },
+    axis: {
       y: {
-        label:'In Millions'  // this should be a variable
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        }
       }
     },
     title: {
       text: chartTitle
+    },
+    grid: {
+      y: {
+        show: true,
+        lines: [
+        {value: 0},
+        ]
+      }
     }
-  });
+  })
 }
 
 var renderScatterPlot = function(chartData, descriptives, chartTitle) {
+  console.log(chartData)
+  console.log(descriptives)
+  var legendChoice = false;
 
-  var showLabels = true;
-  if (chartData[0].length > 20) {
-    showLabels = true;
+  if (chartData.length > 20) {
+    legendChoice = true;
   }
-
   c3.generate({
     point: {
-      r: 6.5
+      r: 4
     },
-     data: {
+    data: {
       xsort: false,
       x:  chartData[0][0],
       columns: chartData,
@@ -112,60 +254,33 @@ var renderScatterPlot = function(chartData, descriptives, chartTitle) {
       text:  chartTitle
     },
     legend: {
-      hide: showLabels
+      hide: legendChoice
     },
     axis: {
       x: {
-        label: 'Percentage',
-        tick: {
-          fit: true,
+        label: {
+          text: descriptives.x_axis_label,
+          position: 'right'
         }
       },
       y: {
-        label: 'Index (Best Score is 0)'
+        label: {
+          text: descriptives.y_axis_label,
+          position: 'outer-center'
+        },
+        padding: {
+          bottom: 0
+        }
+      }
+    },
+    grid: {
+      y: {
+        show: true,
       }
     }
   })
 }
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
-
-var renderURLButton = function(){
-  var currentPath = window.location.pathname
-  var params = $("#vis-form select").serialize()
-  var urlforSharing = currentPath + "?" + params
-  $("#url-div a").text("Share")
-  $("#url-div a").attr("href", urlforSharing)
-  shareClickListener()
-}
-
-var shareClickListener = function(){
-  $(".share").on("click", function(e){
-    $("link-share").text("");
-    e.preventDefault();
-    renderURL();
-  })
-}
-
-var renderURL = function(){
-  // $("#url-div a").attr("href", urlforSharing)
-  var currentPath = window.location.pathname
-  var params = $("#vis-form select").serialize()
-  var urlforSharing = currentPath + "?" + params
-  $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
-  $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
-  // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
-}
-
-var downloadHandler = function(){
-  $("#download-div").on("submit", function(event){
-    event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
-  })
-}
 
 // var renderURL = function(){
 //   // $("#url-div a").attr("href", urlforSharing)
@@ -177,4 +292,25 @@ var downloadHandler = function(){
 //   $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
 //   $("#administrative-metadata").append("<p class='link-share'>" + fullURLwithTags + "</p>")
 //   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
+// }
+
+//  This is to label each individual column rather than have a legend. IT's pretty ugly and impractical. All comes as same color
+// var chart = function(chartData, descriptives, chartTitle){
+//   c3.generate({
+//     data: {
+//         x : 'x',
+//         columns: chartData,
+//         type: 'bar'
+//     },
+//     axis: {
+//         x: {
+//             type: 'category',
+//             tick: {
+//                 rotate: 55,
+//                 multiline: false
+//             },
+//             height: 130
+//         }
+//     }
+// });
 // }

@@ -13,6 +13,12 @@ module TrumpAdminDebts
         display_money(self.min_amount)
       end
 
+      def correct_max
+        if !max_amount.is_a?(Numeric)
+          max_amount == min_amount
+        end
+      end
+
       def disp_max
         if max_amount
           display_money(self.max_amount)

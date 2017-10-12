@@ -9,7 +9,7 @@ require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
 
   #dataset_label: {raw_csv_filepath: '/filepath_string', dataset_db_destination: 'namespace_table_name'},
 autoparsable_datasets = [
-#  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
+ {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
   {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
 ]
 #general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
@@ -27,7 +27,7 @@ end
 # Trump Debts
 
 counter_t = 0
-CSV.foreach("db/ETL_Pipeline/raw_CSVs/trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
+CSV.foreach("db/ETL_Pipeline/raw_CSVs/updated_trump_admin_debts.csv", headers: true, header_converters: :symbol) do |row|
   counter_t += 1
   print 't' if counter_t % 100 == 0
 
