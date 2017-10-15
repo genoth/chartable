@@ -12,9 +12,18 @@ class VisualizationsController < ApplicationController
   def create
     # image_blob = request.body.read
     # Visualization.create!(image_blob: image_blob)
-    image_data = request.body.read
-    Visualization.create!(image_data: image_data)
-    Cloudinary::Uploader.upload(image_data, options = {public_id: 'pie_chart_fun'})
+    link = params['link']
+    image_data = params['uri']
+    p link
+    # p "this is the request body (read) to json **********************"
+    # p request.body.read.to_json
+    # image_data = request.body.read.to_json
+
+    # data = image_data['link']
+    # p "this should be the link *********************************"
+    # # p data
+    # Visualization.create!(link: link)
+    # Cloudinary::Uploader.upload(image_data, options = {public_id: link})
   end
 
 end

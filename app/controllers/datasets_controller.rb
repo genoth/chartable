@@ -10,6 +10,8 @@ class DatasetsController < ApplicationController
     end
     @descriptive_metadata = @dataset_klass.metadata
     @diagram_types = allowed_charts[params[:id]]
+    p "these are the diagram types **************"
+    p @diagram_types
   end
 
   def query

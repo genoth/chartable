@@ -415,8 +415,6 @@
             uri);
         }
 
-        //debugger;
-
         image.src = uri;
       });
     }
@@ -474,27 +472,13 @@
     });
   }
 
-  out$.saveSvgAsPng = function(el, name, options) {
+  out$.downloadSvgAsPng = function(el, name, options) {
     requireDomNode(el);
-    var currentPath = window.location.pathname
-    var params = $("#vis-form select").serialize()
-    var linktoSave = currentPath + "?" + params
-
     options = options || {};
     out$.svgAsPngUri(el, options, function(uri) {
-      console.log('save this?', uri);
-      console.log('link to save?', linktoSave)
-      var data = {uri: uri, link: linktoSave}
-      console.log(data)
-      $.ajax({
-        method: 'POST',
-        url: window.location.href + '/visualizations',
-        // contentType: '',
-        data: {uri: uri, link: linktoSave}
-      })
+      out$.download(name, uri);
     });
   }
-
 
   // if define is defined create as an AMD module
   if (typeof define !== 'undefined') {
