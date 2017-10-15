@@ -1,7 +1,11 @@
-<%= cloudinary_js_config %>    <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'application' %>
+<%= cloudinary_js_config %>
 
 
 <h1><%= @dataset_klass.metadata[:dataset_title] %></h1>
+
+https://res.cloudinary.com/<your Cloudinary account's cloud name>/image/fetch/http://res.cloudinary.com/hcsobbcxk/image/upload/v1508097632/ii9ac6nrkrrmlirf943z.png
+
 
 <%= form_tag "query", id: "vis-form", method: "POST", url: "/datasets/#{params[:id]}/query" do |form| %>
 
@@ -48,13 +52,22 @@
   </div>
 
   <div id="diagram-title"></div>
+
   <div id="chart"></div>
-  <div id="download-div" class="hidden">
+
+  <div id="download-div">
     <%= form_tag "download", id: "download-form", method: "POST", url: "/datasets/download" do |form| %>
     <input type="submit" value="Download">
     <% end %>
   </div>
+
   <div id="url-div"><a class="share" href="">Share</a></div>
+
+  <div id="save-div">
+  <%= form_tag "save", id: "save-form", method: "POST", url: "https://api.cloudinary.com/v1_1/hcsobbcxk/image/upload" do |form| %>
+    <input type="submit" value="Save">
+    <% end %>
+  </div>
 
   <div id="descriptive-metadata">
     <p id="dataset-title"><%= @descriptive_metadata[:dataset_title] %></p>

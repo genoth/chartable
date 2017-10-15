@@ -415,6 +415,8 @@
             uri);
         }
 
+        //debugger;
+
         image.src = uri;
       });
     }
@@ -477,9 +479,30 @@
 
     options = options || {};
     out$.svgAsPngUri(el, options, function(uri) {
-      out$.download(name, uri);
+      console.log('save this?', uri);
+      $.ajax({
+        method: 'POST',
+        url: window.location.href + '/visualizations',
+        contentType: '',
+        data: uri
+      })
     });
   }
+
+  //   out$.saveSvgAsPng = function(el, name, options) {
+  //   requireDomNode(el);
+
+  //   options = options || {};
+  //   out$.svgAsPngUri(el, options, function(uri) {
+  //     console.log('save this?', uri);
+  //     $.ajax({
+  //       method: 'POST',
+  //       url: window.location.href + '/visualizations',
+  //       contentType: '',
+  //       data: uri
+  //     })
+  //   });
+  // }
 
   // if define is defined create as an AMD module
   if (typeof define !== 'undefined') {

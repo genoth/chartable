@@ -2,6 +2,7 @@ $(document).ready(function(){
   visFormListener();
   orderDropdownListener();
   loadGraph();
+  saveHandler();
 });
 
 var orderDropdownListener = function(){
@@ -48,15 +49,15 @@ var loadGraph = function(){
     } else {
       renderScatterPlot(chartData, descriptives, chartTitle)
     }
-    renderDownloadButton();
+    // renderDownloadButton();
     renderURL();
   })
 }
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
+// var renderDownloadButton = function(){
+//   $("#download-div").removeClass("hidden");
+//   downloadHandler();
+// }
 
 
 var renderURL = function(){
@@ -104,8 +105,34 @@ var downloadHandler = function(){
   })
 }
 
+var saveHandler = function(){
+  $("#save-form").on("submit", function(event){
+    event.preventDefault();
+    console.log("BOUND")
+
+    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+    })
+}
+//     var $form = $("#save-form")
+//     var data = (saveSvgAsPng(($("svg")[0]), "chartable-diagram.png"))
+//     console.log(data)
+//     $request = $.ajax({
+//       url: "https://api.cloudinary.com/v1_1/hcsobbcxk/image/upload",
+//       data: data,
+//       method: $form.attr("method")
+//     })
+//     $request.done(function(serverResponse){
+//       console.log(serverResponse)
+//       console.log("made it through the ajax call and DONE")
+//     })
+//   })
+// }
+
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
+    oninit: function() {
+      this.svg.attr('id', 'new_chart')
+    },
     data: {
       columns: chartData,
       type:'pie'
