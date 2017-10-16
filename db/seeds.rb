@@ -9,16 +9,15 @@ require_relative 'ETL_Pipeline/ETL_Parsing/general_parser'
 
   #dataset_label: {raw_csv_filepath: '/filepath_string', dataset_db_destination: 'namespace_table_name'},
 autoparsable_datasets = [
-  {"raw_csv_filepath"} => "db/ETL_Pipeline/raw_CSVs/police_killings.csv", "dataset_db_destination" => PoliceKillings::Deaths}
- # {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
- #  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
+ {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", "dataset_db_destination" => GenderInequality::GenderData},
+  {"raw_csv_filepath" => "db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", "dataset_db_destination" => CanadianClimate::TempYear}
 ]
 #general_parser("db/ETL_Pipeline/raw_CSVs/gender_inequality.csv", GenderInequality::GenderData)
 #general_parser("db/ETL_Pipeline/raw_CSVs/temperature-change-seasons.csv", CanadianClimate::TempYear)
-autoparsable_datasets.each do |dataset|
-  p dataset
-  general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
-end
+# autoparsable_datasets.each do |dataset|
+#   p dataset
+#   general_parser(dataset["raw_csv_filepath"], dataset["dataset_db_destination"])
+# end
 
 
 

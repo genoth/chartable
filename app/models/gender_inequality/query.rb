@@ -60,11 +60,11 @@ module GenderInequality
      # [index, country, percentage]
 
     def bar_data
-      thing_we_want = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
-      query = GenderInequality::GenderData.select(thing_we_want + ", country").where(thing_we_want + " IS NOT null")
+      aggregator_SQL_string = GenderInequality.aggregation_sql_snippits[@params[:aggregations]]
+      query = GenderInequality::GenderData.select(aggregator_SQL_string + ", country").where(aggregator_SQL_string + " IS NOT null")
         .where("gender_inequality_index_2014 IS NOT null")
       dataset = query.map { |row| [row, row.country]}
-      dataset = dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][thing_we_want] } }
+      dataset = dataset.map { |sub_array| { label: sub_array[-1], amount: sub_array[-2][aggregator_SQL_string] } }
       return prepared_data(dataset)
     end
 

@@ -50,44 +50,53 @@ module USLifeExpectancy
     def scatter_data
       aggregator_SQL_string = USLifeExpectancy.aggregation_sql_snippits[@params[:aggregations]]
       if @descriptors == "Races" # "Races" as string
-        labels = ["All Races", "Black", "White"]
+        groups = ["All Races", "Black", "White"]
         dataset = race_descriptor_query(aggregator_SQL_string)
         p dataset
-        generate_scatter_data(dataset, labels)
+        generate_scatter_data(dataset, groups)
       elsif @descriptors == "Sexes"
-        labels = ["Both Sexes", "Female", "Male"]
+        groups = ["Both Sexes", "Female", "Male"]
         dataset = sex_descriptor_query(aggregator_SQL_string)
-        generate_scatter_data(dataset, labels)
+        generate_scatter_data(dataset, groups)
       end
     end
 
 # ["Statistics", "Races", "Sexes", "Years"]
 
-    def generate_scatter_data(dataset, labels)
+    def generate_scatter_data(dataset, groups)
       x_axis = ["years_x"]
-      descriptor_both_id_1 = [labels[0]] #["All Races"]
-      descriptor_id_2 = [labels[1]] # ["Black"]
-      descriptor_id_3 = [labels[2]] # ["White"]
+      group_0_both = [groups[0]] #["All Races"]
+      group_1 = [groups[1]] # ["Black"]
+      group_2 = [groups[2]] # ["White"]
       dataset = dataset.sort_by { |sub_array| sub_array.last } # sorting by Year, the x-axis value
 
       dataset.each do |sub_array|
         x_axis.push(sub_array[2])
       end
       dataset.each do |sub_array|
-        if sub_array[1] == labels[2] #"White"
-          descriptor_id_3 << sub_array[0]
+        if sub_array[1] == groups[2] #"White"
+          group_2 << sub_array[0]
         elsif
-          sub_array[1] ==  labels[1] # "Black"
-          descriptor_id_2 << sub_array[0]
+          sub_array[1] ==  groups[1] # "Black"
+          group_1 << sub_array[0]
         else
-          sub_array[1] == labels[0] # "All Races"
-          descriptor_both_id_1 << sub_array[0]
+          sub_array[1] == groups[0] # "All Races"
+          group_0_both << sub_array[0]
         end
       end
-      thing = Array.new.push(x_axis.uniq, descriptor_both_id_1, descriptor_id_2, descriptor_id_3)
+      thing = Array.new.push(x_axis.uniq, group_0_both, group_1, group_2)
     end
 
   private
+
+  # this currently isn't being used but might be useful in terms of making query model more dynamic. having trouble referencing groups within other definitions.
+    def groups
+      if @descriptors == "Races"
+        ["All Races", "Black", "White"]
+      elsif @descriptors == "Sex"
+        ["Both Sexes", "Female", "Male"]
+      end
+    end
 
     def should_condense?
       false
@@ -99,13 +108,3 @@ module USLifeExpectancy
 
   end
 end
-
-    # def prepareData(@dataset, descriptors, aggregations)
-    # end
-    def labels
-      if @descriptors == "Races"
-        ["All Races", "Black", "White"]
-      elsif @descriptors == "Sex"
-        ["Both Sexes", "Female", "Male"]
-      end
-    end
