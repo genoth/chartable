@@ -255,7 +255,6 @@
   }
 
   function reEncode(data) {
-    console.log("got to the reEncode function")
     data = encodeURIComponent(data);
     data = data.replace(/%([0-9A-F]{2})/g, function(match, p1) {
       var c = String.fromCharCode('0x'+p1);
@@ -265,7 +264,6 @@
   }
 
   out$.prepareSvg = function(el, options, cb) {
-    console.log("got to the prepareSvg function")
     requireDomNode(el);
 
     options = options || {};
@@ -352,7 +350,6 @@
   }
 
   out$.svgAsDataUri = function(el, options, cb) {
-    console.log("got to the svgAsDataURI function")
     out$.prepareSvg(el, options, function(svg) {
       var uri = 'data:image/svg+xml;base64,' + window.btoa(reEncode(doctype + svg));
       if (cb) {
@@ -361,104 +358,103 @@
     });
   }
 
-  out$.svgAsPngUri = function(el, options, cb) {
-    requireDomNode(el);
+  // out$.svgAsPngUri = function(el, options, cb) {
+  //   requireDomNode(el);
 
-    options = options || {};
-    options.encoderType = options.encoderType || 'image/png';
-    options.encoderOptions = options.encoderOptions || 0.8;
+  //   options = options || {};
+  //   options.encoderType = options.encoderType || 'image/png';
+  //   options.encoderOptions = options.encoderOptions || 0.8;
 
-    var convertToPng = function(src, w, h) {
-      var canvas = document.createElement('canvas');
-      var context = canvas.getContext('2d');
-      canvas.width = w;
-      canvas.height = h;
+  //   var convertToPng = function(src, w, h) {
+  //     var canvas = document.createElement('canvas');
+  //     var context = canvas.getContext('2d');
+  //     canvas.width = w;
+  //     canvas.height = h;
 
-      if(options.canvg) {
-        options.canvg(canvas, src);
-      } else {
-        context.drawImage(src, 0, 0);
-      }
+  //     if(options.canvg) {
+  //       options.canvg(canvas, src);
+  //     } else {
+  //       context.drawImage(src, 0, 0);
+  //     }
 
-      if(options.backgroundColor){
-        context.globalCompositeOperation = 'destination-over';
-        context.fillStyle = options.backgroundColor;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-      }
+  //     if(options.backgroundColor){
+  //       context.globalCompositeOperation = 'destination-over';
+  //       context.fillStyle = options.backgroundColor;
+  //       context.fillRect(0, 0, canvas.width, canvas.height);
+  //     }
 
-      var png;
-      try {
-        png = canvas.toDataURL(options.encoderType, options.encoderOptions);
-      } catch (e) {
-        if ((typeof SecurityError !== 'undefined' && e instanceof SecurityError) || e.name == "SecurityError") {
-          console.error("Rendered SVG images cannot be downloaded in this browser.");
-          return;
-        } else {
-          throw e;
-        }
-      }
-      cb(png);
-    }
+  //     var png;
+  //     try {
+  //       png = canvas.toDataURL(options.encoderType, options.encoderOptions);
+  //     } catch (e) {
+  //       if ((typeof SecurityError !== 'undefined' && e instanceof SecurityError) || e.name == "SecurityError") {
+  //         console.error("Rendered SVG images cannot be downloaded in this browser.");
+  //         return;
+  //       } else {
+  //         throw e;
+  //       }
+  //     }
+  //     cb(png);
+  //   }
 
-    if(options.canvg) {
-      out$.prepareSvg(el, options, convertToPng);
-    } else {
-      out$.svgAsDataUri(el, options, function(uri) {
-        var image = new Image();
+  //   if(options.canvg) {
+  //     out$.prepareSvg(el, options, convertToPng);
+  //   } else {
+  //     out$.svgAsDataUri(el, options, function(uri) {
+  //       var image = new Image();
 
-        image.onload = function() {
-          convertToPng(image, image.width, image.height);
-        }
+  //       image.onload = function() {
+  //         convertToPng(image, image.width, image.height);
+  //       }
 
-        image.onerror = function() {
-          console.error(
-            'There was an error loading the data URI as an image on the following SVG\n',
-            window.atob(uri.slice(26)), '\n',
-            "Open the following link to see browser's diagnosis\n",
-            uri);
-        }
+  //       image.onerror = function() {
+  //         console.error(
+  //           'There was an error loading the data URI as an image on the following SVG\n',
+  //           window.atob(uri.slice(26)), '\n',
+  //           "Open the following link to see browser's diagnosis\n",
+  //           uri);
+  //       }
 
-        //debugger;
+  //       //debugger;
 
-        image.src = uri;
-      });
-    }
-  }
+  //       image.src = uri;
+  //     });
+  //   }
+  // }
 
-  out$.download = function(name, uri) {
-    if (navigator.msSaveOrOpenBlob) {
-      navigator.msSaveOrOpenBlob(uriToBlob(uri), name);
-    } else {
-      var saveLink = document.createElement('a');
-      var downloadSupported = 'download' in saveLink;
-      if (downloadSupported) {
-        saveLink.download = name;
-        saveLink.style.display = 'none';
-        document.body.appendChild(saveLink);
-        try {
-          var blob = uriToBlob(uri);
-          var url = URL.createObjectURL(blob);
-          saveLink.href = url;
-          saveLink.onclick = function() {
-            requestAnimationFrame(function() {
-              URL.revokeObjectURL(url);
-            })
-          };
-        } catch (e) {
-          console.warn('This browser does not support object URLs. Falling back to string URL.');
-          saveLink.href = uri;
-        }
-        saveLink.click();
-        document.body.removeChild(saveLink);
-      }
-      else {
-        window.open(uri, '_temp', 'menubar=no,toolbar=no,status=no');
-      }
-    }
-  }
+  // out$.download = function(name, uri) {
+  //   if (navigator.msSaveOrOpenBlob) {
+  //     navigator.msSaveOrOpenBlob(uriToBlob(uri), name);
+  //   } else {
+  //     var saveLink = document.createElement('a');
+  //     var downloadSupported = 'download' in saveLink;
+  //     if (downloadSupported) {
+  //       saveLink.download = name;
+  //       saveLink.style.display = 'none';
+  //       document.body.appendChild(saveLink);
+  //       try {
+  //         var blob = uriToBlob(uri);
+  //         var url = URL.createObjectURL(blob);
+  //         saveLink.href = url;
+  //         saveLink.onclick = function() {
+  //           requestAnimationFrame(function() {
+  //             URL.revokeObjectURL(url);
+  //           })
+  //         };
+  //       } catch (e) {
+  //         console.warn('This browser does not support object URLs. Falling back to string URL.');
+  //         saveLink.href = uri;
+  //       }
+  //       saveLink.click();
+  //       document.body.removeChild(saveLink);
+  //     }
+  //     else {
+  //       window.open(uri, '_temp', 'menubar=no,toolbar=no,status=no');
+  //     }
+  //   }
+  // }
 
   function uriToBlob(uri) {
-    console.log("got to the uriToBlob function")
     var byteString = window.atob(uri.split(',')[1]);
     var mimeString = uri.split(',')[0].split(':')[1].split(';')[0]
     var buffer = new ArrayBuffer(byteString.length);
@@ -469,8 +465,7 @@
     return new Blob([buffer], {type: mimeString});
   }
 
-  out$.saveSvg = function(el, name, options) {
-    console.log("got to the saveSvg function")
+  out$.saveSvgtoLibrary = function(el, name, options) {
     requireDomNode(el);
     var currentPath = window.location.pathname;
     var params = $("#vis-form select").serialize();
@@ -487,37 +482,6 @@
       })
     });
   }
-
-// commented out original code for preservation while experimenting.
-  // out$.saveSvg = function(el, name, options) {
-  //   requireDomNode(el);
-
-  //   options = options || {};
-  //   out$.svgAsDataUri(el, options, function(uri) {
-  //     out$.download(name, uri);
-  //   });
-  // }
-
-  // out$.saveSvgAsPng = function(el, name, options) {
-  //   requireDomNode(el);
-  //   var currentPath = window.location.pathname
-  //   var params = $("#vis-form select").serialize()
-  //   var linktoSave = currentPath + "?" + params
-
-  //   options = options || {};
-  //   out$.svgAsPngUri(el, options, function(uri) {
-  //     console.log('save this?', uri);
-  //     console.log('link to save?', linktoSave)
-  //     var data = {uri: uri, link: linktoSave}
-  //     console.log(data)
-  //     $.ajax({
-  //       method: 'POST',
-  //       url: window.location.pathname + '/visualizations',
-  //       // contentType: '',
-  //       data: {uri: uri, link: linktoSave}
-  //     })
-  //   });
-  // }
 
 
   // if define is defined create as an AMD module

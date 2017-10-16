@@ -463,14 +463,14 @@
     return new Blob([buffer], {type: mimeString});
   }
 
-  // out$.saveSvg = function(el, name, options) {
-  //   requireDomNode(el);
+  out$.saveSvg = function(el, name, options) {
+    requireDomNode(el);
 
-  //   options = options || {};
-  //   out$.svgAsDataUri(el, options, function(uri) {
-  //     out$.download(name, uri);
-  //   });
-  // }
+    options = options || {};
+    out$.svgAsDataUri(el, options, function(uri) {
+      out$.download(name, uri);
+    });
+  }
 
   out$.downloadSvgAsPng = function(el, name, options) {
     requireDomNode(el);
