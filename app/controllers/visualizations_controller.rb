@@ -10,20 +10,24 @@ class VisualizationsController < ApplicationController
   end
 
   def create
-    # image_blob = request.body.read
-    # Visualization.create!(image_blob: image_blob)
     link = params['link']
     image_data = params['uri']
-    p link
-    # p "this is the request body (read) to json **********************"
-    # p request.body.read.to_json
-    # image_data = request.body.read.to_json
+    dataset_id = params['dataset_id']
 
-    # data = image_data['link']
-    # p "this should be the link *********************************"
-    # # p data
-    # Visualization.create!(link: link)
-    # Cloudinary::Uploader.upload(image_data, options = {public_id: link})
+    @visualization = Visualization.find_by(link: link)
+    if @visualization == nil
+      response = Cloudinary::Uploader.upload(image_data)
+      p response
+      @visualization = Visualization.create(link: link, public_id: response['public_id'], dataset_id: dataset_id)
+      p "it saved"
+    else
+      p "this is a duplicate."
+    end
+  end
+
+  def index
+    @visualizations = Visualization.all
+    p @visualizations
   end
 
 end

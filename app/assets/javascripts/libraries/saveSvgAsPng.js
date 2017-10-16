@@ -255,6 +255,7 @@
   }
 
   function reEncode(data) {
+    console.log("got to the reEncode function")
     data = encodeURIComponent(data);
     data = data.replace(/%([0-9A-F]{2})/g, function(match, p1) {
       var c = String.fromCharCode('0x'+p1);
@@ -264,6 +265,7 @@
   }
 
   out$.prepareSvg = function(el, options, cb) {
+    console.log("got to the prepareSvg function")
     requireDomNode(el);
 
     options = options || {};
@@ -350,6 +352,7 @@
   }
 
   out$.svgAsDataUri = function(el, options, cb) {
+    console.log("got to the svgAsDataURI function")
     out$.prepareSvg(el, options, function(svg) {
       var uri = 'data:image/svg+xml;base64,' + window.btoa(reEncode(doctype + svg));
       if (cb) {
@@ -455,6 +458,7 @@
   }
 
   function uriToBlob(uri) {
+    console.log("got to the uriToBlob function")
     var byteString = window.atob(uri.split(',')[1]);
     var mimeString = uri.split(',')[0].split(':')[1].split(';')[0]
     var buffer = new ArrayBuffer(byteString.length);
@@ -466,34 +470,54 @@
   }
 
   out$.saveSvg = function(el, name, options) {
+    console.log("got to the saveSvg function")
     requireDomNode(el);
+    var currentPath = window.location.pathname;
+    var params = $("#vis-form select").serialize();
+    var linktoSave = currentPath + "?" + params;
 
     options = options || {};
     out$.svgAsDataUri(el, options, function(uri) {
-      out$.download(name, uri);
-    });
-  }
-
-  out$.saveSvgAsPng = function(el, name, options) {
-    requireDomNode(el);
-    var currentPath = window.location.pathname
-    var params = $("#vis-form select").serialize()
-    var linktoSave = currentPath + "?" + params
-
-    options = options || {};
-    out$.svgAsPngUri(el, options, function(uri) {
-      console.log('save this?', uri);
-      console.log('link to save?', linktoSave)
       var data = {uri: uri, link: linktoSave}
       console.log(data)
       $.ajax({
         method: 'POST',
-        url: window.location.href + '/visualizations',
-        // contentType: '',
+        url: currentPath + '/visualizations',
         data: {uri: uri, link: linktoSave}
       })
     });
   }
+
+// commented out original code for preservation while experimenting.
+  // out$.saveSvg = function(el, name, options) {
+  //   requireDomNode(el);
+
+  //   options = options || {};
+  //   out$.svgAsDataUri(el, options, function(uri) {
+  //     out$.download(name, uri);
+  //   });
+  // }
+
+  // out$.saveSvgAsPng = function(el, name, options) {
+  //   requireDomNode(el);
+  //   var currentPath = window.location.pathname
+  //   var params = $("#vis-form select").serialize()
+  //   var linktoSave = currentPath + "?" + params
+
+  //   options = options || {};
+  //   out$.svgAsPngUri(el, options, function(uri) {
+  //     console.log('save this?', uri);
+  //     console.log('link to save?', linktoSave)
+  //     var data = {uri: uri, link: linktoSave}
+  //     console.log(data)
+  //     $.ajax({
+  //       method: 'POST',
+  //       url: window.location.pathname + '/visualizations',
+  //       // contentType: '',
+  //       data: {uri: uri, link: linktoSave}
+  //     })
+  //   });
+  // }
 
 
   // if define is defined create as an AMD module

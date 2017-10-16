@@ -1,0 +1,7 @@
+<h1>Chartable Library</h1>
+
+<h3></h3>
+<% @visualizations.each do |vis| %>
+  <p><%= cl_image_tag(vis.public_id, :alt => "Sample Image") %></p>
+<% end %>
+

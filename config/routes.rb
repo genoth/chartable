@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :visualizations, only: [:create, :show]
   end
 
+  get '/visualizations', to: 'visualizations#index'
+
 
 
 

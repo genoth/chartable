@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 20171015030640) do
 
   create_table "visualizations", force: :cascade do |t|
     t.string "link"
+    t.string "public_id"
+    t.string "dataset_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
