@@ -84,7 +84,7 @@ var saveHandler = function(){
   $("#save-form").on("submit", function(event){
     event.preventDefault();
     console.log("BOUND")
-    saveSvg(($("svg")[0]), "chartable-diagram.png")
+    saveSvgtoLibrary(($("svg")[0]), "chartable-diagram.png")
     })
 }
 
