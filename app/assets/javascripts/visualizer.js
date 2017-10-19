@@ -2,6 +2,8 @@ $(document).ready(function(){
   visFormListener();
   orderDropdownListener();
   loadGraph();
+  downloadHandler();
+  saveHandler();
 });
 
 var orderDropdownListener = function(){
@@ -21,13 +23,17 @@ var orderDropdownHandler = function(){
 var visFormListener = function(){
   $("#vis-form").on("submit",function(event){
     event.preventDefault();
-    loadGraph();
+    var currentPath = window.location.pathname
+    var params = $("#vis-form select").serialize()
+    var urlforSharing = currentPath + "?" + params
+    window.location = urlforSharing;
   })
 }
 
 var loadGraph = function(){
   var $form = $("#vis-form");
   var chartType = $(":selected")[2].value;
+
   $request = $.ajax({
     url: $form.attr("url"),
     data: $form.serialize(),
@@ -48,18 +54,18 @@ var loadGraph = function(){
     } else {
       renderScatterPlot(chartData, descriptives, chartTitle)
     }
-    renderDownloadButton();
-    renderURL();
+    // renderDownloadButton();
+    setURL();
   })
 }
 
-var renderDownloadButton = function(){
-  $("#download-div").removeClass("hidden");
-  downloadHandler();
-}
+// var renderDownloadButton = function(){
+//   $("#download-div").removeClass("hidden");
+//   downloadHandler();
+// }
 
 
-var renderURL = function(){
+var setURL = function(){
   var currentPath = window.location.pathname
   var params = $("#vis-form select").serialize()
   var urlforSharing = currentPath + "?" + params
@@ -67,45 +73,26 @@ var renderURL = function(){
   // $("#url-div a").attr("href").text (urlforSharing)
 }
 
-// var renderURLButton = function(){
-//   var currentPath = window.location.pathname
-//   var params = $("#vis-form select").serialize()
-//   var urlforSharing = currentPath + "?" + params
-//   $("#url-div a").text("Share")
-//   $("#url-div a").attr("href", urlforSharing)
-//   shareClickListener()
-// }
-
-// var shareClickListener = function(){
-//   $(".share").on("click", function(e){
-//     $()
-//   })
-//   // $(".share").on("click", function(e){
-//   //   $("link-share").text("");
-//   //   e.preventDefault();
-//   //   renderURL();
-//   // })
-// }
-
-// var renderURL = function(){
-//   // $("#url-div a").attr("href", urlforSharing)
-//   var currentPath = window.location.pathname
-//   var params = $("#vis-form select").serialize()
-//   var urlforSharing = currentPath + "?" + params
-//   // $("#administrative-metadata").append("<p class='link-share'>Bookmark or share your chart with this link:</p>")
-//   // $("#administrative-metadata").append("<p class='link-share'>" + urlforSharing + "</p>")
-//   // $("#url-div a").attr("href").text ("<p>" + urlforSharing + "</p>")
-// }
-
 var downloadHandler = function(){
   $("#download-div").on("submit", function(event){
     event.preventDefault();
-    saveSvgAsPng(($("svg")[0]), "chartable-diagram.png")
+    downloadSvgAsPng(($("svg")[0]), "chartable-diagram.png")
   })
+}
+
+var saveHandler = function(){
+  $("#save-form").on("submit", function(event){
+    event.preventDefault();
+    console.log("BOUND")
+    saveSvgtoLibrary(($("svg")[0]), "chartable-diagram.png")
+    })
 }
 
 var renderPieChart = function(chartData, descriptives, chartTitle) {
   c3.generate({
+    oninit: function() {
+      this.svg.attr('id', 'new_chart')
+    },
     data: {
       columns: chartData,
       type:'pie'

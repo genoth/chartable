@@ -1,4 +1,5 @@
-    <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'application' %>
+<%= cloudinary_js_config %>
 
 
 <h1><%= @dataset_klass.metadata[:dataset_title] %></h1>
@@ -21,9 +22,12 @@
   as
 
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
-    <%= @diagram_types.each do |v, dis| %>
-      <% selected = (v == params[:chart] ? "selected" : nil) %>
-     <option value="<%= v %>" <%= selected %>><%= dis %></option>
+    <% @diagram_types.each do |key, display_chart_type| %>
+      <% if key.to_s == params[:chart] %>
+       <option value="<%= key %>" selected><%= display_chart_type %></option>
+      <% else %>
+        <option value="<%= key %>"><%= display_chart_type %></option>
+      <% end %>
      <% end %>
   </select>
 
@@ -48,13 +52,22 @@
   </div>
 
   <div id="diagram-title"></div>
+
   <div id="chart"></div>
-  <div id="download-div" class="hidden">
+
+  <div id="download-div">
     <%= form_tag "download", id: "download-form", method: "POST", url: "/datasets/download" do |form| %>
     <input type="submit" value="Download">
     <% end %>
   </div>
+
   <div id="url-div"><a class="share" href="">Share</a></div>
+
+  <div id="save-div">
+  <%= form_tag "save", id: "save-form", method: "POST", url: "https://api.cloudinary.com/v1_1/hcsobbcxk/image/upload" do |form| %>
+    <input type="submit" value="Save to Chartable library">
+    <% end %>
+  </div>
 
   <div id="descriptive-metadata">
     <p id="dataset-title"><%= @descriptive_metadata[:dataset_title] %></p>

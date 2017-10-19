@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004212632) do
+ActiveRecord::Schema.define(version: 20171015030640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(version: 20171004212632) do
     t.float "spring_temperature_celsius"
     t.float "summer_temperature_celsius"
     t.float "fall_temperature_celsius"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "visualizations", force: :cascade do |t|
+    t.string "link"
+    t.string "public_id"
+    t.string "dataset_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
