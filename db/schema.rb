@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016201947) do
+ActiveRecord::Schema.define(version: 20171020210648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20171016201947) do
     t.string "race"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "perc_of_us_pop"
+    t.float "est_pop_2016"
   end
 
   create_table "pk_sexes", force: :cascade do |t|
@@ -119,6 +121,8 @@ ActiveRecord::Schema.define(version: 20171016201947) do
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "perc_of_us_pop"
+    t.integer "total_pop_2016"
   end
 
   create_table "races", force: :cascade do |t|

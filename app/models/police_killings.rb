@@ -14,7 +14,7 @@ module PoliceKillings
 
     def self.aggregation_sql_snippits
       {
-      "Deaths" => "count(pk_deaths.id) AS total_deaths"
+      "Deaths" => "count(pk_deaths.id) AS deaths"
       # "Average Spring Temperature" => "spring_temperature_celsius",
       # "Average Summer Temperature" => "summer_temperature_celsius",
       # "Average Fall Temperature" => "fall_temperature_celsius"
@@ -30,7 +30,8 @@ module PoliceKillings
       dataset_title: "People Killed by Police in the US, 2016",
       sources: [
                 ["The Guardian", "https://www.theguardian.com/us-news/series/counted-us-police-killings"],
-                ["U.S. Census Bureau", "https://www.census.gov/data/tables/2016/demo/popest/state-total.html"]
+                ["U.S. Census Bureau", "https://www.census.gov/data/tables/2016/demo/popest/state-total.html"],
+                ["U.S. Census Bureau - QuickFacts", "https://www.census.gov/quickfacts/fact/table/US/PST045216"]
                 ]
       # dataset_url: "https://www.theguardian.com/us-news/series/counted-us-police-killings",
       # dataset_source: "The Guardian, U.S. Census Bureau"

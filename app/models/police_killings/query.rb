@@ -17,7 +17,11 @@ module PoliceKillings
     end
 
     def y_axis_label
-      return "Number of Deaths"
+      if @params[:descriptors] == "Races" || @params[:descriptors] == "States"
+        return "Number of Deaths per 100,000"
+      else
+        return "Number of Deaths"
+      end
     end
 
     def data
@@ -43,7 +47,7 @@ module PoliceKillings
         .joins(:pk_classification)
         .group("pk_classifications.classification")
 
-        dataset = query.map { |r| [r.total_deaths, r.cause] }
+        dataset = query.map { |r| [r.deaths, r.cause] }
 
       elsif @params[:descriptors] == "Sexes"
         query = PoliceKillings::PkDeath
@@ -51,15 +55,56 @@ module PoliceKillings
         .joins(:pk_sex)
         .group("pk_sexes.sex")
 
-        dataset = query.map { |r| [r.total_deaths, r.gender]}
+        dataset = query.map { |r| [r.deaths, r.gender]}
 
       elsif @params[:descriptors] == "Races"
         query = PoliceKillings::PkDeath
         .select("#{aggregator_SQL_string}, pk_races.race AS race")
         .joins(:pk_race)
         .group("pk_races.race")
+        .order("pk_races.race ASC")
 
-        dataset = query.map { |r| [r.total_deaths, r.race]}
+         # "Deaths" => "count(pk_deaths.id) AS deaths"
+
+        pop_by_race = PoliceKillings::PkRace
+          .select("pk_races.race, pk_races.est_pop_2016")
+          .order("pk_races.race ASC")
+        thing = pop_by_race.map {|r| [r.est_pop_2016, r.race]}
+        puts "this is the thing"
+        p thing
+
+        dataset = query.map { |r| [r.deaths.to_f, r.race]}
+# nested_array = [ ['a', 1], ['b', 2], ['c', 3], ['d', 4] ]
+        puts "this is the dataset"
+        p dataset
+        # calculate the rate of death per 100,000, by race
+       new_dataset = []
+        thing.each_with_index do |subarray, index|
+          this_race = dataset[index][1]
+          deaths = dataset[index][0]
+          race_pop = subarray[0]
+          puts "=================="
+          p this_race
+          p deaths
+          p race_pop
+          if race_pop != nil
+            per_100k = deaths/race_pop * 1000000
+            p per_100k.round(2)
+          end
+          puts "=================="
+
+          # if subarray[0] != nil
+
+          #   per_100k = dataset[index][0] / subarray[0]
+          #   race = subarray[index][0]
+          #   puts "================================="
+          #   p dataset[index][1]
+          #   p subarray[1]
+          #   puts "===================================="
+          #   new_dataset << [race, per_100k]
+          # end
+        end
+      new_dataset
 
       elsif @params[:descriptors] == "States"
         query = PoliceKillings::PkDeath
@@ -67,7 +112,7 @@ module PoliceKillings
         .joins(:pk_state)
         .group("pk_states.state")
 
-        dataset = query.map { |r| [r.total_deaths, r.state]}
+        dataset = query.map { |r| [r.deaths, r.state]}
 
       elsif @params[:descriptors] == "Armed?"
         query = PoliceKillings::PkDeath
@@ -75,7 +120,7 @@ module PoliceKillings
         .joins(:pk_armed_type)
         .group("pk_armed_types.armed_type")
 
-        dataset = query.map { |r| [r.total_deaths, r.armed]}
+        dataset = query.map { |r| [r.deaths, r.armed]}
 
       end
       dataset = dataset.map { |sub_array| {label: sub_array[1], amount: sub_array[0] }}
@@ -88,7 +133,7 @@ module PoliceKillings
 #         .select("#{aggregator_SQL_string}, pk_death.race_id, pk_death.date")
 #         .includes(:pk_race)
 #         .group('pk_death.race_id, pk_death.date') # race_id
-#       @dataset = query.map { |r| [r.total_deaths, r.pk_race.race, r.pk_death.date] } # r.race.race=
+#       @dataset = query.map { |r| [r.deaths, r.pk_race.race, r.pk_death.date] } # r.race.race=
 #    end
 
 #     def sex_descriptor_query(aggregator_SQL_string)
@@ -96,7 +141,7 @@ module PoliceKillings
 #           .select("#{aggregator_SQL_string}, pk_deaths.pk_sex_id, pk_deaths.date")
 #           .includes(:pk_sex)
 #           .group('pk_deaths.pk_sex_id, pk_deaths.date')
-#       @dataset = query.map { |r| [r.total_deaths, r.pk_sex.sex, r.date] }
+#       @dataset = query.map { |r| [r.deaths, r.pk_sex.sex, r.date] }
 #     end
 
 #     def scatter_data
@@ -157,7 +202,7 @@ module PoliceKillings
 #           .select("#{aggregator_SQL_string}, pk_classification_id")
 #           .includes(:pk_classification)
 #           .group("pk_deaths.pk_classification_id")
-#           dataset = query.map{ |row| [row, row.total_deaths, row.pk_classification]}
+#           dataset = query.map{ |row| [row, row.deaths, row.pk_classification]}
 #       end
 #        # dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
 #        # prepared_data(dataset)

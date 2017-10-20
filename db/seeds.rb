@@ -25,38 +25,46 @@ autoparsable_datasets = [
   # DI 10-4-17 1:38 - for now I am going to leave these here, so we can run the seed file all at once. They should be duplicated inside of db/ETL_Pipeline/inflexible_parsers
 # Police Killings
 
-CSV.foreach("db/ETL_Pipeline/raw_CSVs/updated_police_killings_2016.csv", headers: true, header_converters: :symbol, encoding: 'iso-8859-1:utf-8') do |row|
+# Had to manually input the data on proportion of population based on race, state, etc. Couldn't get this parsing to update the data.
+# CSV.foreach("db/ETL_Pipeline/raw_CSVs/us_pop.csv", headers: true, header_converters: :symbol, encoding: 'iso-8859-1:utf-8') do |row|
 
-  race = PoliceKillings::PkRace.find_or_create_by!(race: row[:race_ethnicity])
-  sex = PoliceKillings::PkSex.find_or_create_by!(sex: row[:gender])
-  city = PoliceKillings::PkCity.find_or_create_by!(city: row[:city])
-  state = PoliceKillings::PkState.find_or_create_by!(state: row[:state])
-  armed_type = PoliceKillings::PkArmedType.find_or_create_by!(armed_type: row[:armed_type])
-  classification = PoliceKillings::PkClassification.find_or_create_by!(classification: row[:classification])
+#   state = PoliceKillings::PkState.find_by(state: row[:state])
+#   state.update_attributes(perc_of_us_pop: row[:perc_of_us_pop])
+#   state.update_attributes(total_pop_2016: row[:proportion_us_pop])
+# end
 
-  full_name = row[:name]
-  date = row[:date]
-  age = row[:age]
-  street_address = row[:street_address]
-  law_enforcement_agency = row[:law_enforcement_agency]
+# CSV.foreach("db/ETL_Pipeline/raw_CSVs/updated_police_killings_2016.csv", headers: true, header_converters: :symbol, encoding: 'iso-8859-1:utf-8') do |row|
 
-  PoliceKillings::PkDeath.find_or_create_by!({
-    name: full_name,
-    date: date,
-    age: age,
-    street_address: street_address,
-    law_enforcement_agency: law_enforcement_agency,
-    pk_race: race,
-    pk_sex: sex,
-    pk_city: city,
-    pk_state: state,
-    pk_armed_type: armed_type,
-    pk_classification: classification
-    })
+#   race = PoliceKillings::PkRace.find_or_create_by!(race: row[:race_ethnicity])
+#   sex = PoliceKillings::PkSex.find_or_create_by!(sex: row[:gender])
+#   city = PoliceKillings::PkCity.find_or_create_by!(city: row[:city])
+#   state = PoliceKillings::PkState.find_or_create_by!(state: row[:state])
+#   armed_type = PoliceKillings::PkArmedType.find_or_create_by!(armed_type: row[:armed_type])
+#   classification = PoliceKillings::PkClassification.find_or_create_by!(classification: row[:classification])
 
-  puts row[:full_name]
+#   full_name = row[:name]
+#   date = row[:date]
+#   age = row[:age]
+#   street_address = row[:street_address]
+#   law_enforcement_agency = row[:law_enforcement_agency]
 
-end
+#   PoliceKillings::PkDeath.find_or_create_by!({
+#     name: full_name,
+#     date: date,
+#     age: age,
+#     street_address: street_address,
+#     law_enforcement_agency: law_enforcement_agency,
+#     pk_race: race,
+#     pk_sex: sex,
+#     pk_city: city,
+#     pk_state: state,
+#     pk_armed_type: armed_type,
+#     pk_classification: classification
+#     })
+
+#   puts row[:full_name]
+
+# end
 
 # Trump Debts
 
