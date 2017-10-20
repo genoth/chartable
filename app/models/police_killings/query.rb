@@ -1,4 +1,4 @@
-module GenderInequality
+module PoliceKillings
   class Query
     include DataPreparer
 
@@ -13,18 +13,18 @@ module GenderInequality
     end
 
     def x_axis_label
-      # define this based on your data
+      return "Date"
     end
 
     def y_axis_label
-      # define this based on your data
+      return "Number of Deaths"
     end
 
     def data
-      if @params[:chart] == "scatter"
-        scatter_data
-      elsif @params[:chart] == "bar"
+      if @params[:chart] == "bar"
         bar_data
+      elsif @params[:chart] == "scatter"
+        scatter_data
       elsif @params[:chart] == "pie"
         pie_data
       end
@@ -32,108 +32,169 @@ module GenderInequality
 
     ######################################### Group-by example with multiple tables
 
-    def race_descriptor_query(aggregator_SQL_string)
-      query = PoliceKillings::PkDeath
-        .select("#{aggregator_SQL_string}, pk_death.race_id, pk_death.year_id") # race_id
-        .includes(:pk_race) # :race
-        .includes(:year) # ???????????????????
-        .group('statistics.race_id, statistics.year_id') # race_id
-      @dataset = query.map { |r| [r.points.round(2), r.race.race, r.year.year] } # r.race.race=
-   end
-
-    def sex_descriptor_query(aggregator_SQL_string)
-      query = PoliceKillings::Statistic
-          .select("#{aggregator_SQL_string}, statistics.sex_id, statistics.year_id")
-          .includes(:sex)
-          .includes(:year)
-          .group('statistics.sex_id, statistics.year_id')
-      @dataset = query.map { |r| [r.points.round(2), r.sex.sex, r.year.year] }
-    end
-
-    def scatter_data
+    def data
       aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
-      if @descriptors == "Races" # "Races" as string
-        groups = ["All Races", "Black", "White"]
-        dataset = race_descriptor_query(aggregator_SQL_string)
-        p dataset
-        generate_scatter_data(dataset, groups)
-      elsif @descriptors == "Sexes"
-        groups = ["Both Sexes", "Female", "Male"]
-        dataset = sex_descriptor_query(aggregator_SQL_string)
-        generate_scatter_data(dataset, groups)
+
+      puts aggregator_SQL_string
+
+      if @params[:descriptors] == "Cause of Death"
+        query = PoliceKillings::PkDeath
+        .select("#{aggregator_SQL_string}, pk_classifications.classification AS cause")
+        .joins(:pk_classification)
+        .group("pk_classifications.classification")
+
+        dataset = query.map { |r| [r.total_deaths, r.cause] }
+
+      elsif @params[:descriptors] == "Sexes"
+        query = PoliceKillings::PkDeath
+        .select("#{aggregator_SQL_string}, pk_sexes.sex AS gender")
+        .joins(:pk_sex)
+        .group("pk_sexes.sex")
+
+        dataset = query.map { |r| [r.total_deaths, r.gender]}
+
+      elsif @params[:descriptors] == "Races"
+        query = PoliceKillings::PkDeath
+        .select("#{aggregator_SQL_string}, pk_races.race AS race")
+        .joins(:pk_race)
+        .group("pk_races.race")
+
+        dataset = query.map { |r| [r.total_deaths, r.race]}
+
+      elsif @params[:descriptors] == "States"
+        query = PoliceKillings::PkDeath
+        .select("#{aggregator_SQL_string}, pk_states.state AS state")
+        .joins(:pk_state)
+        .group("pk_states.state")
+
+        dataset = query.map { |r| [r.total_deaths, r.state]}
+
+      elsif @params[:descriptors] == "Armed?"
+        query = PoliceKillings::PkDeath
+        .select("#{aggregator_SQL_string}, pk_armed_types.armed_type AS armed")
+        .joins(:pk_armed_type)
+        .group("pk_armed_types.armed_type")
+
+        dataset = query.map { |r| [r.total_deaths, r.armed]}
+
       end
+      dataset = dataset.map { |sub_array| {label: sub_array[1], amount: sub_array[0] }}
+
+      return prepared_data(dataset)
     end
 
-# ["Statistics", "Races", "Sexes", "Years"]
+#     def race_descriptor_query(aggregator_SQL_string)
+#       query = PoliceKillings::PkDeath
+#         .select("#{aggregator_SQL_string}, pk_death.race_id, pk_death.date")
+#         .includes(:pk_race)
+#         .group('pk_death.race_id, pk_death.date') # race_id
+#       @dataset = query.map { |r| [r.total_deaths, r.pk_race.race, r.pk_death.date] } # r.race.race=
+#    end
 
-    def generate_scatter_data(dataset, groups)
-      x_axis = ["years_x"]
-      group_0_both = [groups[0]] #["All Races"]
-      group_1 = [groups[1]] # ["Black"]
-      group_2 = [groups[2]] # ["White"]
-      dataset = dataset.sort_by { |sub_array| sub_array.last } # sorting by Year, the x-axis value
+#     def sex_descriptor_query(aggregator_SQL_string)
+#       query = PoliceKillings::PkDeath
+#           .select("#{aggregator_SQL_string}, pk_deaths.pk_sex_id, pk_deaths.date")
+#           .includes(:pk_sex)
+#           .group('pk_deaths.pk_sex_id, pk_deaths.date')
+#       @dataset = query.map { |r| [r.total_deaths, r.pk_sex.sex, r.date] }
+#     end
 
-      dataset.each do |sub_array|
-        x_axis.push(sub_array[2])
-      end
-      dataset.each do |sub_array|
-        if sub_array[1] == groups[2] #"White"
-          group_2 << sub_array[0]
-        elsif
-          sub_array[1] ==  groups[1] # "Black"
-          group_1 << sub_array[0]
-        else
-          sub_array[1] == groups[0] # "All Races"
-          group_0_both << sub_array[0]
-        end
-      end
-      thing = Array.new.push(x_axis.uniq, group_0_both, group_1, group_2)
-    end
+#     def scatter_data
+#       aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
+#       if @descriptors == "Races" # "Races" as string
+#         groups = ["All Races", "Black", "White", "Hispanic or Latino", "Native American", "Arab-American", "Asian or Pacific Islander", "Unknown"]
+#         dataset = race_descriptor_query(aggregator_SQL_string)
+#         generate_scatter_data(dataset, groups)
+#       elsif @descriptors == "Sexes"
+#         groups = ["Both Sexes", "Female", "Male"]
+#         dataset = sex_descriptor_query(aggregator_SQL_string)
+#         generate_scatter_data(dataset, groups)
+#       elsif @descriptors == "States"
+#         groups = ["OH", "CA", "MT", "TX", "SD", "NC", "OK", "LA", "PA", "WA", "TN", "IL", "NM", "KY", "GA", "WI", "MD", "CO", "VA", "AK", "WV", "MI", "FL", "OR", "AL", "MO", "UT", "AZ", "IN", "NV", "KS", "AR", "SC", "NE", "MA", "DC", "HI", "NJ", "NY", "MN", "IA", "CT", "MS", "ND", "VT", "RI", "ID", "ME", "NH", "WY", "DE"]
+#         dataset = sex_descriptor_query(aggregator_SQL_string)
+#         generate_scatter_data(dataset, groups)
+#       elsif @descriptors == "Cause of Death"
+#         groups = ["Gunshot", "Death in custody", "Struck by vehicle", "Taser", "Other"]
+#       elsif @descriptors == "Armed?"
+#         groups = ["Firearm", "Knife", "Unarmed", "Other", "Non-lethal firearm", "Vehicle", "Unknown", "Disputed"]
+#       end
+#     end
 
-    ##################################### "Easy" data - simple x-y, no group-bys, 1 table only
+# # ["Statistics", "Races", "Sexes", "Years"]
 
-    def bar_data
-      aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
-      if @params[:descriptors] == "Years"
-        query = PoliceKillings::PgTable
-          .select("#{aggregator_SQL_string}, col_name")
-          dataset = query.map{ |row| [row, row.col_name]}
-      end
-       # dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
-       # prepared_data(dataset)
+#     def generate_scatter_data(dataset, groups)
+#       x_axis = ["years_x"]
+#       group_0_both = [groups[0]] #["All Races"]
+#       group_1 = [groups[1]] # ["Black"]
+#       group_2 = [groups[2]] # ["White"]
+#       dataset = dataset.sort_by { |sub_array| sub_array.last } # sorting by Year, the x-axis value
 
-       x_axis_values = ["x_axis_values"]
-       # example: x_years = ["x_years"]
-       y_axis_values = ["#{@params[:aggregations]}"]
-       # example temps = ["#{@params[:aggregations]}"]
-      dataset.each do |subarray|
-        x_axis_values.push(subarray[1])
-        y_axis_values.push(subarray[0][aggregator_SQL_string])
-      end
-      sending_back = []
-      sending_back.push(x_axis_values, y_axis_values)
-    end
+#       dataset.each do |sub_array|
+#         x_axis.push(sub_array[2])
+#       end
+#       dataset.each do |sub_array|
+#         if sub_array[1] == groups[2] #"White"
+#           group_2 << sub_array[0]
+#         elsif
+#           sub_array[1] ==  groups[1] # "Black"
+#           group_1 << sub_array[0]
+#         else
+#           sub_array[1] == groups[0] # "All Races"
+#           group_0_both << sub_array[0]
+#         end
+#       end
+#       thing = Array.new.push(x_axis.uniq, group_0_both, group_1, group_2)
+#       p thing
+#       thing
+#     end
 
-    def scatter_data
-      aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
-      if @params[:descriptors] == "Years"
-        query = PoliceKillings::PgTable
-          .select("#{aggregator_SQL_string}, col_name")
-          dataset = query.map{ |row| [row, row.col_name]}
-      end
-       dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
+#     ##################################### "Easy" data - simple x-y, no group-bys, 1 table only
 
-       x_axis_values = ["x_axis_values"]
-       # example: x_years = ["x_years"]
-       y_axis_values = ["#{@params[:aggregations]}"]
+#     def bar_data
+#       aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
+#       if @params[:descriptors] == "Cause of Death"
+#         query = PoliceKillings::PkDeath
+#           .select("#{aggregator_SQL_string}, pk_classification_id")
+#           .includes(:pk_classification)
+#           .group("pk_deaths.pk_classification_id")
+#           dataset = query.map{ |row| [row, row.total_deaths, row.pk_classification]}
+#       end
+#        # dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
+#        # prepared_data(dataset)
 
-       dataset.each do |hash|
-        x_axis_values.push(hash[:label])
-        y_axis_values.push(hash[:amount])
-      end
-      sending_back = []
-      sending_back.push(x_axis_values, y_axis_values)
-    end
+#        x_axis_values = ["x_axis_values"]
+#        # example: x_years = ["x_years"]
+#        y_axis_values = ["#{@params[:aggregations]}"]
+#        # example temps = ["#{@params[:aggregations]}"]
+#       dataset.each do |subarray|
+#         x_axis_values.push(subarray[1])
+#         y_axis_values.push(subarray[0][aggregator_SQL_string])
+#       end
+#       sending_back = []
+#       sending_back.push(x_axis_values, y_axis_values)
+#       p sending_back
+#       sending_back
+#     end
+
+#     # def scatter_data
+#     #   aggregator_SQL_string = PoliceKillings.aggregation_sql_snippits[@params[:aggregations]]
+#     #     query = PoliceKillings::Death
+#     #       .select("#{aggregator_SQL_string}, col_name")
+#     #       dataset = query.map{ |row| [row, row.col_name]}
+#     #   end
+#     #    dataset = dataset.map { |sub_array| { label: sub_array[1], amount: sub_array[0][aggregator_SQL_string] }}
+
+#     #    x_axis_values = ["x_axis_values"]
+#     #    # example: x_years = ["x_years"]
+#     #    y_axis_values = ["#{@params[:aggregations]}"]
+
+#     #    dataset.each do |hash|
+#     #     x_axis_values.push(hash[:label])
+#     #     y_axis_values.push(hash[:amount])
+#     #   end
+#     #   sending_back = []
+#     #   sending_back.push(x_axis_values, y_axis_values)
+#     # end
 
     private
 

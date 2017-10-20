@@ -1,7 +1,7 @@
 module PoliceKillings
 
     def self.descriptors
-      ["Years"]
+      ["Cause of Death", "Sexes", "Races", "States",  "Armed?"]
     end
 
     def self.orders # should we be able to see just a selection of the data? e.g. top 10
@@ -14,13 +14,15 @@ module PoliceKillings
 
     def self.aggregation_sql_snippits
       {
-      "Display nicely for user" => "matches_col_name_in_db",
-      # "Average Winter Temperature" => "winter_temperature_celsius",
+      "Deaths" => "count(pk_deaths.id) AS total_deaths"
       # "Average Spring Temperature" => "spring_temperature_celsius",
       # "Average Summer Temperature" => "summer_temperature_celsius",
       # "Average Fall Temperature" => "fall_temperature_celsius"
       }
     end
+
+    # def self.descriptor_sql_snippits
+    # end
 
     def self.metadata
       {
