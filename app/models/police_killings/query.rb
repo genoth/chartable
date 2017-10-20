@@ -64,34 +64,27 @@ module PoliceKillings
         .group("pk_races.race")
         .order("pk_races.race ASC")
 
-         # "Deaths" => "count(pk_deaths.id) AS deaths"
-
         pop_by_race = PoliceKillings::PkRace
           .select("pk_races.race, pk_races.est_pop_2016")
           .order("pk_races.race ASC")
         thing = pop_by_race.map {|r| [r.est_pop_2016, r.race]}
-        puts "this is the thing"
-        p thing
 
-        dataset = query.map { |r| [r.deaths.to_f, r.race]}
-# nested_array = [ ['a', 1], ['b', 2], ['c', 3], ['d', 4] ]
-        puts "this is the dataset"
-        p dataset
-        # calculate the rate of death per 100,000, by race
-       new_dataset = []
+        interim_dataset = query.map { |r| [r.deaths.to_f, r.race]}
+
+       dataset = []
         thing.each_with_index do |subarray, index|
-          this_race = dataset[index][1]
-          deaths = dataset[index][0]
+          this_race = interim_dataset[index][1]
+          deaths = interim_dataset[index][0]
           race_pop = subarray[0]
-          puts "=================="
-          p this_race
-          p deaths
-          p race_pop
+
           if race_pop != nil
-            per_100k = deaths/race_pop * 1000000
-            p per_100k.round(2)
+            per_100k = (deaths/race_pop * 1000000).round(2)
+            dataset << [per_100k, this_race]
           end
-          puts "=================="
+        end
+        dataset = dataset.sort_by do |subarray|
+          subarray[0]
+        end
 
           # if subarray[0] != nil
 
@@ -103,8 +96,7 @@ module PoliceKillings
           #   puts "===================================="
           #   new_dataset << [race, per_100k]
           # end
-        end
-      new_dataset
+
 
       elsif @params[:descriptors] == "States"
         query = PoliceKillings::PkDeath
