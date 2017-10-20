@@ -20,7 +20,6 @@
     <% end %>
   </select>
   as
-
   <select name="chart"> <!--Supplement an id here instead of using 'name'-->
     <% @diagram_types.each do |key, display_chart_type| %>
       <% if key.to_s == params[:chart] %>
@@ -43,13 +42,12 @@
     <option value="10">10</option>
     <option value="5">5</option>
   </select>
-  <p>
-  <input type="submit" class="big-button" value="Visualize">
-  </p>
+
+  <p><input type="submit" class="big-button" value="Visualize"></p>
+
 <% end %>
 
-  <div id="our-data">
-  </div>
+  <div id="our-data"></div>
 
   <div id="diagram-title"></div>
 
@@ -62,9 +60,9 @@
   </div>
 
   <div id="save-div">
-  <%= form_tag "save", id: "save-form", method: "POST", url: "https://api.cloudinary.com/v1_1/hcsobbcxk/image/upload" do |form| %>
-    <input type="submit" value="Save to Chartable library">
-    <% end %>
+    <%= form_tag "save", id: "save-form", method: "POST", url: "https://api.cloudinary.com/v1_1/hcsobbcxk/image/upload" do |form| %>
+      <input type="submit" value="Save to Chartable library">
+      <% end %>
   </div>
 
   <div id="descriptive-metadata">
@@ -73,12 +71,5 @@
     <p>Source(s): <% (@descriptive_metadata[:sources]).each do |source| %>
       <span> <%= link_to(source[0], source[1], html_options = {})%></span>
       <% end %>
+    </p>
   </div>
-
-
-
-
-
-
-
-
