@@ -74,7 +74,10 @@
     <p id="dataset-description"><%= @descriptive_metadata[:description] %></p>
   </div>
   <div id="administrative-metadata">
-    <p>Source: <a href="<%= @descriptive_metadata[:dataset_url] %>"><%= @descriptive_metadata[:dataset_source] %></a></p>
+    <p>Source(s): <% (@descriptive_metadata[:sources]).each do |source| %>
+      <span> <%= link_to(source[0], source[1], html_options = {})%></span>
+      <% end %>
+    </p>
     <p class="intro-link-share"></p>
   </div>
 
