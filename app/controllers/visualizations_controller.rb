@@ -19,9 +19,9 @@ class VisualizationsController < ApplicationController
       response = Cloudinary::Uploader.upload(image_data)
       p response
       @visualization = Visualization.create(link: link, public_id: response['public_id'], dataset_id: dataset_id)
-      p "it saved"
+      # flash[:notice] = "Chart successfully saved to Chartable library."
     else
-      p "this is a duplicate."
+      # flash[:alert] = "This chart already exists in the Chartable library."
     end
   end
 
