@@ -15,9 +15,6 @@ module PoliceKillings
     def self.aggregation_sql_snippits
       {
       "Deaths" => "count(pk_deaths.id) AS deaths"
-      # "Average Spring Temperature" => "spring_temperature_celsius",
-      # "Average Summer Temperature" => "summer_temperature_celsius",
-      # "Average Fall Temperature" => "fall_temperature_celsius"
       }
     end
 
