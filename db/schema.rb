@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015030640) do
+ActiveRecord::Schema.define(version: 20171020210648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,62 @@ ActiveRecord::Schema.define(version: 20171015030640) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_armed_types", force: :cascade do |t|
+    t.string "armed_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_cities", force: :cascade do |t|
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_classifications", force: :cascade do |t|
+    t.string "classification"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_deaths", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.integer "age"
+    t.string "street_address"
+    t.string "law_enforcement_agency"
+    t.integer "pk_race_id"
+    t.integer "pk_sex_id"
+    t.integer "pk_city_id"
+    t.integer "pk_state_id"
+    t.integer "pk_armed_type_id"
+    t.integer "pk_classification_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_races", force: :cascade do |t|
+    t.string "race"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "perc_of_us_pop"
+    t.float "est_pop_2016"
+  end
+
+  create_table "pk_sexes", force: :cascade do |t|
+    t.string "sex"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pk_states", force: :cascade do |t|
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "perc_of_us_pop"
+    t.integer "total_pop_2016"
   end
 
   create_table "races", force: :cascade do |t|

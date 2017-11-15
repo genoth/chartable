@@ -35,8 +35,7 @@ module GenderInequality
       {
       description: "This data is collected by the United Nations Development Programme and reflects the disadvantages faced by women worldwide in terms of reproductive health and participation in education, political office, and the workforce. Data is reported 'for as many countries as data of reasonable quality allow.' The index itself ranges from 0 to 1, with 0 meaning that men and women fare equally. Individual statistics are also reported and measured in percentages.",
       dataset_title: "Gender Inequality Index (GII) Data",
-      dataset_url: "https://data.humdata.org/dataset/gender-inequality-index",
-      dataset_source: "United Nations Development Programme",
+      sources: [["United Nations Development Programme", "https://data.humdata.org/dataset/gender-inequality-index"]]
       }
     end
 end
