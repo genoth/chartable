@@ -47,7 +47,7 @@ private
       'life_expectancy' => {:scatter => "Scatter Plot"},
       'gender_inequality' => {:scatter => "Scatter Plot", :bar => "Bar Graph"},
       'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'},
-      'police_killings' => {:bar => "Bar Chart", :scatter => "Scatter Plot"}
+      'police_killings' => {:bar => "Bar Chart"}
     }
   end
 
