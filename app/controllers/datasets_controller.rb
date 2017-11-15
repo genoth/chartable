@@ -36,7 +36,8 @@ private
       'trump' => TrumpAdminDebts,
       'life_expectancy' => USLifeExpectancy,
       'gender_inequality' => GenderInequality,
-      'canadian_climate' => CanadianClimate
+      'canadian_climate' => CanadianClimate,
+      'police_killings' => PoliceKillings
     }
   end
 
@@ -45,7 +46,8 @@ private
       'trump' => {:pie => "Pie Chart", :bar => "Bar Chart"},
       'life_expectancy' => {:scatter => "Scatter Plot"},
       'gender_inequality' => {:scatter => "Scatter Plot", :bar => "Bar Graph"},
-      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'}
+      'canadian_climate' => {:scatter => "Scatter Plot", :bar => 'Bar Chart'},
+      'police_killings' => {:bar => "Bar Chart", :scatter => "Scatter Plot"}
     }
   end
 
