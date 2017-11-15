@@ -1,4 +1,4 @@
-module GenderInequality
+module NamespaceWrapper
   class Query
     include DataPreparer
 
